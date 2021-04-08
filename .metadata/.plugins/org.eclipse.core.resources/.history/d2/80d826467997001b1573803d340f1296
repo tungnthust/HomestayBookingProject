@@ -1,0 +1,7 @@
+package com.group4T.homestaybooking.HomestayBooking.model;
+
+public class NotificationEmail {
+	private String subject;
+	private String recipient;
+	private String body;
+}

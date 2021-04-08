@@ -1,0 +1,5 @@
+package com.group4T.homestaybooking.HomestayBooking.controller;
+
+public class RegistrationController {
+
+}

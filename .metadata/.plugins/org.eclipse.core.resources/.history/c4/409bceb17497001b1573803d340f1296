@@ -1,0 +1,5 @@
+package com.group4T.homestaybooking.HomestayBooking.dto;
+
+public class RegisterRequest {
+
+}

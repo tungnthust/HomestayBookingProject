@@ -1,0 +1,73 @@
+package com.group4T.homestaybooking.HomestayBooking.service;
+
+import java.util.Optional;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.group4T.homestaybooking.HomestayBooking.dto.LoginRequest;
+import com.group4T.homestaybooking.HomestayBooking.dto.RegisterRequest;
+import com.group4T.homestaybooking.HomestayBooking.model.NotificationEmail;
+import com.group4T.homestaybooking.HomestayBooking.model.User;
+import com.group4T.homestaybooking.HomestayBooking.model.VerificationToken;
+import com.group4T.homestaybooking.HomestayBooking.repository.UserRepository;
+import com.group4T.homestaybooking.HomestayBooking.repository.VerificationTokenRepository;
+
+@Service
+public class AuthService {
+	
+	@Autowired
+	private UserRepository repo;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private VerificationTokenRepository verificationTokenRepo;
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	@Autowired
+	private MailService mailService;
+	
+	@Transactional
+	public void signup(RegisterRequest registerRequest) {
+		User user = new User();
+		user.setEmail(registerRequest.getEmail());
+		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+		repo.save(user);
+		
+		String token = generateVerificationToken(user);
+		mailService.sendMail(new NotificationEmail("Please Activate your Account",
+                user.getEmail(), "Thank you for signing up to Homestay Booking, " +
+                "please click on the below url to activate your account : " +
+                "http://localhost:8080/api/auth/accountVerification/" + token));
+	}
+
+	private String generateVerificationToken(User user) {
+		String token = UUID.randomUUID().toString();
+		VerificationToken verificationToken = new VerificationToken();
+		verificationToken.setToken(token);
+		verificationToken.setUser(user);
+		verificationTokenRepo.save(verificationToken);
+        return token;
+	}
+
+	public void verifyAccount(String token) {
+		Optional<VerificationToken> verificationToken = verificationTokenRepo.findByToken(token);
+		fetchUserAndEnable(verificationToken.orElseThrow(() -> new RuntimeException("Invalid Token")));
+	}
+
+	private void fetchUserAndEnable(VerificationToken verificationToken) {
+		String email = verificationToken.getUser().getEmail();
+		User user = repo.findByEmail(email).orElseThrow(() -> new RuntimeException("User with email " + email + "not found"));
+	}
+
+	public void login(LoginRequest loginRequest) {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+				loginRequest.getUsername(), loginRequest.getPassword()));
+	}
+	
+}

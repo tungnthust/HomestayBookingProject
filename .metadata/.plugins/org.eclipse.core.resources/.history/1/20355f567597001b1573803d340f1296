@@ -1,0 +1,20 @@
+package com.group4T.homestaybooking.HomestayBooking.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.group4T.homestaybooking.HomestayBooking.dto.RegisterRequest;
+import com.group4T.homestaybooking.HomestayBooking.model.User;
+import com.group4T.homestaybooking.HomestayBooking.repository.RegistrationRepository;
+
+@Service
+public class AuthService {
+	
+	@Autowired
+	private RegistrationRepository repo;
+	
+	public void signup(RegisterRequest registerRequest) {
+		User user = new User();
+		user.setEmail(registerRequest.getUser);
+	}
+}
