@@ -28,6 +28,4 @@ public class NotificationEmail {
 		this.recipient = recipient;
 		this.body = body;
 	}
-	
-	
 }
