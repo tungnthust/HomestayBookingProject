@@ -1,8 +1,13 @@
 package com.group4T.homestaybooking.HomestayBooking.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class RoomSearchCriteria {
+	private Integer adultCount;
+	private Integer childrenCount = 0;
+	private Date checkinDate;
+	private Date checkoutDate;
 	private Integer location;
 	private Integer districtId;
 	private Integer provinceId;
@@ -79,6 +84,30 @@ public class RoomSearchCriteria {
 	}
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	public Integer getAdultCount() {
+		return adultCount;
+	}
+	public void setAdultCount(Integer adultCount) {
+		this.adultCount = adultCount;
+	}
+	public Integer getChildrenCount() {
+		return childrenCount;
+	}
+	public void setChildrenCount(Integer childrenCount) {
+		this.childrenCount = childrenCount;
+	}
+	public Date getCheckinDate() {
+		return checkinDate;
+	}
+	public void setCheckinDate(Date checkinDate) {
+		this.checkinDate = checkinDate;
+	}
+	public Date getCheckoutDate() {
+		return checkoutDate;
+	}
+	public void setCheckoutDate(Date checkoutDate) {
+		this.checkoutDate = checkoutDate;
 	}
 	
 	

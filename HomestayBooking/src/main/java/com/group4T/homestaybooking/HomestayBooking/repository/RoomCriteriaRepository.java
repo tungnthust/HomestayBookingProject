@@ -3,6 +3,7 @@ package com.group4T.homestaybooking.HomestayBooking.repository;
 import com.group4T.homestaybooking.HomestayBooking.model.RoomFacility;
 import com.group4T.homestaybooking.HomestayBooking.model.Facilitiy;
 import com.group4T.homestaybooking.HomestayBooking.model.Location;
+import com.group4T.homestaybooking.HomestayBooking.model.Reservation;
 import com.group4T.homestaybooking.HomestayBooking.model.RoomDetail;
 import com.group4T.homestaybooking.HomestayBooking.model.RoomPage;
 import com.group4T.homestaybooking.HomestayBooking.model.RoomSearchCriteria;
@@ -10,6 +11,7 @@ import com.group4T.homestaybooking.HomestayBooking.model.RoomSearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Repository;
+import org.thymeleaf.expression.Dates;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -18,10 +20,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -43,7 +49,7 @@ public class RoomCriteriaRepository {
                                              RoomSearchCriteria roomSearchCriteria){
         CriteriaQuery<RoomDetail> criteriaQuery = criteriaBuilder.createQuery(RoomDetail.class);
         Root<RoomDetail> roomRoot = criteriaQuery.from(RoomDetail.class);
-        Predicate predicate = getPredicate(roomSearchCriteria, roomRoot, roomPage);
+        Predicate predicate = getPredicate(roomSearchCriteria, criteriaQuery, roomRoot, roomPage);
         criteriaQuery.where(predicate);
         setOrder(roomPage, criteriaQuery, roomRoot);
 
@@ -59,10 +65,36 @@ public class RoomCriteriaRepository {
         return new PageImpl<>(typedQuery.getResultList(), pageable, employeesCount);
     }
 
-    private Predicate getPredicate(RoomSearchCriteria roomSearchCriteria,
+    private Predicate getPredicate(RoomSearchCriteria roomSearchCriteria, CriteriaQuery<RoomDetail> criteriaQuery,
                                    Root<RoomDetail> roomRoot, RoomPage roomPage) {
     	
         List<Predicate> predicates = new ArrayList<>();
+        if(Objects.nonNull(roomSearchCriteria.getAdultCount())){
+            predicates.add(
+                    criteriaBuilder.greaterThanOrEqualTo(roomRoot.get("capacity"),
+                    		roomSearchCriteria.getAdultCount() + (int) (roomSearchCriteria.getChildrenCount() / 2))
+            );
+        }
+        
+        if(Objects.nonNull(roomSearchCriteria.getCheckinDate()) && Objects.nonNull(roomSearchCriteria.getCheckoutDate())){
+        	List<Predicate> subqueryPredicates = new ArrayList<Predicate>();
+        	
+        	Subquery<Reservation> reservationSubquery = criteriaQuery.subquery(Reservation.class);
+        	Root<Reservation> reservationRoot = reservationSubquery.from(Reservation.class);
+        	subqueryPredicates.add(criteriaBuilder.equal(reservationRoot.get("roomId"), roomRoot.get("id")));
+			Date searchCheckinDate = roomSearchCriteria.getCheckinDate();
+        	Date searchCheckoutDate = roomSearchCriteria.getCheckoutDate();
+        	Path<Date> checkinDate = reservationRoot.get("checkinDate");
+        	Path<Date> checkoutDate = reservationRoot.get("checkoutDate");
+        	subqueryPredicates.add(criteriaBuilder.or(criteriaBuilder.between(checkinDate, searchCheckinDate, searchCheckoutDate)
+        			, criteriaBuilder.between(checkoutDate, searchCheckinDate, searchCheckoutDate)));
+        	reservationSubquery.select(reservationRoot)
+        					.where(subqueryPredicates.toArray(new Predicate[0]));
+            predicates.add(
+                    criteriaBuilder.not(criteriaBuilder.exists(reservationSubquery))
+            );
+        }
+        
         if(Objects.nonNull(roomSearchCriteria.getLocation())){
             predicates.add(
                     criteriaBuilder.equal(roomRoot.get("location").get("id"),
