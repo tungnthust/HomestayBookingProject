@@ -1,0 +1,104 @@
+*{
+  box-sizing: border-box;
+}
+body{
+  font-family: 'Poppins', sans-serif;
+}
+input, 
+select,
+textarea,
+button{
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  outline: none;
+}
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+} 
+ul {
+  list-style-type: none;
+}
+.header{
+  z-index: 2;
+  height: 80px;
+  padding: 0 100px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  &__logo{
+    height: 100%;
+    &-img{
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__btn{
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    cursor: pointer;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+  }
+  a{
+    text-decoration: none;
+  }
+}
+.room{
+  &-group{
+    padding: 0;
+  }
+  &-item{
+    &:not(:last-child){
+      margin-right: 7px;
+      padding-right: 7px;
+      position: relative;
+      &::after{
+        content: "";
+        position: absolute;
+        @include size(3px, 3px);
+        top: 50%;
+        right: 0;
+        background-color: black;
+      }
+    }
+  }
+}
+.utility{
+  &-row{
+    width: 100%;
+  }
+  &-name{
+    font-size: 20px;
+  }
+  &-item{
+    width: calc(33.33%);
+  }
+  &-icon-img{
+    @include size(30px);
+    img{
+      @include size(100%);
+    }
+  }
+}
+.text{
+  &-title{
+    font-weight: bold;
+    margin-top: 50px;
+  }
+}
+#topup-guess:hover{
+  background-color: white;
+}
+.room-img{
+  height: 500px;
+}
+.place-order{
+  padding: 50px 0;
+}

@@ -1,0 +1,291 @@
+html{
+  font-size: 62.5%;
+}
+body{
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  // font-family: 'Roboto Condensed', sans-serif;
+}
+*{
+  box-sizing: border-box;
+}
+input, 
+select,
+textarea,
+button{
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  outline: none;
+}
+a{
+  text-decoration: none !important
+}
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+@mixin flexbox(
+  $align: flex-start,
+  $justify: flex-start, 
+  $direction: row, 
+  $wrap: nowrap
+) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+.header{
+  z-index: 10;
+  padding: 0 16rem;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  @include flexbox(center center, space-between);
+  &__menu{
+    // width: 68rem;
+    @include flexbox(center, center);
+  }
+  &__logo{
+    @include size(7rem);
+    display: inline-block;
+    background-color: #f5f5f5;
+    &-image{
+      @include size(100%);
+      object-fit: cover;
+    }
+  }
+  &__search{
+    @include flexbox(center, center);
+    border: 1px solid #eee;
+    border-radius: 8px;
+    position: relative;
+    &-item{
+      &:not(:first-child){
+        cursor: pointer;
+        padding: 2rem;
+        position: relative;
+        @include flexbox(center, center);
+        &::after{
+          content: "";
+          position: absolute;
+          @include size(1px, 75%);
+          transform: translateY(20%);
+          background-color: #ccc;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+    &-box{
+      height: 5.6rem;
+      border-radius: 0.5rem;
+      border: 2px solid white;
+      padding: 0.8rem 2rem;
+    }
+    &-input{
+      border: none;
+      margin-left: 1rem;
+      &:focus{
+        &+ .header__search-box{
+          border: 2px solid black;
+        }        
+      }
+    }
+    &-icon{
+      @include size(5.6rem, 3.7rem);
+      @include flexbox(center, center);
+      background-color: #555555;
+      color: white;
+      border-radius: 5px;
+      margin-right: 0.7rem;
+    }
+  }
+  &__text{
+    margin-left: 2rem;
+  }
+  &__btn{
+    color: black;
+    text-decoration: none;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 1.5rem;
+    cursor: pointer;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+    &--group{
+      @include flexbox(center, center);
+    }
+
+  }
+  &__text{
+    font-size: 1.4rem;
+    font-weight: bold;  
+  }
+
+}
+
+.body{
+  // padding: 4.5rem 27rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.intro{
+  &__banner{
+    @include size(100%);
+    border-radius: 2.5rem;
+    margin: 10rem 0 3rem 0;
+  }
+}
+.text{
+  &__caption{
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 2rem 0;
+  }
+  &__desc{
+    line-height: 2.5rem;
+  }
+}
+.place{
+  margin-bottom: 5rem;
+  &__group{
+    @include size(100%);
+    @include flexbox(center, space-between);
+    margin: 2rem 0;
+  }
+  &__item{
+    width: calc(20% - 1rem);
+    position: relative;
+    cursor: pointer;
+    &::before{
+      position: absolute;
+      content: " ";
+      left: 0;
+      top: 0;
+      @include size(100%);
+      display: block;
+      background-color: rgba(26, 29, 31, 0.1);
+    }
+    &:hover{
+      &  .place__countroom{
+        bottom: 3rem;
+      }
+    }
+  }
+  &__image{
+    border-radius: 8px;
+    @include size(100%, 30rem);
+
+  }
+  &__name{
+    position: absolute;
+    left: 3rem;
+    bottom: 7rem;
+    color: white;
+    font-weight: bold;
+    font-size: 2.3rem;
+    // text-shadow: 3px 3px black;
+  }
+  &__countroom{
+    position: absolute;
+    left: 3rem;
+    bottom: -3rem;
+    color: white;
+    word-spacing: 3px;
+    letter-spacing: 1px;
+    font-size: 1.4rem;
+    transition: all 0.4s linear;
+    // z-index: -1;
+
+  }
+}
+.promotion{
+  &__group{
+    @include size(100%);
+    @include flexbox(center, space-between);
+  }
+  &__item{
+    width: calc(33.33% - 1rem);
+    // width: 40rem;
+  }
+  &__image{
+    @include size(100%);
+    border-radius: 1rem;
+  }
+}
+.footer{
+  @include flexbox();
+  margin-top: 5rem;
+  &__group{
+    width: 20%;
+    line-height: 3rem;
+    padding: 0 0.8rem;
+    &:first-child{
+      max-width: 20rem;
+    }
+    &-qr{
+      @include size(6.5rem);
+    }
+
+    &-body{
+      @include flexbox(flex-start, space-between, );
+    }
+  }
+  &__caption{
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  &__item{
+    font-size: 1.2rem;
+
+  }
+  &__qr{
+    @include size(9.1rem);
+    border: 1px solid #ccc;
+    @include flexbox(center, center);
+    &-img{
+      @include size(6.5rem);
+      object-fit: cover;
+    }
+  }
+  &__app{
+    &-item{
+      margin-bottom: 1rem;
+    }
+    &-img{
+      @include size(10.3rem, 3.2rem);
+    }
+  }
+  &__image{
+    @include size(100%);
+    object-fit: center;
+    margin-top: -2rem;
+  }
+}
+::placeholder {
+  color: black;
+  opacity: 1; 
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.menu-nbGuess{
+  min-width: 30rem;
+  max-height: 80rem;
+  font-size: 100%;
+}
+.checkbox{
+  margin: 1rem 2rem;
+  &-input{
+    margin-right: 2rem
+  }
+}

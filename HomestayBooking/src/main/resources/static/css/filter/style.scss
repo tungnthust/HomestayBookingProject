@@ -1,0 +1,231 @@
+  html{
+  font-size: 62.5%;
+}
+body{
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  // font-family: 'Roboto Condensed', sans-serif;
+}
+*{
+  box-sizing: border-box;
+}
+input, 
+select,
+textarea,
+button{
+  font-size: 1.6rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal;
+  outline: none;
+}
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+@mixin flexbox(
+  $align: flex-start,
+  $justify: flex-start, 
+  $direction: row, 
+  $wrap: nowrap
+) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+  flex-wrap: $wrap;
+}
+
+.header{
+  z-index: 10;
+  padding: 0 16rem;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  width: 100%;
+  background-color: white;
+  @include flexbox(center center, space-between);
+  &__menu{
+    // width: 68rem;
+    @include flexbox(center, center);
+  }
+  &__logo{
+    @include size(7rem);
+    display: inline-block;
+    background-color: #f5f5f5;
+    &-image{
+      @include size(100%);
+      object-fit: cover;
+    }
+  }
+  &__search{
+    @include flexbox(center, center);
+    border: 1px solid #eee;
+    border-radius: 8px;
+    position: relative;
+    &-item{
+      &:not(:first-child){
+        cursor: pointer;
+        padding: 2rem;
+        position: relative;
+        @include flexbox(center, center);
+        &::after{
+          content: "";
+          position: absolute;
+          @include size(1px, 75%);
+          transform: translateY(20%);
+          background-color: #ccc;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+    &-box{
+      height: 5.6rem;
+      border-radius: 0.5rem;
+      border: 2px solid white;
+      padding: 0.8rem 2rem;
+    }
+    &-input{
+      border: none;
+      margin-left: 1rem;
+      &:focus{
+        &+ .header__search-box{
+          border: 2px solid black;
+        }        
+      }
+    }
+    &-icon{
+      @include size(5.6rem, 3.7rem);
+      @include flexbox(center, center);
+      background-color: #555555;
+      color: white;
+      border-radius: 5px;
+      margin-right: 0.7rem;
+    }
+  }
+  &__text{
+    margin-left: 2rem;
+  }
+  &__btn{
+    color: black;
+    text-decoration: none;
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    padding: 1.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+    &--group{
+      @include flexbox(center, center);
+    }
+  }
+  &__text{
+    font-size: 1.4rem;
+    font-weight: bold;  
+  }
+}
+// .nbGuess{
+//   @include size(32rem, 23rem);
+//   @include flexbox(center, center, column);
+//   border: 1px solid #ccc;
+//   border-radius: 1rem;
+//   position: absolute;
+//   top: 100%;
+//   left: 45rem;
+//   background-color: white;
+//   z-index: 11;
+//   box-shadow: 0px 0px 4px 1px #ccc;
+//   display: none;
+//   &__group{
+//     @include flexbox(center, space-between);
+//     padding: 1rem;
+//     width: 100%;
+//   }
+//   &__label{
+//     font-weight: bold;
+//   }
+//   &__validation{
+//     font-size: 1.2rem;
+//   }
+//   &__input{
+//     width: 15rem;
+//   }
+//   &__btn{
+//     text-decoration: none;
+//     font-weight: bold;
+//   }
+//   &--delete{
+//     color: black;
+//   }
+//   &--apply{
+//     color: #f99c85;
+//   }
+// }
+::placeholder {
+  color: black;
+  opacity: 1; 
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.body{
+  // padding: 4.5rem 27rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.menu-region,
+.menu-roomType{
+  min-width: 25rem;
+  max-height: 80rem;
+  font-size: 100%;
+}
+.menu-price{
+  min-width: 40rem;
+  font-size: 100%;
+  padding: 2rem
+}
+.menu-moreFilter{
+  min-width: 80rem;
+  max-height: 80rem;
+  font-size: 100%;
+}
+.menu-sort{
+  width: 20.5rem;
+  font-size: 105%;
+  // padding: 1.5rem
+}
+.desc{
+  margin: 3rem 0;
+}
+.sort{
+  padding: 1.5rem;
+  font-size: 105%;
+}
+.input-space{
+  position: relative;
+  transform: translateX(200%)
+}
+.card-desc{
+  // overflow: hidden;
+  // white-space: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0.5rem;
+}
+.checkbox{
+  margin: 1rem 2rem;
+  &-input{
+    margin-right: 2rem
+  }
+}
+.box{
+  margin: 20px 0;
+}
+.menu-nbGuess{
+  min-width: 30rem;
+  max-height: 80rem;
+  font-size: 100%;
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/main/reset.css">
+  <link rel="stylesheet" href="../static/css/main/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="header">
+    <div class="header__menu">
+      <div class="header__logo">
+        <img src="https://cdn.tgdd.vn/GameApp/3/224693/Screentshots/luxstay-dat-phong-homestay-logo-18-06-2020.png"
+          alt="" class="header__logo-image">
+      </div>
+      <form class="header__form">
+        <ul class="header__search">
+          <div id="search-box" class="header__search-item">
+            <div class="header__search-box">
+              <i class="fas fa-search header__icon"></i>
+              <label for="search" class="header__search-label">
+              </label>
+              <input type="text" id="search" class="header__search-input" placeholder="Tìm kiếm" autocomplete="off">
+            </div>
+          </div>
+          <div class="header__search-item">
+            <i class="far fa-calendar header__icon"></i>
+            <p class="header__text">Ngày</p>
+          </div>
+          <div id="topup-guess" class="header__search-item" id="room-type" data-toggle="dropdown" type="button"
+          aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i>
+            <p class="header__text" >Số khách</p>
+          </div>
+          <div class="dropdown-menu menu-nbGuess py-4 px-2" aria-labelledby="nbGuess">
+            <form id="nbGuess">
+            <ul class="list-group">
+              <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
+              <li class="d-flex justify-content-between my-2">
+                <label class="checkbox">Người lớn</label>
+                <input type="number" name="" id="" class="form-control col-2">
+              </li>
+              <li class="d-flex justify-content-between my-2">
+                <label class="checkbox">Trẻ em <small>(tuổi từ 2-12)</small></label>
+                <input type="number" name="" id="" class="form-control col-2">
+              </li>
+              <li class="d-flex justify-content-between my-2">
+                <label class="checkbox">Trẻ sơ sinh <small>(tuổi từ 0-2)</small></label>
+                <input type="number" name="" id="" class="form-control col-2">
+              </li>
+            </ul>
+            </form>
+            <div class="dropdown-divider"></div>
+            <div class="d-flex align-center justify-content-between">
+              <button class="btn btn-dark btn-lg ml-4 my-3">Xóa</button>
+              <button class="btn btn-info btn-lg mr-4 my-3">Áp dụng</button>
+            </div>
+          </div>
+          <button type="submit" class="header__search-icon">
+            <i class="fas fa-search header__icon white__icon"></i>
+          </button>
+        </ul>
+      </form>
+    </div>
+    <div class="header__btn--group">
+      <a href="#" class="header__btn header__btn--host">Host</a>
+      <a href="#" class="header__btn header__btn--signup">Đăng kí</a>
+      <a href="#" class="header__btn header__btn--login">Đăng nhập</a>
+    </div>
+  </div>
+
+
+  <div class="body">
+    <div class="intro">
+      <img src="https://beta-api.luxstay.net/api/upload/file?storage=admins/12/qF7ukmI--Rwr2H5LwzVZwcXa.jpg" alt=""
+        class="intro__banner">
+    </div>
+    <div class="place">
+      <div class="text__caption">Địa điểm nổi bật</div>
+      <div class="text__desc">Cùng Luxstay bắt đầu chuyến hành trình chinh phục thế giới của bạn</div>
+      <ul class="place__group">
+        <li class="place__item">
+          <img src="https://cdn.luxstay.com/home/location/location_1_1559734709.png" alt="" class="place__image">
+          <div class="place__name">Hà Nội</div>
+          <div class="place__countroom">3185 phòng</div>
+        </li>
+        <li class="place__item">
+          <img src="https://cdn.luxstay.com/home/location/location_5_1559735011.png" alt="" class="place__image">
+          <div class="place__name">TP.Hồ Chí Minh</div>
+          <div class="place__countroom">3185 phong</div>
+        </li>
+        <li class="place__item">
+          <img src="https://cdn.luxstay.com/home/location/location_10_1559303118.png" alt="" class="place__image">
+          <div class="place__name">Vũng Tàu </div>
+          <div class="place__countroom">3185 phong</div>
+        </li>
+        <li class="place__item">
+          <img src="https://cdn.luxstay.com/home/location/location_4_1559786177.png" alt="" class="place__image">
+          <div class="place__name">Đà Lạt</div>
+          <div class="place__countroom">3185 phong</div>
+        </li>
+        <li class="place__item">
+          <img src="https://cdn.luxstay.com/home/location/location_16_1559303173.png" alt="" class="place__image">
+          <div class="place__name">Đà Nẵng</div>
+          <div class="place__countroom">3185 phong</div>
+        </li>
+      </ul>
+    </div>
+    <div class="promotion">
+      <div class="text__caption">Ưu đãi độc quyền</div>
+      <div class="text__desc">Chỉ có tại Luxstay, hấp dẫn và hữu hạn, book ngay!
+      </div>
+      <ul class="promotion__group">
+        <li class="promotion__item"><img src="https://cdn.luxstay.com/home/event/event_1_1616988127.jpg" alt=""
+            class="promotion__image"></li>
+        <li class="promotion__item"><img src="https://cdn.luxstay.com/home/event/event_1_1617243580.jpg" alt=""
+            class="promotion__image"></li>
+        <li class="promotion__item"><img src="https://cdn.luxstay.com/home/event/event_5_1617269136.jpg" alt=""
+            class="promotion__image"></li>
+      </ul>
+    </div>
+    <div class="footer">
+      <div class="footer__group">
+        <img src="https://c4img.onlinefriday.vn/r600x600/12_2019/7/cd/4/1382851553_1575687058.png" alt=""
+          class="footer__image">
+      </div>
+      <div class="footer__group">
+        <h3 class="footer__caption">TOP HOMESTAY ĐƯỢC YÊU THÍCH</h3>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+        <p class="footer__item">Homestay</p>
+      </div>
+      <div class="footer__group">
+        <h3 class="footer__caption">KHÔNG GIAN ƯA THÍCH</h3>
+        <p class="footer__item">Căn hộ dịch vụ</p>
+        <p class="footer__item">Biệt thự</p>
+        <p class="footer__item">Nhà riêng</p>
+        <p class="footer__item">Studio</p>
+      </div>
+      <div class="footer__group">
+        <h3 class="footer__caption">Về chúng tôi</h3>
+        <p class="footer__item">Blog</p>
+        <p class="footer__item">Điều khoản hoạt động</p>
+        <p class="footer__item">1800 6586</p>
+        <p class="footer__item">+84 8898 66666</p>
+        <p class="footer__item">info@luxstay.com</p>
+        <p class="footer__item">Trang thông tin dành cho chủ nhà</p>
+        <p class="footer__item">Cơ hội nghề nghiệp</p>
+        <p class="footer__item">Tạp chí du lịch</p>
+      </div>
+      <div class="footer__group">
+        <h3 class="footer__caption">Tải ứng dụng ngay</h3>
+        <div class="footer__group-body">
+          <div class="footer__qr">
+            <img src="https://www.luxstay.com/qr-code.png" alt="" class="footer__qr-img">
+          </div>
+          <div class="footer__app">
+            <div class="footer__app-item">
+              <img src="https://www.luxstay.com/icons/apple-store.svg " alt="" class="footer__app-img">
+            </div>
+            <div class="footer__app-item">
+              <img src="https://www.luxstay.com/icons/huawei.svg" alt="" class="footer__app-img">
+            </div>
+            <div class="footer__app-item">
+              <img src="https://www.luxstay.com/icons/google-play.svg" alt="" class="footer__app-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <script src="script.js"></script>
+    <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
