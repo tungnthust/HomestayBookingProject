@@ -1,5 +1,0 @@
-package com.group4T.homestaybooking.HomestayBooking.service;
-
-public class RefreshTokenService {
-
-}

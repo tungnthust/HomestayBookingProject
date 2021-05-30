@@ -1,6 +1,0 @@
-package com.group4T.homestaybooking.HomestayBooking.dto;
-
-@Data
-public class RegisterRequest {
-
-}
