@@ -13,4 +13,6 @@ public interface LocationRepository extends JpaRepository<Location, Integer>{
 	
 	@Query("select * from ward w where w._district_id.id = ?1")
 	List<Location> getAllWardsByDistrictId(Integer districtId);
+	
+	Location getLocationById(Integer locationId);
 }

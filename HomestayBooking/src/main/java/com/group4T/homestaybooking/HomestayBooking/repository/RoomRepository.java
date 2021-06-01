@@ -14,4 +14,6 @@ public interface RoomRepository extends JpaRepository<RoomDetail, Integer>{
 	
 	@Query("select count(*) from room_detail r where r.location.province.id = ?1")
 	long countByLocationProvinceId(int provinceId);
+	
+//	RoomDetail findRoomById(int roomId);
 }
