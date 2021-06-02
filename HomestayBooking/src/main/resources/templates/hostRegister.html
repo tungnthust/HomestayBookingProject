@@ -15,7 +15,7 @@
 
 <body>
   <div class="container">
-    <form>
+    <form id="form-main">
       <div class="form-group">
         <label for="roomName">Tên phòng</label>
         <input type="text" class="form-control" id="roomName" required>
@@ -59,27 +59,18 @@
             <label for="province"></label>
             <select class="custom-select" id="province" required>
               <option selected>Tỉnh, thành phố</option>
-              <option value="1">TP Hồ Chí Minh</option>
-              <option value="2">Ha Noi</option>
-              <option value="3">Da nang</option>
             </select>
           </div>
           <div class="col-4">
             <label for="district"></label>
             <select class="custom-select" id="district" required>
               <option selected>Quận, huyện</option>
-              <option value="1">TP</option>
-              <option value="2">Ha Noi</option>
-              <option value="3">Da</option>
             </select>
           </div>
           <div class="col-4">
             <label for="ward"></label>
             <select class="custom-select" id="ward" required>
               <option selected>Phường, xã</option>
-              <option value="1">TP</option>
-              <option value="2">Ha Noi</option>
-              <option value="3">Da</option>
             </select>
           </div>
         </div>
@@ -106,41 +97,41 @@
       </div>
       <div class="form-group">
         <label for="descreption">Mô tả chi tiết</label>
-        <textarea type="text" class="form-control" id="descreption" required></textarea>
+        <textarea type="text" class="form-control" id="desc" required></textarea>
       </div>
       <div class="form-group">
         <label for="policy">Chính sách</label>
         <textarea type="text" class="form-control" id="policy" required></textarea>
       </div>
-    </form>
-    <div class="row">
-      <div class="col-4">
-        <p>Cơ sở vật chất</p>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="facility1">
-          <label class="custom-control-label" for="facility1">Điều hòa</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="facility2">
-          <label class="custom-control-label" for="facility2">Máy giặt </label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="facility3">
-          <label class="custom-control-label" for="facility3">Bình nóng lạnh</label>
+      <div class="form-group">
+        <div class="col-4">
+          <p>Cơ sở vật chất</p>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="facility" class="custom-control-input" id="facility1" value="1">
+            <label class="custom-control-label" for="facility1">Điều hòa</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="facility" class="custom-control-input" id="facility2"
+            value="2">
+            <label class="custom-control-label" for="facility2">Máy giặt </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="facility" class="custom-control-input" id="facility3" value="3">
+            <label class="custom-control-label" for="facility3">Bình nóng lạnh</label>
+          </div>
         </div>
       </div>
-      <!-- <div class="col-8">
-
-      </div> -->
-    </div>
-    <form id="url-form">
-      <div class="input-field ">
-        <label for="urlPhoto"></label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="urlPhoto" placeholder="URL Photo">
+      <div id="url-form">
+        <div class="input-field ">
+          <label for="urlPhoto"></label>
+          <input type="text" class="form-control mb-2 mr-sm-2" id="urlPhoto" placeholder="URL Photo">
+        </div>
+        <!-- <input class="btn btn-dark" type="button" value="Add URL"> -->
+        <button class="btn btn-dark" id="add-url">Add URL</button>
       </div>
-      <input class="btn btn-dark" type="submit" value="Add URL">
+      <ul class="urlList"></ul>
+      <input type="submit" id="addRoom" class="btn btn-block btn-info">
     </form>
-    <ul class="urlList"></ul>
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

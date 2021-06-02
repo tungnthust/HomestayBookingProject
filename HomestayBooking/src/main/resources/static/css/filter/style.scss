@@ -127,43 +127,13 @@ button{
     font-weight: bold;  
   }
 }
-// .nbGuess{
-//   @include size(32rem, 23rem);
-//   @include flexbox(center, center, column);
-//   border: 1px solid #ccc;
-//   border-radius: 1rem;
-//   position: absolute;
-//   top: 100%;
-//   left: 45rem;
-//   background-color: white;
-//   z-index: 11;
-//   box-shadow: 0px 0px 4px 1px #ccc;
-//   display: none;
-//   &__group{
-//     @include flexbox(center, space-between);
-//     padding: 1rem;
-//     width: 100%;
-//   }
-//   &__label{
-//     font-weight: bold;
-//   }
-//   &__validation{
-//     font-size: 1.2rem;
-//   }
-//   &__input{
-//     width: 15rem;
-//   }
-//   &__btn{
-//     text-decoration: none;
-//     font-weight: bold;
-//   }
-//   &--delete{
-//     color: black;
-//   }
-//   &--apply{
-//     color: #f99c85;
-//   }
-// }
+.title{
+  font-weight: bold;
+  font-size: 2.5rem
+}
+.button-group, .title{
+  margin: 40px 0;
+}
 ::placeholder {
   color: black;
   opacity: 1; 

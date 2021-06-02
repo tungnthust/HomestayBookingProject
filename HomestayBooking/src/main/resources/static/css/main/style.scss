@@ -182,8 +182,11 @@ a{
   }
   &__image{
     border-radius: 8px;
+    @include size(100%);
+  }
+  a{
+    display: inline-block;
     @include size(100%, 30rem);
-
   }
   &__name{
     position: absolute;

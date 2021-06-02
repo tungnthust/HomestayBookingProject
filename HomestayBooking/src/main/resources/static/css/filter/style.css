@@ -137,6 +137,15 @@ button {
   font-weight: bold;
 }
 
+.title {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.button-group, .title {
+  margin: 40px 0;
+}
+
 ::placeholder {
   color: black;
   opacity: 1;
