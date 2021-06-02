@@ -188,9 +188,12 @@ public class RoomDetail {
 		this.images = images;
 	}
 	public void setName(String name) {
-		this.name = name;
-	}
+		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	
 	
 	
 }

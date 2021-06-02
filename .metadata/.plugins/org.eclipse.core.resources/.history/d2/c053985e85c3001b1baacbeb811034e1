@@ -28,11 +28,6 @@ public class RoomDetail {
 	@JoinColumn(name="host_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Host host;
-	@Column(name="name")
-	private String name;
-	public String getName() {
-		return name;
-	}
 	@Column(name="type")
 	private int type;
 	private int capacity;
@@ -188,9 +183,12 @@ public class RoomDetail {
 		this.images = images;
 	}
 	public void setName(String name) {
-		this.name = name;
-	}
+		// TODO Auto-generated method stub
 		
+	}
+	
+	
+	
 	
 	
 }
