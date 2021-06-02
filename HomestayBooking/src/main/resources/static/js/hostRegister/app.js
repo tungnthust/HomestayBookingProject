@@ -60,22 +60,22 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     photo = url.getList()
   
     let data = {
-      "hostId" : wardId,       // login đẫ có 
-      "name": roomName,   // nhập
-      "type" : roomType,         // tích chọn/....
-      "capacity": parseInt(capacity),      // nhập
-      "area": parseInt(area),       // nhập
-      "address": address,    // nhập
-      "locationId" : wardId,       // bảng chọn tỉnh-->huyện-->xã,  có api sau khi chọn xong xã sẽ ra locationId
-      "bedroomCount": parseInt(bedRoomCount),      // nhập
-      "bedCount" : parseInt(bedCount),         // nhập
-      "bathroomCount": parseInt(bathRoomCount),     // nhập
-      "description" : desc,   // nhập
-      "pricePerDay": parseInt(price), //       // nhập
-      "policy" : policy,// nhập
-      "thumbnailPhoto" : photo[0],   // nhập
-      "facilitiesId" : facility,         // tích chọn/...
-      "images": photo       // upload ảnh/...  --> return array of url
+      "hostId" : wardId,
+      "name": roomName,
+      "type" : roomType,
+      "capacity": parseInt(capacity),
+      "area": parseInt(area),
+      "address": address,
+      "locationId" : wardId,
+      "bedroomCount": parseInt(bedRoomCount),
+      "bedCount" : parseInt(bedCount),         
+      "bathroomCount": parseInt(bathRoomCount),     
+      "description" : desc,   
+      "pricePerDay": parseInt(price),     
+      "policy" : policy,
+      "thumbnailPhoto" : photo[0],   
+      "facilitiesId" : facility, 
+      "images": photo       
     }
 
     // post api request
