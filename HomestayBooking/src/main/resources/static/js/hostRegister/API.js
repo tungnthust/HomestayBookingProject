@@ -25,5 +25,6 @@ class API {
       },
       body: JSON.stringify(data)
     })
+    console.log(response);
   }
 }
