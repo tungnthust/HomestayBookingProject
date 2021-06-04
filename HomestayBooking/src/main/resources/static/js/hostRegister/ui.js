@@ -26,7 +26,7 @@ class UI {
   }
 
   showWard(wards){
-    let output = `<option selected>Quận, huyện</option>`
+    let output = `<option selected>Xã, phường</option>`
     wards.forEach(function(ward){
       output += `
       <option value="${ward.id}">${ward.prefix} ${ward.name}</option>

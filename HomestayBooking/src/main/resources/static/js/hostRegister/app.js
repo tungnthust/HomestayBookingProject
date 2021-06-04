@@ -1,29 +1,29 @@
 window.addEventListener('DOMContentLoaded', async (event) => {
   // add url
-  const url = new URL();
 
   // create ui
   const ui = new UI()
 
   // show and choose provinces, 
   const api = new API();
-
-  url.loadListener();
-
   const provinces = await api.getProvince()
   ui.showProvince(provinces)
   document.getElementById('province').addEventListener('change', async (e) => {
     const provinceId = e.target.value;
+    // show and choose district
     const districts = await api.getDistrict(provinceId)
     ui.showDistrict(districts)
     document.getElementById('district').addEventListener('change', async(e) => {
       const districtId = e.target.value
+      // show and choose ward
       const wards = await api.getWard(districtId)
       ui.showWard(wards)
     })
   })
 
   document.getElementById('form-main').addEventListener('submit', (e) => {
+    e.preventDefault();
+
     let roomName = document.getElementById('roomName').value;
   
     let roomType = document.getElementById('roomType').value
@@ -50,6 +50,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     
     let facility = new Array();
   
+    let images = document.getElementById('images');
+
     let checkbox = document.getElementsByName('facility')
     checkbox.forEach(function(box){
       if (box.checked) {
@@ -57,10 +59,9 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       }
     })
 
-    photo = url.getList()
   
-    let data = {
-      "hostId" : wardId,
+    let jsonData = {
+      "hostId" : 1,
       "name": roomName,
       "type" : roomType,
       "capacity": parseInt(capacity),
@@ -71,17 +72,38 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       "bedCount" : parseInt(bedCount),         
       "bathroomCount": parseInt(bathRoomCount),     
       "description" : desc,   
-      "pricePerDay": parseInt(price),     
+      "pricePerDay": parseFloat(price),     
       "policy" : policy,
-      "thumbnailPhoto" : photo[0],   
+      "thumbnailPhoto" : '1',   
       "facilitiesId" : facility, 
-      "images": photo       
+    }
+    var formData = new FormData();
+
+    let totalImage = images.files.length;
+    for (var index = 0; index < totalImage; index++) {
+      formData.append("images", images.files[index]);
     }
 
-    // post api request
-    api.postData('http://localhost:8080/api/room/addRoom',data);
 
-    console.log(data)
+    formData.append("roomInfo", JSON.stringify(jsonData));
+    // post api request
+    console.log(formData);
+    api.postData('http://localhost:8080/api/room/addRoom',formData);
+
+  })
+
+  document.getElementById("images").addEventListener('change', (e) => {
     e.preventDefault();
+    let totalImage = images.files.length;
+    let list = document.getElementById('imageList');
+    for (var index = 0; index < totalImage; index++) {
+      let li = document.createElement('span');
+      li.style = "padding-right: 20px";
+      let image = document.createElement('img');
+      image.src = URL.createObjectURL(e.target.files[index]);
+      image.height = '150';
+      li.appendChild(image);
+      list.appendChild(li);
+    }
   })
 })

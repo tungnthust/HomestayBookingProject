@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.group4T.homestaybooking.HomestayBooking.model.Facilitiy;
 import com.group4T.homestaybooking.HomestayBooking.model.Host;
 import com.group4T.homestaybooking.HomestayBooking.model.Location;
@@ -29,7 +31,6 @@ public class AddRoomRequest {
 	private String policy;
 	private String thumbnailPhoto;
 	private int[] facilitiesId;
-	private String[] images;
 	
 //	public int getId() {
 //		return id;
@@ -159,17 +160,11 @@ public class AddRoomRequest {
 		this.facilitiesId = facilitiesId;
 	}
 	
-	public String[] getImages() {
-		return images;
-	}
-
-	public void setImages(String[] images) {
-		this.images = images;
-	}
+	
 
 	public AddRoomRequest(int hostId, String name, int type, int capacity, double area, String address,
 			int locationId, int bedroomCount, int bedCount, int bathroomCount, String description, int pricePerDay,
-			String policy, String thumbnailPhoto, int[] facilitiesId, String[] images) {
+			String policy, String thumbnailPhoto, int[] facilitiesId) {
 		this.hostId = hostId;
 		this.name = name;
 		this.type = type;
@@ -185,7 +180,6 @@ public class AddRoomRequest {
 		this.policy = policy;
 		this.thumbnailPhoto = thumbnailPhoto;
 		this.facilitiesId = facilitiesId;
-		this.images = images;
 	}
 
 	public AddRoomRequest() {

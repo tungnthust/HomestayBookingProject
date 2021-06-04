@@ -1,9 +1,15 @@
 package com.group4T.homestaybooking.HomestayBooking.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.group4T.homestaybooking.HomestayBooking.dto.AddRoomRequest;
 import com.group4T.homestaybooking.HomestayBooking.model.RoomDetail;
@@ -15,6 +21,8 @@ import com.group4T.homestaybooking.HomestayBooking.repository.LocationRepository
 import com.group4T.homestaybooking.HomestayBooking.repository.RoomFacilityRepository;
 import com.group4T.homestaybooking.HomestayBooking.repository.RoomPhotoRepository;
 import com.group4T.homestaybooking.HomestayBooking.repository.RoomRepository;
+
+import antlr.StringUtils;
 
 
 @Service
@@ -46,7 +54,7 @@ public class RoomService {
 	
 
 //	public void saveRoom(RoomDetail theCustomer);
-	public void saveRoom(AddRoomRequest addRoomRequest) {
+	public void saveRoom(AddRoomRequest addRoomRequest, MultipartFile[] images) {
 		RoomDetail room = new RoomDetail();
 		
 		
@@ -65,7 +73,37 @@ public class RoomService {
 		room.setPricePerDay(addRoomRequest.getPricePerDay());
 		room.setPolicy(addRoomRequest.getPolicy());
 		room.setThumbnailPhoto(addRoomRequest.getThumbnailPhoto());
+		
 		room_repo.save(room);
+
+		String uploadDirectory = "./src/main/resources/static/images/room/" + room.getId();
+		Path uploadPath = Paths.get(uploadDirectory);
+		System.out.println(uploadPath.toFile().getAbsolutePath());
+		if (!Files.exists(uploadPath)) {
+			try {
+				Files.createDirectory(uploadPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		int indexImage = 1;
+		ArrayList<String> imagesUrl = new ArrayList<String>();
+		for (MultipartFile file : images) {			  
+				String fileName = file.getOriginalFilename();
+				System.out.println(fileName);
+				String[] fileNameTokens = fileName.split("\\.");
+				String fileExtension = fileNameTokens[fileNameTokens.length - 1];
+			  Path fileNameAndPath = Paths.get(uploadDirectory, String.valueOf(indexImage++) + "." + fileExtension);
+			  try {
+				Files.write(fileNameAndPath, file.getBytes());
+				String filePath = fileNameAndPath.toString();
+				filePath = ".." + filePath.substring(20);
+				imagesUrl.add(filePath);
+			  } catch (IOException e) {
+				e.printStackTrace();
+			}
+		  }
+		
 		
 		
 		int[] facilitiesId = addRoomRequest.getFacilitiesId();
@@ -77,8 +115,8 @@ public class RoomService {
 			roomFacility_repo.save(roomfacility);
 		}
 		
-		String[] images = addRoomRequest.getImages();
-		for(String image: images) {
+		
+		for(String image: imagesUrl) {
 			RoomPhoto roomPhoto = new RoomPhoto();
 			roomPhoto.setRoomId(room_repo.findById(room.getId()));
 			roomPhoto.setUrl(image);
