@@ -18,12 +18,10 @@ class API {
   }
 
   async postData(url, data) {
+    // console.log(data);
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
+      body: data
     })
   }
 }

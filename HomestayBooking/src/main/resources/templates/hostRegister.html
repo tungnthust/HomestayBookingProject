@@ -15,7 +15,7 @@
 
 <body>
   <div class="container">
-    <form id="form-main">
+    <form id="form-main" enctype="multipart/form-data">
       <div class="form-group">
         <label for="roomName">Tên phòng</label>
         <input type="text" class="form-control" id="roomName" required>
@@ -121,15 +121,15 @@
           </div>
         </div>
       </div>
-      <div id="url-form">
+      <input type="file" name="images" id="images" multiple>
+      <!-- <div id="url-form">
         <div class="input-field ">
           <label for="urlPhoto"></label>
           <input type="text" class="form-control mb-2 mr-sm-2" id="urlPhoto" placeholder="URL Photo">
         </div>
-        <!-- <input class="btn btn-dark" type="button" value="Add URL"> -->
         <button class="btn btn-dark" id="add-url">Add URL</button>
-      </div>
-      <ul class="urlList"></ul>
+      </div> -->
+      <div id="imageList"></div>
       <input type="submit" id="addRoom" class="btn btn-block btn-info">
     </form>
   </div>
