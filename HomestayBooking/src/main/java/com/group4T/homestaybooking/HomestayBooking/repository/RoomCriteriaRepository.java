@@ -103,11 +103,13 @@ public class RoomCriteriaRepository {
         }
         
         if(Objects.nonNull(roomSearchCriteria.getDistrictId())){
-        	
+        	Predicate[] districtPredicates = new Predicate[roomSearchCriteria.getDistrictId().size()];
+        	for (Integer district: roomSearchCriteria.getDistrictId()) {
+        		districtPredicates[roomSearchCriteria.getDistrictId().indexOf(district)] = criteriaBuilder.equal(roomRoot.get("location").get("district").get("id"),
+                		district);
+        	}
             predicates.add(
-                    criteriaBuilder.equal(roomRoot.get("location").get("district").get("id"),
-                    		roomSearchCriteria.getDistrictId())
-            );
+                    criteriaBuilder.or(districtPredicates));
         }
         if(Objects.nonNull(roomSearchCriteria.getProvinceId())){
             predicates.add(
@@ -116,10 +118,14 @@ public class RoomCriteriaRepository {
             );
         }
         if(Objects.nonNull(roomSearchCriteria.getType())){
+        	Predicate[] typePredicates = new Predicate[roomSearchCriteria.getType().size()];
+        	for (Integer type: roomSearchCriteria.getType()) {
+        		typePredicates[roomSearchCriteria.getType().indexOf(type)] = criteriaBuilder.equal(roomRoot.get("type"),
+                		type);
+        	}
             predicates.add(
-                    criteriaBuilder.equal(roomRoot.get("type"),
-                    		roomSearchCriteria.getType())
-            );
+                    criteriaBuilder.or(typePredicates));
+           
         }
         if(Objects.nonNull(roomSearchCriteria.getMin_price())){
             predicates.add(

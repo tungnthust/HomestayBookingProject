@@ -9,9 +9,9 @@ public class RoomSearchCriteria {
 	private Date checkinDate;
 	private Date checkoutDate;
 	private Integer location;
-	private Integer districtId;
+	private List<Integer> districtId;
 	private Integer provinceId;
-	private Integer type;
+	private List<Integer> type;
 	private Integer min_price;
 	private Integer max_price;
 	private Integer bedCount;
@@ -25,10 +25,10 @@ public class RoomSearchCriteria {
 	public void setLocation(Integer location) {
 		this.location = location;
 	}
-	public Integer getDistrictId() {
+	public List<Integer> getDistrictId() {
 		return districtId;
 	}
-	public void setDistrictId(Integer districtId) {
+	public void setDistrictId(List<Integer> districtId) {
 		this.districtId = districtId;
 	}
 	public Integer getProvinceId() {
@@ -37,10 +37,10 @@ public class RoomSearchCriteria {
 	public void setProvinceId(Integer provinceId) {
 		this.provinceId = provinceId;
 	}
-	public Integer getType() {
+	public List<Integer> getType() {
 		return type;
 	}
-	public void setType(Integer type) {
+	public void setType(List<Integer> type) {
 		this.type = type;
 	}
 	public Integer getMin_price() {
