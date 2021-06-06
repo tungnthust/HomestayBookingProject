@@ -43,32 +43,32 @@
             <p class="header__text">Ngày</p>
           </div>
           <div id="topup-guess" class="header__search-item" id="room-type" data-toggle="dropdown" type="button"
-          aria-haspopup="true" aria-expanded="false">
+            aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user"></i>
-            <p class="header__text" >Số khách</p>
+            <p class="header__text">Số khách</p>
           </div>
           <div class="dropdown-menu menu-nbGuess py-4 px-2" aria-labelledby="nbGuess">
             <form id="nbGuess">
-            <ul class="list-group">
-              <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
-              <li class="d-flex justify-content-between my-2">
-                <label class="checkbox" for="countAdult">Người lớn</label>
-                <input type="number" name="" id="countAdult" class="form-control col-2">
-              </li>
-              <li class="d-flex justify-content-between my-2">
-                <label class="checkbox" for="countChild">Trẻ em <small>(tuổi từ 2-12)</small></label>
-                <input type="number" name="" id="countChildren" class="form-control col-2">
-              </li>
-              <li class="d-flex justify-content-between my-2">
-                <label class="checkbox" for="countBaby">Trẻ sơ sinh <small>(tuổi từ 0-2)</small></label>
-                <input type="number" name="" id="countBaby" class="form-control col-2">
-              </li>
-            </ul>
+              <ul class="list-group">
+                <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
+                <li class="d-flex justify-content-between my-2">
+                  <label class="checkbox" for="countAdult">Người lớn</label>
+                  <input type="number" name="" id="count-adult" class="form-control col-2">
+                </li>
+                <li class="d-flex justify-content-between my-2">
+                  <label class="checkbox" for="countChild">Trẻ em <small>(tuổi từ 2-12)</small></label>
+                  <input type="number" name="" id="count-children" class="form-control col-2">
+                </li>
+                <li class="d-flex justify-content-between my-2">
+                  <label class="checkbox" for="countBaby">Trẻ sơ sinh <small>(tuổi từ 0-2)</small></label>
+                  <input type="number" name="" id="count-baby" class="form-control col-2">
+                </li>
+              </ul>
             </form>
             <div class="dropdown-divider"></div>
             <div class="d-flex align-center justify-content-between">
-              <button class="btn btn-dark btn-lg ml-4 my-3">Xóa</button>
-              <button class="btn btn-info btn-lg mr-4 my-3">Áp dụng</button>
+              <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-nbGuess">Xóa</button>
+              <button class="btn btn-info btn-lg mr-4 my-3" type="button" id="apply-nbGuess">Áp dụng</button>
             </div>
           </div>
           <button type="submit" class="header__search-icon">
@@ -86,7 +86,7 @@
 
   <div class="body" style="margin-top: 80px">
     <div class="button-group mt-3 d-flex">
-      <div>
+      <!-- <div>
         <button class="btn btn-outline-dark btn-lg mr-3">Hủy phòng linh hoạt</button>
       </div>
       <div>
@@ -94,31 +94,17 @@
       </div>
       <div>
         <button class="btn btn-outline-dark btn-lg mr-3">Giá ưu đãi</button>
-      </div>
+      </div> -->
       <div class="dropdown open">
         <button class="btn btn-outline-dark btn-lg mr-3" id="region" data-toggle="dropdown" type="button"
           aria-haspopup="true" aria-expanded="false">Khu vực</button>
         <div class="dropdown-menu menu-region" aria-labelledby="region">
-          <form id="region-list"></form>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-location checkbox-input">Quan Dong Da</label>
-          </li>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-location checkbox-input">Quan Ba Dinh</label>
-          </li>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-location checkbox-input">Quan Hoan
-              Kiem</label>
-          </li>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-location checkbox-input">Quan Hai Ba
-              Trung</label>
-          </li>
-          </form>
+          <ul id="region-list">
+          </ul>
           <div class="dropdown-divider"></div>
           <div class="dropdown-btn d-flex align-center justify-content-between">
-            <button class="btn btn-dark btn-lg ml-4 my-3">Xóa</button>
-            <button class="btn btn-info btn-lg mr-4 my-3">Áp dụng</button>
+            <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-region">Xóa</button>
+            <button class="btn btn-info btn-lg mr-4 my-3" type="button" id="apply-region">Áp dụng</button>
           </div>
         </div>
       </div>
@@ -126,24 +112,24 @@
         <button class="btn btn-outline-dark btn-lg mr-3" id="room-type" data-toggle="dropdown" type="button"
           aria-haspopup="true" aria-expanded="false">Loại phòng</button>
         <div class="dropdown-menu menu-roomType" aria-labelledby="roomType">
-          <form id="roomType-list"></form>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-roomType">Homestay</label>
-          </li>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-roomType">Nha rieng</label>
-          </li>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-roomType">Biet Thu</label>
-          </li>
-          <li>
-            <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-roomType">Studio</label>
-          </li>
-          </form>
+          <ul id="roomType-list">
+            <li>
+              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType" value="1">
+              <label class="checkbox">Khách sạn</label>
+            </li>
+            <li>
+              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType" value="2">
+              <label class="checkbox">Căn hộ</label>
+            </li>
+            <li>
+              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType" value="3">
+              <label class="checkbox">Homestay</label>
+            </li>
+          </ul>
           <div class="dropdown-divider"></div>
           <div class="dropdown-btn d-flex align-center justify-content-between">
-            <button class="btn btn-dark btn-lg ml-4 my-3">Xóa</button>
-            <button class="btn btn-info btn-lg mr-4 my-3">Áp dụng</button>
+            <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-roomType">Xóa</button>
+            <button class="btn btn-info btn-lg mr-4 my-3" type="button" id="apply-roomType">Áp dụng</button>
           </div>
         </div>
       </div>
@@ -168,8 +154,8 @@
           </div>
           <div class="dropdown-divider"></div>
           <div class="d-flex align-center justify-content-between">
-            <button class="btn btn-dark btn-lg ml-4 my-3">Xóa</button>
-            <button class="btn btn-info btn-lg mr-4 my-3">Áp dụng</button>
+            <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-price">Xóa</button>
+            <button class="btn btn-info btn-lg mr-4 my-3" type="button" id="apply-price">Áp dụng</button>
           </div>
         </div>
       </div>
@@ -177,22 +163,22 @@
         <button class="btn btn-outline-dark btn-lg mr-3" id="more-filter" data-toggle="dropdown" type="button"
           aria-haspopup="true" aria-expanded="false">Thêm bộ lọc</button>
         <div class="dropdown-menu menu-moreFilter py-4 px-2" aria-labelledby="moreFilter">
-          <form id="more-filter"></form>
-          <ul class="list-group">
-            <h2 style="font-weight: bold" class="ml-3">Phòng và giường ngủ</h2>
-            <li class="d-flex justify-content-between my-2">
-              <label class="checkbox" for="countBed">Giường</label>
-              <input type="number" id="countBed" class="form-control col-2">
-            </li>
-            <li class="d-flex justify-content-between my-2">
-              <label class="checkbox">Số phòng ngủ</label>
-              <input type="number" id="countBedRoom" class="form-control col-2">
-            </li>
-            <li class="d-flex justify-content-between my-2">
-              <label class="checkbox">Số phòng tắm</label>
-              <input type="number" id="countBathRoom" class="form-control col-2">
-            </li>
-          </ul>
+          <form id="more-filter">
+            <ul class="list-group">
+              <h2 style="font-weight: bold" class="ml-3">Phòng và giường ngủ</h2>
+              <li class="d-flex justify-content-between my-2">
+                <label class="checkbox" for="count-bed">Giường</label>
+                <input type="number" id="count-bed" class="form-control col-2">
+              </li>
+              <li class="d-flex justify-content-between my-2">
+                <label class="checkbox" for="count-bedroom">Số phòng ngủ</label>
+                <input type="number" id="count-bedroom" class="form-control col-2">
+              </li>
+              <li class="d-flex justify-content-between my-2">
+                <label class="checkbox" for="count-bathroom">Số phòng tắm</label>
+                <input type="number" id="count-bathroom" class="form-control col-2">
+              </li>
+            </ul>
           </form>
           <div class="dropdown-divider"></div>
           <div class="box">
@@ -201,154 +187,59 @@
             </div>
             <div class="row">
               <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Điều
-                    hòa</label>
-                </li>
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="1">
+                <label class="checkbox">Điều hòa</label>
               </div>
               <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">TV</label>
-                </li>
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="2">
+                <label class="checkbox">Máy giặt</label>
               </div>
               <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Bình nóng
-                    lạnh</label>
-                </li>
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="3">
+                <label class="checkbox">Bình nóng lạnh</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="4">
+                <label class="checkbox">Tivi</label>
+              </div>
+              <div class="col">
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="5">
+                <label class="checkbox">Bếp </label>
+              </div>
+              <div class="col">
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="6">
+                <label class="checkbox">Tủ lạnh</label>
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Máy
-                    giặt</label>
-                </li>
+                  <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="7">
+                  <label class="checkbox">Sân vườn</label>
               </div>
               <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Bếp </label>
-                </li>
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="8">
+                <label class="checkbox">Bể bơi</label>
               </div>
               <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Tủ lạnh</label>
-                </li>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Sân
-                    vườn</label>
-                </li>
-              </div>
-              <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Bể bơi</label>
-                </li>
-              </div>
-              <div class="col">
-                <li>
-                  <label class="checkbox"><input type="checkbox" class="checkbox-input checkbox-utility">Karaoke</label>
-                </li>
+                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="9">
+                <label class="checkbox">Karaoke</label>
               </div>
             </div>
           </div>
           <div class="dropdown-divider"></div>
           <div class="dropdown-btn d-flex align-center justify-content-between">
-            <button class="btn btn-dark btn-lg ml-4 my-3">Delete</button>
-            <button class="btn btn-info btn-lg mr-4 my-3">Apply</button>
+            <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-more">Xóa</button>
+            <button class="btn btn-info btn-lg mr-4 my-3" type="button" id="apply-more">Áp dụng</button>
           </div>
         </div>
       </div>
     </div>
     <h1 class="title"><span id="countRoom"></span> Homestay tại <span id="location"></span></h1>
     <div class="room-detail" id="rooms">
-      <div class="d-flex justify-content-between">
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex justify-content-between">
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-        <div class="card" style="width: calc(20% - 1rem)">
-          <img src="https://cdn.luxstay.com/admins/12/2TR6G7u6ua140zR2NI4yUJdG.png" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-            <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-            <p class="" style="font-weight: bold">709000d/dem</p>
-          </div>
-        </div>
-      </div>
+      <!--  -->
     </div>
   </div>
   <!-- Optional JavaScript -->
@@ -365,6 +256,7 @@
   <script>
     $('.your-checkbox').prop('indeterminate', true)
   </script>
+  <script src="../static/js/filter/api.js"></script>
   <script src="../static/js/filter/room.js"></script>
   <script src="../static/js/filter/app.js"></script>
 </body>
