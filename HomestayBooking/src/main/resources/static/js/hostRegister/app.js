@@ -89,6 +89,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     // post api request
     console.log(formData);
     api.postData('http://localhost:8080/api/room/addRoom',formData);
+    e.preventDefault();
 
   })
 
@@ -105,5 +106,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       li.appendChild(image);
       list.appendChild(li);
     }
+    e.preventDefault();
+    return false;
   })
 })
