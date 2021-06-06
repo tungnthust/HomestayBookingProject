@@ -50,6 +50,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   filterByDistrict(defaultApi, room)
   filterByPrice(defaultApi, room)
   filterByMore(defaultApi, room)
+  filterByNumberGuess(defaultApi, room)
 });
 
 function showDistrict(districts) {
@@ -70,7 +71,6 @@ function filterByNumberGuess(defaultApi, room){
   document.getElementById('delete-nbGuess').addEventListener('click', async(e) => {
     document.getElementById('count-adult').value = ''
     document.getElementById('count-children').value = ''
-    document.getElementById('count-baby').value = ''
     let newApi = writeApi(defaultApi)
     let data = await room.getRoomAPI(newApi);
     room.showRoom(data)
@@ -169,6 +169,20 @@ function filterByMore(defaultApi, room){
 
 function writeApi(defaultApi){
   let newApi = defaultApi
+
+  // filter by number of guest
+  let countAdult = document.getElementById('count-adult').value
+  let countChildren = document.getElementById('count-children').value
+  // let countBaby = document.getElementById('count-baby').value
+  if (countAdult > 0){
+    newApi += `&adultCount=${countAdult}`
+  }
+  if (countChildren > 0){
+    newApi += `&childrenCount=${countChildren}`
+  }
+  // if (countBaby > 0){
+  //   newApi += `&max_price=${maxPrice}`
+  // }
 
   // filter by room type
   let checkRoomType = document.getElementsByName('roomType')
