@@ -104,6 +104,7 @@ function filterByRoomType(defaultApi, room){
       console.log(newApi)
       data = await room.getRoomAPI(newApi);
       room.showRoom(data)
+      console.log(data)
       document.getElementById("countRoom").textContent = data.length
     })
 }
@@ -173,18 +174,12 @@ function writeApi(defaultApi){
   // filter by number of guest
   let countAdult = document.getElementById('count-adult').value
   let countChildren = document.getElementById('count-children').value
-  // let countBaby = document.getElementById('count-baby').value
   if (countAdult > 0){
     newApi += `&adultCount=${countAdult}`
   }
   if (countChildren > 0){
     newApi += `&childrenCount=${countChildren}`
   }
-  // if (countBaby > 0){
-  //   newApi += `&max_price=${maxPrice}`
-  // }
-
-  // filter by room type
   let checkRoomType = document.getElementsByName('roomType')
   let arr = new Array()
   checkRoomType.forEach(box => {

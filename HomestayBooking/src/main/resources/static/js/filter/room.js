@@ -12,14 +12,14 @@ class Room {
     rooms.forEach(function(room){
         const roomType = type[room.type-1]
         output += `
-          <div class="card my-3 mx-2" style="width: calc(20% - 1rem)">
+          <a href="./roomDetail.html?roomId=${room.id}" class="card my-3 mx-2 d-inline-block" style="width: calc(20% - 1rem); text-decoration: none; color: black">
             <img src="${room.images[0].url}" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title card-name"> ${room.name}</h5>
               <p class="card-text card-desc">${roomType} - ${room.bedroomCount} phòng ngủ </p>
               <p class="card-price" style="font-weight: bold">${room.pricePerDay}<u>đ</u>/đêm</p>
            </div>
-          </div>
+          </a>
         `
     })
     output += `</div">`
