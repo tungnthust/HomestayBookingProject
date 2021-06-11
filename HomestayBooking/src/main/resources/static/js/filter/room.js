@@ -5,24 +5,24 @@ class Room {
     return rooms.content
   }
 
-  showRoom(api){
-    const rooms = getRoomAPI(api);
-    
+  showRoom(rooms){
+    const type = ["Khách sạn", "Căn hộ", "Homestay"]
     let output = ''
+    output += `<div class="d-flex  flex-wrap">`
     rooms.forEach(function(room){
-      output += `<div class="d-flex justify-content-between">`
-      for (let i=0; i<5; i++){
+        const roomType = type[room.type-1]
         output += `
-          <div class="card" style="width: calc(20% - 1rem)">
-            <img src="${room.thumbnailPhoto}" class="card-img-top" alt="...">
+          <a href="./roomDetail.html?roomId=${room.id}" class="card my-3 mx-2 d-inline-block" style="width: calc(20% - 1rem); text-decoration: none; color: black">
+            <img src="${room.images[0].url}" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Can ho dich vu - 1 phong ngu</h5>
-              <p class="card-text card-desc">The Galaxy Home - 1 Phong ngu 2 phong tam 3 phong ve sinh</p>
-              <p class="" style="font-weight: bold">${room.pricePerDay}d/dem</p>
+              <h5 class="card-title card-name"> ${room.name}</h5>
+              <p class="card-text card-desc">${roomType} - ${room.bedroomCount} phòng ngủ </p>
+              <p class="card-price" style="font-weight: bold">${room.pricePerDay}<u>đ</u>/đêm</p>
            </div>
-          </div>
+          </a>
         `
-      }
     })
+    output += `</div">`
+    document.getElementById("rooms").innerHTML = output
   }
 }

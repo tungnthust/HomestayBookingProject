@@ -13,10 +13,12 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   ui.showProvince(provinces)
   document.getElementById('province').addEventListener('change', async (e) => {
     const provinceId = e.target.value;
+    // show and choose district
     const districts = await api.getDistrict(provinceId)
     ui.showDistrict(districts)
     document.getElementById('district').addEventListener('change', async(e) => {
       const districtId = e.target.value
+      // show and choose ward
       const wards = await api.getWard(districtId)
       ui.showWard(wards)
     })
@@ -72,7 +74,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       "bedCount" : parseInt(bedCount),         
       "bathroomCount": parseInt(bathRoomCount),     
       "description" : desc,   
-      "pricePerDay": parseInt(price),     
+      "pricePerDay": parseFloat(price),     
       "policy" : policy,
       "thumbnailPhoto" : '1',   
       "facilitiesId" : facility, 

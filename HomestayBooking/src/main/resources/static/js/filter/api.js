@@ -11,10 +11,10 @@ class API {
     return districts
   }
 
-  async getWard(districtID){
-    const wardResponse = await fetch(`http://localhost:8080/api/location/wards/${districtID}`)
-    const wards = await wardResponse.json();
-    return wards
+  async getCountRoom(provinceID) {
+    const countRoomResponse = await fetch(`http://localhost:8080/search/countRoom/${provinceID}`);
+    const countRoom = await countRoomResponse.json();
+    return countRoom
   }
 
   async postData(url, data) {
