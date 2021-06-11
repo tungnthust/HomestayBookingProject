@@ -115,19 +115,24 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       console.log(data)
       // console.log(arrDate)
       // console.log(nbGuess);
+      let checkinDate = new Date(arrDate[0]);
+      checkinDate = checkinDate.toISOString().slice(0,10);
+      let checkoutDate = new Date(arrDate[1]);
+      checkoutDate = checkoutDate.toISOString().slice(0,10);
       let jsonData = {
-        "roomId": data.Id,
+        "roomId": data.id,
         "guestId": 1,
-        "checkinDate": arrDate[0],
-        "checkoutDate": arrDate[1],
-        "guestCount": nbGuess,
+        "checkinDate": checkinDate,
+        "checkoutDate": checkoutDate,
+        "guestCount": parseInt(nbGuess),
         "price": data.pricePerDay,
-        "paymentMethodId": document.getElementById('payment-method').value
+        "paymentMethodId": parseInt(document.getElementById('payment-method').value)
       }
       console.log(jsonData);
 
       fetch(`http://localhost:8080/api/reservation/addReservation`, {
         method: 'POST',
+        headers: {"Content-type": "application/json;charset=UTF-8"},
         body: JSON.stringify(jsonData)
       })
 
