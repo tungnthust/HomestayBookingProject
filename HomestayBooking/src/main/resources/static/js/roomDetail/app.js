@@ -111,7 +111,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       `
       div.innerHTML = output
     }
-    document.getElementById('order').addEventListener('click', async() => {
+    document.getElementById('order').addEventListener('click', async () => {
       console.log(data)
       // console.log(arrDate)
       // console.log(nbGuess);
@@ -126,9 +126,9 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       }
       console.log(jsonData);
 
-      const reponse = await fetch(`http://localhost:8080/api/reservation/addReservation`, {
+      fetch(`http://localhost:8080/api/reservation/addReservation`, {
         method: 'POST',
-        data: JSON.stringify(jsonData)
+        body: JSON.stringify(jsonData)
       })
 
     })
