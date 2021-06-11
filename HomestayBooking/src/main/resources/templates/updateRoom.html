@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../static/css/host/style.css">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <form id="form-main" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="roomName">Tên phòng</label>
+        <input type="text" class="form-control" id="roomName" required>
+      </div>
+      <div class="form-group">
+        <label for="roomType">Chọn loại phòng</label>
+        <select id="roomType" class="custom-select" required>
+          <option selected>Chọn</option>
+          <option value="1">Khách sạn</option>
+          <option value="2">Căn hộ</option>
+          <option value="3">Homestay</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label for="price">Giá phòng</label>
+            <input type="number" class="form-control" id="price" required>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="capacity">Số người tối đa</label>
+            <input class="form-control" type="number" id="capacity" required>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="area">Diện tích</label>
+            <input class="form-control" type="number" id="area" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address">Địa chỉ</label>
+        <input type="text" class="form-control" id="address" required>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-4">
+            <label for="province"></label>
+            <select class="custom-select" id="province" required>
+              <option selected>Tỉnh, thành phố</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="district"></label>
+            <select class="custom-select" id="district" required>
+              <option selected>Quận, huyện</option>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="ward"></label>
+            <select class="custom-select" id="ward" required>
+              <option selected>Phường, xã</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <div class="form-group">
+            <label for="bedRoomCount">Số phòng ngủ</label>
+            <input type="number" class="form-control" id="bedRoomCount" required>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="bedCount">Số giường </label>
+            <input type="number" class="form-control" id="bedCount" required>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <label for="bathRoomCount">Số phòng tắm</label>
+            <input type="number" class="form-control" id="bathRoomCount" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="descreption">Mô tả chi tiết</label>
+        <textarea type="text" class="form-control" id="desc" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="policy">Chính sách</label>
+        <textarea type="text" class="form-control" id="policy" required></textarea>
+      </div>
+      <div class="form-group">
+        <div class="col-4">
+          <p>Cơ sở vật chất</p>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="facility" class="custom-control-input" id="facility1" value="1">
+            <label class="custom-control-label" for="facility1">Điều hòa</label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="facility" class="custom-control-input" id="facility2"
+            value="2">
+            <label class="custom-control-label" for="facility2">Máy giặt </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="facility" class="custom-control-input" id="facility3" value="3">
+            <label class="custom-control-label" for="facility3">Bình nóng lạnh</label>
+          </div>
+        </div>
+      </div>
+      <a href="javascript:void(0)" onclick="$('#pro-image').click()">Upload Image</a>
+      <input type="file" id="pro-image" name="pro-image" style="display: none;" form-control multiple>
+      <!-- <div id="url-form">
+        <div class="input-field ">
+          <label for="urlPhoto"></label>
+          <input type="text" class="form-control mb-2 mr-sm-2" id="urlPhoto" placeholder="URL Photo">
+        </div>
+        <button class="btn btn-dark" id="add-url">Add URL</button>
+      </div> -->
+      <div class="preview-images-zone">
+      </div>
+      <input type="submit" id="addRoom" class="btn btn-block btn-info">
+    </form>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="../static/js/updateRoom/API.js"></script>
+  <script src="../static/js/updateRoom/ui.js"></script>
+  <script src="../static/js/updateRoom/app.js"></script>
+  
+</body>
+
+</html>

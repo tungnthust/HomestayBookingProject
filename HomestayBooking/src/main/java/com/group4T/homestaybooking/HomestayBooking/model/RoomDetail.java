@@ -55,7 +55,7 @@ public class RoomDetail {
 	private String thumbnailPhoto;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany
     @JoinTable(
             name = "room_facility",
             joinColumns = @JoinColumn(name = "room_id"),
