@@ -1,3 +1,6 @@
+var images = [];
+var num = 0;
+
 window.addEventListener('DOMContentLoaded', async (event) => {
   // add url
 
@@ -50,7 +53,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     
     let facility = new Array();
   
-    let images = document.getElementById('images');
 
     let checkbox = document.getElementsByName('facility')
     checkbox.forEach(function(box){
@@ -79,9 +81,9 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     }
     var formData = new FormData();
 
-    let totalImage = images.files.length;
+    let totalImage = images.length;
     for (var index = 0; index < totalImage; index++) {
-      formData.append("images", images.files[index]);
+      formData.append("images", images[index].value);
     }
 
 
@@ -93,20 +95,64 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   })
 
-  document.getElementById("images").addEventListener('change', (e) => {
-    e.preventDefault();
-    let totalImage = images.files.length;
-    let list = document.getElementById('imageList');
-    for (var index = 0; index < totalImage; index++) {
-      let li = document.createElement('span');
-      li.style = "padding-right: 20px";
-      let image = document.createElement('img');
-      image.src = URL.createObjectURL(e.target.files[index]);
-      image.height = '150';
-      li.appendChild(image);
-      list.appendChild(li);
-    }
-    e.preventDefault();
-    return false;
-  })
+  
+  // document.getElementById("images").addEventListener('change', (e) => {
+  //   e.preventDefault();
+  //   let totalImage = images.files.length;
+  //   let list = document.getElementById('imageList');
+  //   for (var index = 0; index < totalImage; index++) {
+  //     let li = document.createElement('span');
+  //     li.style = "padding-right: 20px";
+  //     let image = document.createElement('img');
+  //     image.src = URL.createObjectURL(e.target.files[index]);
+  //     image.height = '150';
+  //     li.appendChild(image);
+  //     list.appendChild(li);
+  //   }
+  //   e.preventDefault();
+  //   return false;
+  // })
+
+  document.getElementById('pro-image').addEventListener('change', (e) => {
+    
+      if (window.File && window.FileList && window.FileReader) {
+          var files = e.target.files; //FileList object
+          var output = $(".preview-images-zone");
+  
+          for (let i = 0; i < files.length; i++) {
+            
+            var file = files[i];
+            if (!file.type.match('image')) continue;
+            
+            
+            var html =  '<div class="preview-image preview-show-' + num + '">' +
+                        '<div class="image-cancel" data-no="' + num + '">x</div>' +
+                        '<div class="image-zone"><img id="pro-img-' + num + '" src="' + URL.createObjectURL(file) + '"></div>' +
+                        '</div>';
+
+            output.append(html);
+            images.push({
+              key: num,
+              value: file
+            })
+            num = num + 1;
+             
+          }
+      } else {
+          console.log('Browser not support');
+      }
+  
+  });
+    
+    
+    $(document).on('click', '.image-cancel', function() {
+        let no = $(this).data('no');
+        $(".preview-image.preview-show-"+no).remove();
+        for (let index = 0; index < images.length; index++) {
+            if (images[index].key == no) {
+              images.splice(index,1);
+            }
+        }
+    });
+    
 })

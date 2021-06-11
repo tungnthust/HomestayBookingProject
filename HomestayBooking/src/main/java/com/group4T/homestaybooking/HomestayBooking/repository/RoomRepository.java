@@ -6,6 +6,7 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.group4T.homestaybooking.HomestayBooking.model.Host;
 import com.group4T.homestaybooking.HomestayBooking.model.RoomDetail;
 
 @Repository
@@ -14,6 +15,11 @@ public interface RoomRepository extends JpaRepository<RoomDetail, Integer>{
 	
 	@Query("select count(*) from room_detail r where r.location.province.id = ?1")
 	long countByLocationProvinceId(int provinceId);
+
+	List<RoomDetail> findByHost(Host findHostById);
+	
+	@Query("delete from room_detail r where r.id = ?1")
+	void deleteById(Integer id);
 	
 //	RoomDetail findRoomById(int roomId);
 }
