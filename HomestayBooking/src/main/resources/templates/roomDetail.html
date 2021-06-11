@@ -87,6 +87,41 @@
             <div class="modal fade"  role="dialog" aria-labelledby="exampleModalLabel"
               aria-hidden="true">
             </div>
+            <!-- Button trigger modal -->
+            <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#notify">
+              Launch
+            </button> -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><strong> Thông báo</strong></h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                  <div class="modal-body">
+                    <div class="container-fluid">
+                      Đặt phòng thành công!!
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <script>
+              $('#exampleModal').on('show.bs.modal', event => {
+                var button = $(event.relatedTarget);
+                var modal = $(this);
+                // Use above variables to manipulate the DOM
+                
+              });
+            </script>
           </div>
         </div>
       </div>

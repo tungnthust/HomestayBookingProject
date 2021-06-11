@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   checkReservation(roomArr);
   checkNumberGuess()
-  
+
   console.log(roomArr)
   document.getElementById('place-order').addEventListener('click', (e) => {
     let arrDate = $('input[name="daterange"]').val().split(' - ')
@@ -43,10 +43,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     let countChildren = document.getElementById('count-children').value
     let nbGuess = countChildren + countAdult
     console.log(nbGuess);
-    if (dayLength == 0){
+    if (dayLength == 0) {
       alert("Please select days")
       $('#payment-modal').modal('hide')
-    } else if(nbGuess <= 0) {
+    } else if (nbGuess <= 0) {
       alert("Please type number of guests")
       $('#payment-modal').modal('hide')
     } else {
@@ -99,18 +99,39 @@ window.addEventListener('DOMContentLoaded', async (event) => {
           </select>
           <div class="form-group" id="payment-infor">
             <label for="payment-type">Số điện thoại/Số thẻ</label>
-            <input type="number" id="payment-type" class="form-control">
+            <input type="number" id="payment-type" class="form-control" require>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Hủy</button>
-          <button type="button" class="btn btn-info">Thanh toán</button>
+          <button type="button" id="order" class="btn btn-info" data-toggle="modal" data-target="#notify">Thanh toán</button>
         </div>
       </div>
     </div>
       `
       div.innerHTML = output
     }
+    document.getElementById('order').addEventListener('click', async() => {
+      console.log(data)
+      // console.log(arrDate)
+      // console.log(nbGuess);
+      let jsonData = {
+        "roomId": data.Id,
+        "guestId": 1,
+        "checkinDate": arrDate[0],
+        "checkoutDate": arrDate[1],
+        "guestCount": nbGuess,
+        "price": data.pricePerDay,
+        "paymentMethodId": document.getElementById('payment-method').value
+      }
+      console.log(jsonData);
+
+      const reponse = await fetch(`http://localhost:8080/api/reservation/addReservation`, {
+        method: 'POST',
+        data: JSON.stringify(jsonData)
+      })
+
+    })
 
     e.preventDefault();
   })
@@ -178,12 +199,12 @@ function checkReservation(roomArr) {
   $('input[name="daterange"]').daterangepicker({
     // autoUpdateInput: false,
     locale: {
-        cancelLabel: 'Xóa',
-        applyLabel: 'Áp dụng'
+      cancelLabel: 'Xóa',
+      applyLabel: 'Áp dụng'
     }
   });
 
-  $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+  $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
     $(this).val("dd/mm/yyyy đến dd/mm/yyyy");
   });
 };
@@ -194,14 +215,14 @@ async function getReservation(roomId) {
   return rooms
 }
 
-function difference(date1, date2) {  
+function difference(date1, date2) {
   const date1utc = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
   const date2utc = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
-    day = 1000*60*60*24;
-  return(date2utc - date1utc)/day
+  day = 1000 * 60 * 60 * 24;
+  return (date2utc - date1utc) / day
 }
 
-function checkNumberGuess(){
+function checkNumberGuess() {
   document.getElementById('delete-nbGuess').addEventListener('click', () => {
     document.getElementById('count-adult').value = ''
     document.getElementById('count-children').value = ''
