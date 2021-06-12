@@ -1,5 +1,3 @@
-var username = '';
-var password = '';
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
 
@@ -37,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
-        username = document.getElementById('signinUsername').value;
-        password = document.getElementById('signinPassword').value;
+        var username = document.getElementById('signinUsername').value;
+        var password = document.getElementById('signinPassword').value;
         var user_info = {'username':username, 'password': password};
         var data = JSON.stringify(user_info);
         
@@ -48,8 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createAccountForm.addEventListener("submit", e => {
         e.preventDefault();
+        var username = document.getElementById('signupUsername').value;
+        var email = document.getElementById('signupEmail').value;
+        var phone = document.getElementById('signupPhone').value;
+        var Fname = document.getElementById('signupFirstname').value;
+        var Lname = document.getElementById('signupLastname').value;
+        var pass = document.getElementById('signupPass').value;
 
-        window.location.replace("https://www.google.com/")
     });
 
     document.querySelectorAll(".form__input").forEach(inputElement => {
