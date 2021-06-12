@@ -33,7 +33,7 @@ public class UserService {
 	@Autowired
 	private LocationRepository locationRepository;
 	
-	public void saveHost(HostRegister addHostRequest, MultipartFile[] images) {
+	public int saveHost(HostRegister addHostRequest, MultipartFile[] images) {
 		Host host = new Host();
 		User user = userRepository.findUserById(addHostRequest.getUserId());
 		user.setFirst_name(addHostRequest.getFirst_name());
@@ -79,11 +79,19 @@ public class UserService {
 		  }
 		host.setIdentityCardPhoto(".." + uploadDirectory.substring(20) + "/");
 		hostRepository.save(host);
-		
+		return host.getId();
 	}
 
 	public Optional<User> getUserById(int id) {
 		return userRepository.findById(id);
+	}
+	
+	public Optional<User> getUserByUsername(String name) {
+		return userRepository.findByUsername(name);
+	}
+
+	public Integer getHostByUserId(int id) {
+		return hostRepository.findByUserId(id);
 	}
 
 }

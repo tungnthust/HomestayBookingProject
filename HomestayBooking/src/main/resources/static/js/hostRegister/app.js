@@ -1,6 +1,8 @@
 var images = [];
 var num = 0;
-var userId = 3;
+var url = new URL(window.location.href);
+var userId = url.searchParams.get("id");
+
 window.addEventListener('DOMContentLoaded', async (event) => {
   // add url
 
@@ -46,7 +48,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     document.getElementById('ward').value = user.location.id;
   }
 
-  document.getElementById('form-main').addEventListener('submit', (e) => {
+  document.getElementById('addRoom').addEventListener('click', async (e) => {
     e.preventDefault();
 
     let firstName = document.getElementById('firstName').value;
@@ -87,9 +89,20 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     formData.append("hostInfo", JSON.stringify(jsonData));
     // post api request
     console.log(formData);
-    api.postData('http://localhost:8080/api/user/host',formData);
+    let hostId;
+    let hostResponse = await fetch('http://localhost:8080/api/user/host', 
+      {
+        method: 'POST',
+        body: formData
+      }).then((res) => {
+        console.log(res);
+        return res;
+      });
+    hostId = await hostResponse.text();
+    window.location.href = "./dashboard.html?hostId=" + hostId; 
+    
     e.preventDefault();
-
+    
   })
 
   
@@ -153,3 +166,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     });
     
 })
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}

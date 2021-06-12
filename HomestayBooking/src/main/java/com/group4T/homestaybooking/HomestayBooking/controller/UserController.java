@@ -27,14 +27,21 @@ public class UserController {
 	private UserService userService;
 	
 	@PostMapping(value ="/host", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-	public void addHost(@RequestPart("hostInfo") String hostInfo, @RequestPart("images") MultipartFile[] images) throws JsonMappingException, JsonProcessingException {			
+	public int addHost(@RequestPart("hostInfo") String hostInfo, @RequestPart("images") MultipartFile[] images) throws JsonMappingException, JsonProcessingException {			
 		HostRegister addHostRequest = new ObjectMapper().readValue(hostInfo, HostRegister.class);
-		userService.saveHost(addHostRequest, images);
+		int id = userService.saveHost(addHostRequest, images);
+		System.out.println(id);
+		return id;
 		
 	}
 	
 	@GetMapping("/{id}")
 	public Optional<User> getUserById(@PathVariable int id) {
 		return userService.getUserById(id);
+	}
+	
+	@GetMapping("/host/{id}")
+	public Integer getHostByUserId(@PathVariable int id) {
+		return userService.getHostByUserId(id);
 	}
 }

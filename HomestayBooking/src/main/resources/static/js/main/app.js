@@ -4,13 +4,43 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   const api = new API();
   const result = document.getElementById('result');
   const searchInput = document.getElementById('search');
+  let login = false;
+
+  let user = await fetch('http://localhost:8080/api/auth/user', {
+    credentials: 'include'
+  });
+  user = await user.json();
+  if (user != null) {
+    login = true;
+  }
+  if (login == true) {
+    document.getElementById("new-user").style.display = "none";
+    document.getElementById("username").style.display = "block";
+    document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
+  } else {
+    document.getElementById("new-user").style.display = "block";
+    document.getElementById("username").style.display = "none";
+  }
+  
+  document.getElementById("host").addEventListener('click', async (e) => {
+    e.preventDefault();
+    let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+    hostId = await hostId.text();
+    if (hostId == '') {
+      window.location.href = "./hostRegister.html?id=" + user.id; 
+    } else {
+      window.location.href = "./dashboard.html?hostId=" + hostId; 
+    }
+  })
+
   searchInput.addEventListener('keyup', async function() {
     let query = searchInput.value;
     if (query != '') {
-      let url = 'http://localhost:8080/api/search?query=' + query;
+    let url = 'http://localhost:8080/api/search?query=' + query;
     let data = await fetch(url, {
       method: 'POST',
     })
+
     let inner_html = '';
     data = await data.json();
     let i = 0;
@@ -72,4 +102,11 @@ function getId(id) {
   if (searchQuery[0] == "room") {
     window.open("./roomDetail.html?roomId=" + searchQuery[1]);
   }
+}
+
+function logout() {
+  fetch("http://localhost:8080/api/auth/logout", {
+    credentials: 'include'
+  });
+  window.location.reload();
 }
