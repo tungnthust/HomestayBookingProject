@@ -15,7 +15,7 @@ public class District {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "_name")
+	@Column(name = "name")
 	private String name;
 	
 	@Column(name = "_prefix")

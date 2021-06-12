@@ -25,4 +25,13 @@ class API {
     })
     console.log(response);
   }
+
+  async getData(url) {
+    // console.log(data);
+    const response = await fetch(url, {
+      method: 'GET'
+    })
+    const user = await response.json();
+    return user;
+  }
 }

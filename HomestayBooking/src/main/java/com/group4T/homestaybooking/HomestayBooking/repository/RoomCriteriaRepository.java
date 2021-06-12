@@ -69,6 +69,17 @@ public class RoomCriteriaRepository {
                                    Root<RoomDetail> roomRoot, RoomPage roomPage) {
     	
         List<Predicate> predicates = new ArrayList<>();
+        
+        if(Objects.nonNull(roomSearchCriteria.getQuery())){
+        	Predicate[] districtPredicates = new Predicate[roomSearchCriteria.getDistrictId().size()];
+        	for (Integer district: roomSearchCriteria.getDistrictId()) {
+        		districtPredicates[roomSearchCriteria.getDistrictId().indexOf(district)] = criteriaBuilder.equal(roomRoot.get("location").get("district").get("id"),
+                		district);
+        	}
+            predicates.add(
+                    criteriaBuilder.or(districtPredicates));
+        }
+        
         if(Objects.nonNull(roomSearchCriteria.getAdultCount())){
             predicates.add(
                     criteriaBuilder.greaterThanOrEqualTo(roomRoot.get("capacity"),

@@ -1,0 +1,47 @@
+package com.group4T.homestaybooking.HomestayBooking.dto;
+
+import java.util.List;
+
+public class QueryResponse {
+	private List<Long> wards;
+	private List<Long> districts;
+	private List<Long> provinces;
+	private List<Long> rooms;
+	public List<Long> getWards() {
+		return wards;
+	}
+	public void setWards(List<Long> wards) {
+		this.wards = wards;
+	}
+	public List<Long> getDistricts() {
+		return districts;
+	}
+	public void setDistricts(List<Long> districts) {
+		this.districts = districts;
+	}
+	public List<Long> getProvinces() {
+		return provinces;
+	}
+	public void setProvinces(List<Long> provinces) {
+		this.provinces = provinces;
+	}
+	public List<Long> getRooms() {
+		return rooms;
+	}
+	public void setRooms(List<Long> rooms) {
+		this.rooms = rooms;
+	}
+	public QueryResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public QueryResponse(List<Long> wards, List<Long> districts, List<Long> provinces, List<Long> rooms) {
+		super();
+		this.wards = wards;
+		this.districts = districts;
+		this.provinces = provinces;
+		this.rooms = rooms;
+	}
+	
+	
+}

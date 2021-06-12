@@ -41,4 +41,13 @@ public class SearchController {
 	public long getRoomCountInProvince(@PathVariable Integer provinceId) {
 		return searchService.countRoomInProvince(provinceId);
 	}
+	@GetMapping(value = "countRoom/district/{id}")
+	public long countRoomInDistrict(@PathVariable Integer id) {
+		return searchService.countRoomInDistrict(id);
+	}
+	
+	@GetMapping(value = "countRoom/ward/{id}")
+	public long countRoomInWard(@PathVariable Integer id) {
+		return searchService.countRoomInWard(id);
+	}
 }

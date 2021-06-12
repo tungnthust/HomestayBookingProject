@@ -1,6 +1,7 @@
 package com.group4T.homestaybooking.HomestayBooking.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,21 @@ public class LocationController {
 	@GetMapping("/provinces")
 	public List<Province> getAllProvinces() {
 		return locationService.getAllProvinces();
+	}
+	
+	@GetMapping("/province/{id}")
+	public Optional<Province> getProvinceById(@PathVariable Integer id) {
+		return locationService.getProvinceById(id);
+	}
+	
+	@GetMapping("/district/{id}")
+	public Optional<District> getDistrictById(@PathVariable Integer id) {
+		return locationService.getDistrictById(id);
+	}
+	
+	@GetMapping("/ward/{id}")
+	public Optional<Location> getLocationById(@PathVariable Integer id) {
+		return locationService.getLocationById(id);
 	}
 	
 	@GetMapping("/districts/{provinceId}")

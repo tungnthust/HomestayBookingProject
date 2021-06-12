@@ -17,7 +17,7 @@ public class Location {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "_name")
+	@Column(name = "name")
 	private String name;
 	
 	@Column(name = "_prefix")
