@@ -34,13 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         createAccountForm.classList.add("form--hidden");
     });
 
-    createAccountForm.addEventListener("submit", e => {
-        e.preventDefault();
-        if(document.getElementById('signupPassconfirm').value != document.getElementById('signupPass')){
-            setInputError(inputElement,'error', "Password does not match");
-        }
-        window.location.replace("http://127.0.0.1:5500/login_web/index.html")
-    });
 
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
@@ -50,6 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
         var data = JSON.stringify(user_info);
         
         console.log(data);
+        window.location.replace("https://www.google.com/")
+    });
+
+    createAccountForm.addEventListener("submit", e => {
+        e.preventDefault();
+
         window.location.replace("https://www.google.com/")
     });
 
