@@ -77,9 +77,15 @@
       <ul class="list-group" id="result"></ul>
     </div>
     <div class="header__btn--group">
-      <a href="#" class="header__btn header__btn--host">Host</a>
-      <a href="#" class="header__btn header__btn--signup">Đăng kí</a>
-      <a href="#" class="header__btn header__btn--login">Đăng nhập</a>
+      <a href="#" class="header__btn header__btn--host" id="host">Host</a>
+      <div id="new-user">
+        <a href="#" class="header__btn header__btn--signup">Đăng kí</a>
+        <a href="./index.html" class="header__btn header__btn--login">Đăng nhập</a>
+      </div>
+      <div id="username" style="display:none;">
+        <a href="#" class="header__btn" id="name"></a>
+        <a href="#" onclick="logout()" class="header__btn header__btn--logout">Đăng xuất</a>
+      </div>
     </div>
   </div>
   

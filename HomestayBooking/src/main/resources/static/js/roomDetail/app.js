@@ -1,4 +1,23 @@
 window.addEventListener('DOMContentLoaded', async (event) => {
+
+  let login = false;
+
+  let user = await fetch('http://localhost:8080/api/auth/user', {
+    credentials: 'include'
+  });
+  user = await user.json();
+  if (user != null) {
+    login = true;
+  }
+  if (login == true) {
+    document.getElementById("new-user").style.display = "none";
+    document.getElementById("username").style.display = "inline";
+    document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
+  } else {
+    document.getElementById("new-user").style.display = "inline";
+    document.getElementById("username").style.display = "none";
+  }
+  
   function parse_query_string(query) {
     var vars = query.split("&");
     var query_string = {};
@@ -235,4 +254,12 @@ function checkNumberGuess() {
   document.getElementById('apply-nbGuess').addEventListener('click', () => {
     // console.log(document.getElementById());
   })
+}
+
+
+function logout() {
+  fetch("http://localhost:8080/api/auth/logout", {
+    credentials: 'include'
+  });
+  window.location.reload();
 }

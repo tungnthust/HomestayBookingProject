@@ -1,4 +1,5 @@
-hostId = 1;
+var url = new URL(window.location.href);
+var hostId = url.searchParams.get("hostId");
 window.addEventListener('DOMContentLoaded', async (event) => {
   const api = new API();
   let typeName = {

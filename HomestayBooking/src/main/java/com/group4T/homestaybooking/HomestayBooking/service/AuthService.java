@@ -51,7 +51,7 @@ public class AuthService {
 		user.setFirst_name(registerRequest.getFirst_name());
 		user.setLast_name(registerRequest.getLast_name());
 		user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-		user.setEnabled(false);
+		user.setEnabled(true);
 		repo.save(user);
 		
 		String token = generateVerificationToken(user);
@@ -85,8 +85,9 @@ public class AuthService {
 	public AuthenticationResponse login(LoginRequest loginRequest) {
 		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 				loginRequest.getUsername(), loginRequest.getPassword()));
-		
+		System.out.println(SecurityContextHolder.getContext());
 		SecurityContextHolder.getContext().setAuthentication(authenticate);
+		System.out.println(SecurityContextHolder.getContext());
 		String token = jwtProvider.generateToken(authenticate);
 		return AuthenticationResponse.builder()
                 .authenticationToken(token)
