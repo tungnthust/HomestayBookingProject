@@ -1,6 +1,7 @@
 package com.group4T.homestaybooking.HomestayBooking.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,17 @@ public class LocationService {
 	
 	public List<Location> getAllWardsByDistrictId(int districtId) {
 		return locationRepository.getAllWardsByDistrictId(districtId);
+	}
+
+	public Optional<Province> getProvinceById(Integer id) {
+		return provinceRepository.findById(id);
+	}
+
+	public Optional<District> getDistrictById(Integer id) {
+		return districtRepository.findById(id);
+	}
+	
+	public Optional<Location> getLocationById(Integer id) {
+		return locationRepository.findById(id);
 	}
 }

@@ -22,7 +22,7 @@ public class Host {
 	@OneToOne(fetch = FetchType.LAZY)
 	private User user_id;
 	@Column(name="identity_card_num")
-	private int identityCardNumber;
+	private String identityCardNumber;
 	@Column(name="date_issue")
 	private Date dateIssue;
 	@Column(name="identity_card_photo")
@@ -39,10 +39,10 @@ public class Host {
 	public void setUser_id(User user_id) {
 		this.user_id = user_id;
 	}
-	public int getIdentityCardNumber() {
+	public String getIdentityCardNumber() {
 		return identityCardNumber;
 	}
-	public void setIdentityCardNumber(int identityCardNumber) {
+	public void setIdentityCardNumber(String identityCardNumber) {
 		this.identityCardNumber = identityCardNumber;
 	}
 	public Date getDateIssue() {
@@ -61,7 +61,7 @@ public class Host {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Host(int id, User user_id, int identityCardNumber, Date dateIssue, String identityCardPhoto) {
+	public Host(int id, User user_id, String identityCardNumber, Date dateIssue, String identityCardPhoto) {
 		super();
 		this.id = id;
 		this.user_id = user_id;

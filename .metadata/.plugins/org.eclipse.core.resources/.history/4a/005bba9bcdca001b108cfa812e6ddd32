@@ -1,0 +1,45 @@
+package com.group4T.homestaybooking.HomestayBooking.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.group4T.homestaybooking.HomestayBooking.dto.QueryResponse;
+import com.group4T.homestaybooking.HomestayBooking.repository.DistrictRepository;
+import com.group4T.homestaybooking.HomestayBooking.repository.LocationRepository;
+import com.group4T.homestaybooking.HomestayBooking.repository.ProvinceRepository;
+import com.group4T.homestaybooking.HomestayBooking.repository.RoomRepository;
+
+public class QueryService {
+	@Autowired
+	private LocationRepository locationRepository;
+	@Autowired
+	private ProvinceRepository provinceRepository;
+	@Autowired
+	private DistrictRepository districtRepository;
+	@Autowired
+	private RoomRepository roomRepository;
+	
+	public void search(String query) {
+		List<Long> wardList = locationRepository.findIdByNameContaining(query);
+		List<Long> districList = districtRepository.findIdByNameContaining(query);
+		List<Long> provinceList = provinceRepository.findIdByNameContaining(query);
+		List<Long> roomList = roomRepository.findIdByNameContaining(query);
+		
+		QueryResponse response = new QueryResponse();
+		response.setWards(wardList);
+		response.setDistricts(districList);
+		response.setProvinces(provinceList);
+		response.setRooms(roomList);
+		return response;
+	}
+	
+	public boolean equals(String query, String obj) {
+		query = query.trim();
+		if ((query == null)|| (query.equals(""))) {
+			return true;
+		} else {
+			return obj.toLowerCase().contains(query.toLowerCase());
+		}
+	}
+}

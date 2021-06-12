@@ -1,6 +1,6 @@
 var images = [];
 var num = 0;
-
+var userId = 3;
 window.addEventListener('DOMContentLoaded', async (event) => {
   // add url
 
@@ -16,68 +16,65 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     // show and choose district
     const districts = await api.getDistrict(provinceId)
     ui.showDistrict(districts)
+  })
     document.getElementById('district').addEventListener('change', async(e) => {
       const districtId = e.target.value
       // show and choose ward
       const wards = await api.getWard(districtId)
       ui.showWard(wards)
-    })
   })
+  
+  const user = await api.getData('http://localhost:8080/api/user/' + userId);
+  document.getElementById('firstName').value = user.first_name;
+  
+  document.getElementById('lastName').value = user.last_name;
+  document.getElementById('email').value = user.email;
+
+  document.getElementById('phone').value = user.phone;
+  if (user.address != null) {
+    document.getElementById('address').value = user.address ;
+  }
+  if (user.location != null) {
+    const districts  = await api.getDistrict(user.location.province.id);
+    ui.showDistrict(districts)
+
+    const wards = await api.getWard(user.location.district.id);
+    ui.showWard(wards)
+    document.getElementById('province').value = user.location.province.id;
+
+    document.getElementById('district').value = user.location.district.id;
+    document.getElementById('ward').value = user.location.id;
+  }
 
   document.getElementById('form-main').addEventListener('submit', (e) => {
     e.preventDefault();
 
-    let roomName = document.getElementById('roomName').value;
+    let firstName = document.getElementById('firstName').value;
   
-    let roomType = document.getElementById('roomType').value
+    let lastName = document.getElementById('lastName').value
 
-    let wardId = document.getElementById('ward').value
-  
-    let price = document.getElementById('price').value
-  
-    let capacity = document.getElementById('capacity').value;
-  
-    let area = document.getElementById('area').value
+    let phone = document.getElementById('phone').value
   
     let address = document.getElementById('address').value
   
-    let bedRoomCount = document.getElementById('bedRoomCount').value
+    let location = document.getElementById('ward').value;
   
-    let bedCount = document.getElementById('bedCount').value
+    let id_card_num = document.getElementById('id-card').value
   
-    let bathRoomCount = document.getElementById('bathRoomCount').value
-  
-    let desc = document.getElementById('desc').value
-  
-    let policy = document.getElementById('policy').value
-    
-    let facility = new Array();
-  
-
-    let checkbox = document.getElementsByName('facility')
-    checkbox.forEach(function(box){
-      if (box.checked) {
-        facility.push(box.value)
-      }
-    })
+    let date = document.getElementById('date-issue').value
+    let date_issue = new Date(date);
+    date_issue = date_issue.toISOString().slice(0,10);
 
   
     let jsonData = {
-      "hostId" : 1,
-      "name": roomName,
-      "type" : roomType,
-      "capacity": parseInt(capacity),
-      "area": parseInt(area),
+      "userId" : userId,
+      "first_name": firstName,
+      "last_name" : lastName,
+      "phone": phone,
       "address": address,
-      "locationId" : wardId,
-      "bedroomCount": parseInt(bedRoomCount),
-      "bedCount" : parseInt(bedCount),         
-      "bathroomCount": parseInt(bathRoomCount),     
-      "description" : desc,   
-      "pricePerDay": parseFloat(price),     
-      "policy" : policy,
-      "thumbnailPhoto" : '1',   
-      "facilitiesId" : facility, 
+      "location" : location,
+      "id_card_num": id_card_num,
+      "date_issue" : date_issue,         
     }
     var formData = new FormData();
 
@@ -87,10 +84,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     }
 
 
-    formData.append("roomInfo", JSON.stringify(jsonData));
+    formData.append("hostInfo", JSON.stringify(jsonData));
     // post api request
     console.log(formData);
-    api.postData('http://localhost:8080/api/room/addRoom',formData);
+    api.postData('http://localhost:8080/api/user/host',formData);
     e.preventDefault();
 
   })

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class RoomSearchCriteria {
+	private String query;
 	private Integer adultCount;
 	private Integer childrenCount = 0;
 	private Date checkinDate;
@@ -108,6 +109,12 @@ public class RoomSearchCriteria {
 	}
 	public void setCheckoutDate(Date checkoutDate) {
 		this.checkoutDate = checkoutDate;
+	}
+	public String getQuery() {
+		return query;
+	}
+	public void setQuery(String query) {
+		this.query = query;
 	}
 	
 	

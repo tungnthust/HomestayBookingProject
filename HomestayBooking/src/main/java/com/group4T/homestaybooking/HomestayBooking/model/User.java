@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -21,12 +23,22 @@ public class User {
 	private String password;
 	private String phone;
 	private String address;
+	@ManyToOne
+	@JoinColumn(name="location")
+	private Location location;
 	private boolean gender;
 	private Date date_of_birth;
 	private String coupon_code;
 	private String profile_photo;
 	private boolean enabled;
 	
+	
+	public Location getLocation() {
+		return location;
+	}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 	public String getUsername() {
 		return username;
 	}

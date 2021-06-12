@@ -34,4 +34,12 @@ public class SearchService {
 	public long countRoomInProvince(Integer id) {
 		return roomRepository.countByLocationProvinceId(id);
 	}
+
+	public long countRoomInDistrict(Integer id) {
+		return roomRepository.countByLocationDistrictId(id);
+	}
+	
+	public long countRoomInWard(Integer id) {
+		return roomRepository.countByLocationId(id);
+	}
 }

@@ -36,6 +36,7 @@
               </label>
               <input type="text" id="search" class="header__search-input" placeholder="Tìm kiếm" autocomplete="off">
             </div>
+            
           </div>
           <div class="header__search-item btn">
             <i class="far fa-calendar header__icon"></i>
@@ -72,14 +73,16 @@
         </ul>
       </form>
     </div>
+    <div>
+      <ul class="list-group" id="result"></ul>
+    </div>
     <div class="header__btn--group">
       <a href="#" class="header__btn header__btn--host">Host</a>
       <a href="#" class="header__btn header__btn--signup">Đăng kí</a>
       <a href="#" class="header__btn header__btn--login">Đăng nhập</a>
     </div>
   </div>
-
-
+  
   <div class="body">
     <div class="intro">
       <img src="https://beta-api.luxstay.net/api/upload/file?storage=admins/12/qF7ukmI--Rwr2H5LwzVZwcXa.jpg" alt=""
@@ -190,9 +193,7 @@
       </div>
     </div>
     
-  </div>
-  <script src="script.js"></script>
-    <!-- Optional JavaScript -->
+  </div>    <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -203,6 +204,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
+  <script src="../static/js/main/API.js"></script>
+  <script src="../static/js/main/ui.js"></script>
+  <script src="../static/js/main/app.js"></script>
 </body>
 
 </html>
