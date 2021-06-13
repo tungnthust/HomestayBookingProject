@@ -18,6 +18,21 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     document.getElementById("username").style.display = "none";
   }
   
+  document.getElementById("host").addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (login == true) {
+      let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+      hostId = await hostId.text();
+      if (hostId == '') {
+        window.location.href = "./hostRegister.html?id=" + user.id; 
+      } else {
+        window.location.href = "./dashboard.html?hostId=" + hostId; 
+      }
+    } else {
+      window.location.href = "./login.html"; 
+    }
+  })
+  
   function parse_query_string(query) {
     var vars = query.split("&");
     var query_string = {};
@@ -56,7 +71,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   console.log(roomArr)
   document.getElementById('place-order').addEventListener('click', (e) => {
-    let arrDate = $('input[name="daterange"]').val().split(' - ')
+    if (login == true) {
+      let arrDate = $('input[name="daterange"]').val().split(' - ')
     let dayLength = difference(new Date(arrDate[0]), new Date(arrDate[1]))
     let countAdult = document.getElementById('count-adult').value
     let countChildren = document.getElementById('count-children').value
@@ -131,6 +147,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       div.innerHTML = output
     }
     document.getElementById('order').addEventListener('click', async () => {
+      
       console.log(data)
       // console.log(arrDate)
       // console.log(nbGuess);
@@ -140,7 +157,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       checkoutDate = checkoutDate.toISOString().slice(0,10);
       let jsonData = {
         "roomId": data.id,
-        "guestId": 1,
+        "guestId": user.id,
         "checkinDate": checkinDate,
         "checkoutDate": checkoutDate,
         "guestCount": parseInt(nbGuess),
@@ -158,6 +175,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     })
 
     e.preventDefault();
+  } else {
+    window.location.href = "./login.html";
+  }
+    
   })
 })
 

@@ -17,6 +17,22 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     document.getElementById("username").style.display = "none";
   }
   
+  
+  document.getElementById("host").addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (login == true) {
+      let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+      hostId = await hostId.text();
+      if (hostId == '') {
+        window.location.href = "./hostRegister.html?id=" + user.id; 
+      } else {
+        window.location.href = "./dashboard.html?hostId=" + hostId; 
+      }
+    } else {
+      window.location.href = "./login.html"; 
+    }
+  })
+
   function parse_query_string(query) {
     var vars = query.split("&");
     var query_string = {};

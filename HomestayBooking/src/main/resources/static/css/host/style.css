@@ -1,3 +1,41 @@
+.submit__btn {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+    background-color: white;
+}
+
+.id_card {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    background-color: white;
+}
+#addRoom {
+    margin-top: 3rem;
+    color: white;
+    background-color: chocolate ;
+    border-color: chocolate;
+}
+.table td, .table th {
+    vertical-align:middle;
+}
+.area, .bedroomCount {
+    text-align: center;
+}
+
+.price {
+    text-align: right;
+}
+
+thead {
+    text-align: center;
+}
+.text__caption {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 2rem 0;
+  }
+
 .preview-images-zone {
     width: 100%;
     border: 1px solid #ddd;

@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
         credentials: 'include',
       }).then((res) => {
           if(res.status == 403) {
-            alert("Wrong password");
+            setInputError(document.getElementById("signinPassword"), "Incorrect password");
           }
           else {
             history.back();
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         credentials: 'include',
       }).then((res) => {
           if(res.status == 403) {
-              alert("Wrong password");
+              alert("Register unsuccessfully");
           }
           else {
             console.log("success");

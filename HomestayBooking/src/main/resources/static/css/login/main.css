@@ -12,14 +12,13 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    background: url(../../images/bg/background.jpg);
+    background: url("https://www.mashvisor.com/blog/wp-content/uploads/2019/12/5-Creative-Decorating-Ideas-to-Ensure-Your-Airbnb-Gets-Noticed.jpg");
     background-size: cover;
 }
 
 .container {
     width: 400px;
     max-width: 400px;
-    margin: 1rem;
     padding: 2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: var(--border-radius);

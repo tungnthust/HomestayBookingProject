@@ -12,11 +12,30 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../static/css/host/style.css">
+  <link rel="stylesheet" href="../static/css/roomDetail/style.css">
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
 <body>
+  <div class="header d-flex justify-content-between align-items-center sticky-top">
+    <div class="header__logo">
+      <a href="./main.html">
+      <img src="https://c4img.onlinefriday.vn/r600x600/12_2019/f/49/9/9074403037_1575625908.png" alt=""
+        class="header__logo-img">
+      </a>
+    </div>
+    <div class="header__btn--group ">        
+      <div id="username">
+        <a href="#" class="header__btn" id="name"></a>
+        <a href="#" onclick="logout()" class="header__btn">Đăng xuất</a>
+      </div>
+    </div>
+  </div>
+  
   <div class="container">
+ 
+        <div class="text__caption" style="font-size: 30px;">Thay đổi thông tin chỗ ở</div>
+
     <form id="form-main" enctype="multipart/form-data">
       <div class="form-group">
         <label for="roomName">Tên phòng</label>
@@ -123,7 +142,7 @@
           </div>
         </div>
       </div>
-      <a href="javascript:void(0)" onclick="$('#pro-image').click()">Upload Image</a>
+      <button class="header__btn id_card" onclick="$('#pro-image').click()">Tải lên ảnh chỗ nghỉ</button>
       <input type="file" id="pro-image" name="pro-image" style="display: none;" form-control multiple>
       <!-- <div id="url-form">
         <div class="input-field ">
@@ -134,7 +153,7 @@
       </div> -->
       <div class="preview-images-zone">
       </div>
-      <input type="submit" id="addRoom" class="btn btn-block btn-info">
+      <button id="addRoom" class="header__btn submit__btn">Cập nhật</button>
     </form>
   </div>
   <!-- Optional JavaScript -->
