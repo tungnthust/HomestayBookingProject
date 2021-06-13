@@ -12,6 +12,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     credentials: 'include'
   });
   user = await user.json();
+
+  let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+  hostId = await hostId.text();
+  hostId = parseInt(hostId);
   document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;   
   // show and choose provinces, 
   const api = new API();
@@ -93,9 +97,12 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       
     }
     
-    
+  document.getElementById("uploadImg").addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('pro-image').click();
+  })  
 
-  document.getElementById('form-main').addEventListener('submit', (e) => {
+  document.getElementById('addRoom').addEventListener('click', async (e) => {
     e.preventDefault();
 
     let roomName = document.getElementById('roomName').value;
@@ -134,7 +141,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   
     let jsonData = {
-      "hostId" : 1,
+      "hostId" : hostId,
       "name": roomName,
       "type" : roomType,
       "capacity": parseInt(capacity),
@@ -161,8 +168,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     formData.append("roomInfo", JSON.stringify(jsonData));
     // post api request
     console.log(formData);
-    api.postData('http://localhost:8080/api/room/update/' + roomId,formData);
+    await api.postData('http://localhost:8080/api/room/update/' + roomId,formData);
+    window.location.href = "./dashboard.html?hostId=" + hostId;
     e.preventDefault();
+    return false;
 
   })
 
@@ -209,8 +218,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     });
     
 })
-
-
 
 function logout() {
   fetch("http://localhost:8080/api/auth/logout", {

@@ -105,6 +105,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     window.location.href = "./dashboard.html?hostId=" + hostId; 
     
     e.preventDefault();
+    return false;
+
     
   })
 
@@ -126,8 +128,12 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   //   return false;
   // })
 
+  document.getElementById("uploadImg").addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('pro-image').click();
+  })
+
   document.getElementById('pro-image').addEventListener('change', (e) => {
-    
       if (window.File && window.FileList && window.FileReader) {
           var files = e.target.files; //FileList object
           var output = $(".preview-images-zone");
@@ -170,9 +176,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     
 })
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 
 function logout() {
