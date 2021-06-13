@@ -24,12 +24,16 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   
   document.getElementById("host").addEventListener('click', async (e) => {
     e.preventDefault();
-    let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
-    hostId = await hostId.text();
-    if (hostId == '') {
-      window.location.href = "./hostRegister.html?id=" + user.id; 
+    if (login == true) {
+      let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+      hostId = await hostId.text();
+      if (hostId == '') {
+        window.location.href = "./hostRegister.html?id=" + user.id; 
+      } else {
+        window.location.href = "./dashboard.html?hostId=" + hostId; 
+      }
     } else {
-      window.location.href = "./dashboard.html?hostId=" + hostId; 
+      window.location.href = "./login.html"; 
     }
   })
 

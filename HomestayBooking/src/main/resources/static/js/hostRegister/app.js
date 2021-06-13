@@ -5,7 +5,9 @@ var userId = url.searchParams.get("id");
 
 window.addEventListener('DOMContentLoaded', async (event) => {
   // add url
-
+  
+ 
+  
   // create ui
   const ui = new UI()
 
@@ -27,6 +29,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   })
   
   const user = await api.getData('http://localhost:8080/api/user/' + userId);
+  document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
   document.getElementById('firstName').value = user.first_name;
   
   document.getElementById('lastName').value = user.last_name;
@@ -169,4 +172,12 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+function logout() {
+  fetch("http://localhost:8080/api/auth/logout", {
+    credentials: 'include'
+  });
+  window.location.href = "./main.html";
 }

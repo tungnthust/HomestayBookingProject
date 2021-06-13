@@ -16,4 +16,6 @@ public interface HostRepository extends JpaRepository<Host, Integer> {
 
 	@Query(value = "SELECT h.id FROM host h where h.user_id = ?1", nativeQuery = true)
 	Integer findByUserId(int id);
+	@Query(value = "SELECT h.user_id FROM host h where h.id = ?1", nativeQuery = true)
+	Integer findUserIdById(int id);
 }

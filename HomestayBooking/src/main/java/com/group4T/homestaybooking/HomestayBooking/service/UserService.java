@@ -94,4 +94,9 @@ public class UserService {
 		return hostRepository.findByUserId(id);
 	}
 
+	public Optional<User> getUserByHostId(int id) {
+		int userId = hostRepository.findUserIdById(id);
+		return userRepository.findById(userId);
+	}
+
 }

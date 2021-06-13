@@ -21,6 +21,11 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       ui.showWard(wards)
     })
   })
+  let user = await fetch('http://localhost:8080/api/auth/user', {
+    credentials: 'include'
+  });
+  user = await user.json();
+  document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
 
   document.getElementById('form-main').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -154,3 +159,11 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     });
     
 })
+
+
+function logout() {
+  fetch("http://localhost:8080/api/auth/logout", {
+    credentials: 'include'
+  });
+  window.location.href = "./main.html";
+}
