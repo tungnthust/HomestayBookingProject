@@ -21,12 +21,12 @@ import com.group4T.homestaybooking.HomestayBooking.model.User;
 import com.group4T.homestaybooking.HomestayBooking.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping(value ="/user/host", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+	@PostMapping(value ="/host", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
 	public int addHost(@RequestPart("hostInfo") String hostInfo, @RequestPart("images") MultipartFile[] images) throws JsonMappingException, JsonProcessingException {			
 		HostRegister addHostRequest = new ObjectMapper().readValue(hostInfo, HostRegister.class);
 		int id = userService.saveHost(addHostRequest, images);
@@ -35,17 +35,12 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
 	public Optional<User> getUserById(@PathVariable int id) {
 		return userService.getUserById(id);
 	}
-	
+		
 	@GetMapping("/host/{id}")
-	public Optional<User> getUserByHostId(@PathVariable int id) {
-		return userService.getUserByHostId(id);
-	}
-	
-	@GetMapping("/user/host/{id}")
 	public Integer getHostByUserId(@PathVariable int id) {
 		return userService.getHostByUserId(id);
 	}

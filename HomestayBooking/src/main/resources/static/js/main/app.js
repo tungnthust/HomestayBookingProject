@@ -52,7 +52,11 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       for (let j = 0; j < data.rooms.length; j++) {
           if(i >= 5) break;
           let room = await api.getData('http://localhost:8080/search/' + data.rooms[j]);
-          inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="room-' + data.rooms[j] +'"><img src="'+room.images[0].url+'" height="40" width="40"/><p>'+room.name+
+          let images = room.images;
+          images.sort(function(a, b) {
+          return parseFloat(a.id) - parseFloat(b.id);
+          });
+          inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="room-' + data.rooms[j] +'"><img src="'+images[0].url+'" height="40" width="40"/><p>'+room.name+
           '</p><br> <span class="text-muted">'+room.location.district.name + ', ' + room.location.province.name +'</span></li>';
           i++;
       }

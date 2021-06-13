@@ -17,7 +17,7 @@ class Room {
             <div class="card-body">
               <h5 class="card-title card-name"> ${room.name}</h5>
               <p class="card-text card-desc">${roomType} - ${room.bedroomCount} phòng ngủ </p>
-              <p class="card-price" style="font-weight: bold">${room.pricePerDay}<u>đ</u>/đêm</p>
+              <p class="card-price" style="font-weight: bold">${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}<u>đ</u>/đêm</p>
            </div>
           </a>
         `

@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     credentials: 'include'
   });
   user = await user.json();
-  document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
+  document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;   
   // show and choose provinces, 
   const api = new API();
   const provinces = await api.getProvince()

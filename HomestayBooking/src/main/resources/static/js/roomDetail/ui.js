@@ -73,8 +73,8 @@ class UI {
     }
     document.querySelector('.utility').innerHTML = output
 
-    document.querySelector('.pricePerday').innerHTML = `<strong>${room.pricePerDay}/đêm</strong> (Giá có thể tăng vào cuối tuần hoặc ngày lễ)`
+    document.querySelector('.pricePerday').innerHTML = `<strong>${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/đêm</strong> (Giá có thể tăng vào cuối tuần hoặc ngày lễ)`
     document.querySelector('.policy').textContent = `${room.policy}`
-    document.querySelector('.totalPrice').innerHTML = `<strong>${room.pricePerDay}</strong>`
+    document.querySelector('.totalPrice').innerHTML = `<strong>${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>`
   }
 }

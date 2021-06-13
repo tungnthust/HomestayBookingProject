@@ -122,7 +122,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
           <hr>
           <div class="d-flex justify-content-between">
             <span><strong>Tổng tiền</strong></span>
-            <span><strong>${totalPrice}/đ</strong></span>
+            <span><strong>${totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/đ</strong></span>
           </div>
           <hr>
           <label for="payment-method">Phương thức thanh toán:</label>
