@@ -1,5 +1,5 @@
-var start;
-var end;
+var start = '';
+var end = '';
 
 window.addEventListener('DOMContentLoaded', async (event) => {
  
@@ -127,8 +127,8 @@ function getId(id) {
   let searchQuery = id.split("-");
   if (searchQuery[0] == "room") {
     window.open("./roomDetail.html?roomId="+searchQuery[1]+ getParam());
-  }   else if (searchQuery[0] === "provinceId"){
-    window.open("./filter.html?&provinceId="+searchQuery[1]+getParam());
+  } else if (searchQuery[0] === "provinceId"){
+    
   }
 }
 
