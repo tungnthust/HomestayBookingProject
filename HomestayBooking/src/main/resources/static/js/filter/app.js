@@ -1,3 +1,8 @@
+var pageNumber = 0;
+var defaultApi;
+var totalItems;
+var sortType = "";
+const room = new Room;
 window.addEventListener('DOMContentLoaded', async (event) => {
   let login = false;
 
@@ -71,9 +76,9 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   document.getElementById("location").textContent = provinceName;
   document.getElementById("countRoom").textContent = await api.getCountRoom(provinceID);
 
-  let defaultApi = `http://localhost:8080/search?provinceId=${provinceID}`
+  defaultApi = `http://localhost:8080/search?provinceId=${provinceID}`
 
-  const room = new Room;
+
   let data = await room.getRoomAPI(defaultApi)
   room.showRoom(data)
 
@@ -103,25 +108,28 @@ function showDistrict(districts) {
 function filterByNumberGuess(defaultApi, room){
   // filter price
   document.getElementById('delete-nbGuess').addEventListener('click', async(e) => {
+    pageNumber = 0;
     document.getElementById('count-adult').value = ''
     document.getElementById('count-children').value = ''
     let newApi = writeApi(defaultApi)
     let data = await room.getRoomAPI(newApi);
     room.showRoom(data)
-    document.getElementById("countRoom").textContent = data.length
+    document.getElementById("countRoom").textContent = totalItems
   })
   document.getElementById('apply-nbGuess').addEventListener('click', async (e) => {
+    pageNumber = 0;
     let newApi = writeApi(defaultApi)
     console.log(newApi)
     data = await room.getRoomAPI(newApi);
     room.showRoom(data)
-    document.getElementById("countRoom").textContent = data.length
+    document.getElementById("countRoom").textContent = totalItems
   })
 }
 
 function filterByRoomType(defaultApi, room){
     // filter roomType
     document.getElementById('delete-roomType').addEventListener('click', async(e) => {
+      pageNumber = 0;
       let checkRoomType = document.getElementsByName('roomType')
       checkRoomType.forEach(box => {
         if(box.checked){
@@ -131,40 +139,44 @@ function filterByRoomType(defaultApi, room){
       let newApi = writeApi(defaultApi)
       let data = await room.getRoomAPI(newApi);
       room.showRoom(data)
-      document.getElementById("countRoom").textContent = data.length
+      document.getElementById("countRoom").textContent = totalItems
     })
     document.getElementById('apply-roomType').addEventListener('click', async (e) => {
+      pageNumber = 0;
       let newApi = writeApi(defaultApi)
       console.log(newApi)
       data = await room.getRoomAPI(newApi);
       room.showRoom(data)
       console.log(data)
-      document.getElementById("countRoom").textContent = data.length
+      document.getElementById("countRoom").textContent = totalItems
     })
 }
 
 function filterByPrice(defaultApi, room){
     // filter price
     document.getElementById('delete-price').addEventListener('click', async(e) => {
+      pageNumber = 0;
       document.getElementById('max-price').value = ''
       document.getElementById('min-price').value = ''
       let newApi = writeApi(defaultApi)
       let data = await room.getRoomAPI(newApi);
       room.showRoom(data)
-      document.getElementById("countRoom").textContent = data.length
+      document.getElementById("countRoom").textContent = totalItems
     })
     document.getElementById('apply-price').addEventListener('click', async (e) => {
+      pageNumber = 0;
       let newApi = writeApi(defaultApi)
       console.log(newApi)
       data = await room.getRoomAPI(newApi);
       room.showRoom(data)
-      document.getElementById("countRoom").textContent = data.length
+      document.getElementById("countRoom").textContent = totalItems
     })
 }
 
 function filterByDistrict(defaultApi, room){
     // filter districts
     document.getElementById('delete-region').addEventListener('click', async(e) => {
+      pageNumber = 0;
       let checkDistrict = document.getElementsByName('districts')
       checkDistrict.forEach(box => {
         if(box.checked){
@@ -174,37 +186,47 @@ function filterByDistrict(defaultApi, room){
       let newApi = writeApi(defaultApi)
       let data = await room.getRoomAPI(newApi);
       room.showRoom(data)
-      document.getElementById("countRoom").textContent = data.length
+      document.getElementById("countRoom").textContent = totalItems
     })
     document.getElementById('apply-region').addEventListener('click', async (e) => {
+      pageNumber = 0;
       let newApi = writeApi(defaultApi)
       console.log(newApi)
       data = await room.getRoomAPI(newApi);
       room.showRoom(data)
-      document.getElementById("countRoom").textContent = data.length
+      document.getElementById("countRoom").textContent = totalItems
     })
 }
 
 function filterByMore(defaultApi, room){
   // filter price
   document.getElementById('delete-more').addEventListener('click', async(e) => {
+    pageNumber = 0;
     let newApi = writeApi(defaultApi)
     let data = await room.getRoomAPI(newApi);
     room.showRoom(data)
-    document.getElementById("countRoom").textContent = data.length
+    document.getElementById("countRoom").textContent = totalItems
   })
   document.getElementById('apply-more').addEventListener('click', async (e) => {
+    pageNumber = 0;
     let newApi = writeApi(defaultApi)
     console.log(newApi)
     data = await room.getRoomAPI(newApi);
     room.showRoom(data)
-    document.getElementById("countRoom").textContent = data.length
+    document.getElementById("countRoom").textContent = totalItems
   })
 }
 
 function writeApi(defaultApi){
   let newApi = defaultApi
 
+  if (pageNumber > 0) {
+    newApi += `&page=${pageNumber}`
+  }
+
+  if (sortType != "") {
+    newApi += `&sort=${sortType}`;
+  }
   // filter by number of guest
   let countAdult = document.getElementById('count-adult').value
   let countChildren = document.getElementById('count-children').value
@@ -268,6 +290,8 @@ function writeApi(defaultApi){
   if (countBathroom > 0){
     newApi += `&bathroomCount=${countBathroom}`
   }
+
+  
   
   let checkFacility = document.getElementsByName('facility')
   arr = new Array()
@@ -287,9 +311,46 @@ function writeApi(defaultApi){
 }
 
 
+
 function logout() {
   fetch("http://localhost:8080/api/auth/logout", {
     credentials: 'include'
   });
   window.location.reload();
+}
+
+async function paginate(id) {
+  pageNumber = parseInt(id.split('-')[1]);
+  let newApi = writeApi(defaultApi);
+  data = await room.getRoomAPI(newApi);
+  room.showRoom(data)
+  document.getElementById("countRoom").textContent = totalItems
+}
+
+async function prevPage() {
+  pageNumber--;
+  let newApi = writeApi(defaultApi);
+  data = await room.getRoomAPI(newApi);
+  room.showRoom(data)
+  document.getElementById("countRoom").textContent = totalItems
+}
+
+async function nextPage() {
+  pageNumber++;
+  let newApi = writeApi(defaultApi);
+  data = await room.getRoomAPI(newApi);
+  room.showRoom(data)
+  document.getElementById("countRoom").textContent = totalItems
+}
+
+async function sort(idType) {
+  sortType = idType;
+  let newApi = writeApi(defaultApi);
+  data = await room.getRoomAPI(newApi);
+  room.showRoom(data)
+  document.getElementById("countRoom").textContent = totalItems
+  document.getElementById("sortType").innerHTML = document.getElementById(idType).innerHTML;
+  document.getElementById("sortDropdown").style.width = "25rem";
+  document.getElementById("dropdown-menu").style.width = "25rem";
+  document.getElementById("dropdown-menu").style.paddingLeft = "8rem";
 }

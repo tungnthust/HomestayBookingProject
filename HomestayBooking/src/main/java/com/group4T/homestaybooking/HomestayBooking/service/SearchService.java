@@ -24,6 +24,9 @@ public class SearchService {
 	
 	public Page<RoomDetail> getRooms(RoomPage roomPage,
             RoomSearchCriteria roomSearchCriteria){
+		if (roomSearchCriteria.getPage() != null) {
+			roomPage.setPageNumber(roomSearchCriteria.getPage() - 1);			
+		}
 			return roomCriteriaRepository.findAllWithFilters(roomPage, roomSearchCriteria);
 	}
 	
