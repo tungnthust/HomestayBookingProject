@@ -64,6 +64,8 @@ a {
   flex-wrap: nowrap;
   border: 1px solid #eee;
   border-radius: 8px;
+}
+.header__search-item:first-child{
   position: relative;
 }
 .header__search-item:not(:first-child) {
@@ -87,10 +89,17 @@ a {
   left: 0;
 }
 .header__search-box {
+
   height: 5.6rem;
   border-radius: 0.5rem;
   border: 2px solid white;
   padding: 0.8rem 2rem;
+}
+.list-group{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
 }
 .header__search-input {
   border: none;
