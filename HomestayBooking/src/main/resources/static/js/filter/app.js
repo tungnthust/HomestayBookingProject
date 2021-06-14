@@ -1,6 +1,7 @@
 var pageNumber = 0;
 var defaultApi;
 var totalItems;
+var sortType = "";
 const room = new Room;
 window.addEventListener('DOMContentLoaded', async (event) => {
   let login = false;
@@ -223,6 +224,9 @@ function writeApi(defaultApi){
     newApi += `&page=${pageNumber}`
   }
 
+  if (sortType != "") {
+    newApi += `&sort=${sortType}`;
+  }
   // filter by number of guest
   let countAdult = document.getElementById('count-adult').value
   let countChildren = document.getElementById('count-children').value
@@ -337,4 +341,16 @@ async function nextPage() {
   data = await room.getRoomAPI(newApi);
   room.showRoom(data)
   document.getElementById("countRoom").textContent = totalItems
+}
+
+async function sort(idType) {
+  sortType = idType;
+  let newApi = writeApi(defaultApi);
+  data = await room.getRoomAPI(newApi);
+  room.showRoom(data)
+  document.getElementById("countRoom").textContent = totalItems
+  document.getElementById("sortType").innerHTML = document.getElementById(idType).innerHTML;
+  document.getElementById("sortDropdown").style.width = "25rem";
+  document.getElementById("dropdown-menu").style.width = "25rem";
+  document.getElementById("dropdown-menu").style.paddingLeft = "8rem";
 }
