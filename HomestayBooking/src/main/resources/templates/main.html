@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,6 +21,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Document</title>
 </head>
 
@@ -38,35 +45,36 @@
               </label>
               <input type="text" id="search" class="header__search-input" placeholder="Tìm kiếm" autocomplete="off">
             </div>
-            
+            <ul class="list-group" id="result"></ul>
           </div>
           <div class="header__search-item btn">
-            <i class="far fa-calendar header__icon"></i>
-            <p class="header__text">Ngày</p>
+            <i class="far fa-calendar header__icon mr-2"></i>
+            <input type="text" name="daterange" value="Ngày"
+              style="font-size: 13px; width: 10rem; text-align:center; border: none; font-weight: bold; cursor: pointer">
           </div>
           <div id="topup-guess" class="header__search-item" id="room-type" data-toggle="dropdown" type="button"
-          aria-haspopup="true" aria-expanded="false">
+            aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user"></i>
-            <p class="header__text" >Số khách</p>
+            <p class="header__text" id="showGuess">Số khách</p>
           </div>
           <div class="dropdown-menu menu-nbGuess py-4 px-2" aria-labelledby="nbGuess">
             <form id="nbGuess">
-            <ul class="list-group">
-              <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
-              <li class="d-flex justify-content-between my-2">
-                <label class="checkbox" for="count-adult">Người lớn</label>
-                <input type="number" name="" id="count-adult" class="form-control col-2">
-              </li>
-              <li class="d-flex justify-content-between my-2">
-                <label class="checkbox" for="count-children">Trẻ em <small>(tuổi từ 2-12)</small></label>
-                <input type="number" name="" id="count-children" class="form-control col-2">
-              </li>
-            </ul>
+              <ul>
+                <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
+                <li class="d-flex justify-content-between my-2">
+                  <label class="checkbox" for="count-adult">Người lớn</label>
+                  <input type="number" name="" id="count-adult" class="form-control col-2">
+                </li>
+                <li class="d-flex justify-content-between my-2">
+                  <label class="checkbox" for="count-children">Trẻ em <small>(tuổi từ 2-12)</small></label>
+                  <input type="number" name="" id="count-children" class="form-control col-2">
+                </li>
+              </ul>
             </form>
             <div class="dropdown-divider"></div>
             <div class="d-flex align-center justify-content-between">
-              <button class="btn btn-dark btn-lg ml-4 my-3">Xóa</button>
-              <button class="btn btn-info btn-lg mr-4 my-3">Áp dụng</button>
+              <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-nbGuess">Xóa</button>
+              <button class="btn btn-info btn-lg mr-4 my-3" type="button" id="apply-nbGuess">Áp dụng</button>
             </div>
           </div>
           <button type="submit" class="header__search-icon">
@@ -74,9 +82,6 @@
           </button>
         </ul>
       </form>
-    </div>
-    <div>
-      <ul class="list-group" id="result"></ul>
     </div>
     <div class="header__btn--group">
       <a href="#" class="header__btn header__btn--host" id="host">Host</a>
@@ -90,7 +95,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="body">
     <div class="intro">
       <img src="https://beta-api.luxstay.net/api/upload/file?storage=admins/12/qF7ukmI--Rwr2H5LwzVZwcXa.jpg" alt=""
@@ -200,12 +205,12 @@
         </div>
       </div>
     </div>
-    
-  </div>    <!-- Optional JavaScript -->
+
+  </div> <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
+  </script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
   </script>
