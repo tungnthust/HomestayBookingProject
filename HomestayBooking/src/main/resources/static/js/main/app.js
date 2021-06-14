@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
 function getId(id) {
   console.log(id);
-  let query = document.querySelector('#' + id).textContent;
+  let query = document.querySelector('#' + id + ' > div > p').textContent;
   document.getElementById('search').value = query;
   document.getElementById('result').innerHTML = '';
   let searchQuery = id.split("-");
@@ -199,10 +199,10 @@ function getParam() {
   let countAdult = document.getElementById('count-adult').value
   let countChildren = document.getElementById('count-children').value
   if (countAdult !== ''){
-    param += `&countAdult=${countAdult}`
+    param += `&adultCount=${countAdult}`
   }
   if (countChildren !== ''){
-    param += `&countChildren=${countChildren}`
+    param += `&childrenCount=${countChildren}`
   }
   return param;
 }
