@@ -251,3 +251,27 @@ button {
 
 /* Add a grey background color on mouse-over */
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
+#sortDropdown {
+  text-align: left;
+  width: 15rem;
+  padding: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 2rem;
+  font-size: 18px;
+}
+
+#sortDropdown, .dropdown-menu :hover{
+  background-color: white;
+  color: #555555;
+}
+
+.dropdown-menu a{
+  font-size: 18px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.dropdown-menu {
+  margin-right: 0px;
+}

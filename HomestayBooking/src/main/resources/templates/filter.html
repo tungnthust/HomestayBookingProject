@@ -26,8 +26,8 @@
     <div class="header__menu">
       <div class="header__logo">
         <a href="./main.html">
-        <img src="https://cdn.tgdd.vn/GameApp/3/224693/Screentshots/luxstay-dat-phong-homestay-logo-18-06-2020.png"
-          alt="" class="header__logo-image">
+          <img src="https://cdn.tgdd.vn/GameApp/3/224693/Screentshots/luxstay-dat-phong-homestay-logo-18-06-2020.png"
+            alt="" class="header__logo-image">
         </a>
       </div>
       <form class="header__form">
@@ -122,15 +122,18 @@
         <div class="dropdown-menu menu-roomType" aria-labelledby="roomType">
           <ul id="roomType-list">
             <li>
-              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType" value="1">
+              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType"
+                value="1">
               <label class="checkbox">Khách sạn</label>
             </li>
             <li>
-              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType" value="2">
+              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType"
+                value="2">
               <label class="checkbox">Căn hộ</label>
             </li>
             <li>
-              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType" value="3">
+              <input type="checkbox" style="margin-left: 2rem" name="roomType" class="checkbox-input checkbox-roomType"
+                value="3">
               <label class="checkbox">Homestay</label>
             </li>
           </ul>
@@ -195,44 +198,53 @@
             </div>
             <div class="row">
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="1">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="1">
                 <label class="checkbox">Điều hòa</label>
               </div>
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="2">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="2">
                 <label class="checkbox">Máy giặt</label>
               </div>
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="3">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="3">
                 <label class="checkbox">Bình nóng lạnh</label>
               </div>
             </div>
             <div class="row">
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="4">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="4">
                 <label class="checkbox">Tivi</label>
               </div>
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="5">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="5">
                 <label class="checkbox">Bếp </label>
               </div>
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="6">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="6">
                 <label class="checkbox">Tủ lạnh</label>
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <li>
-                  <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="7">
+                  <input type="checkbox" style="margin-left: 2rem" name="facility"
+                    class="checkbox-input checkbox-facility" value="7">
                   <label class="checkbox">Sân vườn</label>
               </div>
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="8">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="8">
                 <label class="checkbox">Bể bơi</label>
               </div>
               <div class="col">
-                <input type="checkbox" style="margin-left: 2rem" name="facility" class="checkbox-input checkbox-facility" value="9">
+                <input type="checkbox" style="margin-left: 2rem" name="facility"
+                  class="checkbox-input checkbox-facility" value="9">
                 <label class="checkbox">Karaoke</label>
               </div>
             </div>
@@ -245,7 +257,22 @@
         </div>
       </div>
     </div>
-    <h1 class="title"><span id="countRoom"></span> Homestay tại <span id="location"></span></h1>
+    <h1 class="title"><span id="countRoom"></span> Homestay tại <span id="location"></span>
+      <span style="float: right;">
+      <button class="btn btn-outline-dark btn-lg dropdown-toggle" href="#" role="button" id="sortDropdown" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <span>
+          Sắp xếp:
+        </span>
+        <span style="padding-left: 0.2rem;" id="sortType">&ensp;</span>
+      </button>
+
+      <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="sortDropdown">
+        <a onclick="sort(this.id)" class="dropdown-item" id="ASC" href="#">Giá tăng dần</a>
+        <a onclick="sort(this.id)" class="dropdown-item" id="DESC" href="#">Giá giảm dần</a>
+      </div>
+  </span></h1>
+    
     <div class="room-detail" id="rooms">
       <!--  -->
     </div>
@@ -260,13 +287,13 @@
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
+    </script>
   <script>
     $('.your-checkbox').prop('indeterminate', true)
   </script>

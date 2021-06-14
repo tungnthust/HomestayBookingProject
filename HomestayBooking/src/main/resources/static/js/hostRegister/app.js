@@ -102,6 +102,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         return res;
       });
     hostId = await hostResponse.text();
+    // console.log(hostId);
     window.location.href = "./dashboard.html?hostId=" + hostId; 
     
     e.preventDefault();
