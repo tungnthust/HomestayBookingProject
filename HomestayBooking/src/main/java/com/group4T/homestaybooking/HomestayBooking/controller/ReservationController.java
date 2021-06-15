@@ -29,4 +29,9 @@ public class ReservationController {
 	public void addReservation(@RequestBody ReservationRequest reservationRequest) {
 		reservationService.saveReservation(reservationRequest); 
 	}
+	
+	@GetMapping("/all")
+	public List<Reservation> getAllReservation() {
+		return reservationService.getAllReservation(); 
+	}
 }

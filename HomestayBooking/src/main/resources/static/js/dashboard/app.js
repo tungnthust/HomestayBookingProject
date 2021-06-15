@@ -15,8 +15,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   const data = await api.getData('http://localhost:8080/api/room/host/' + hostId);
   let temp = "";
   for (let i = 0; i < data.length; i++) {
+    let stt = i + 1;
     let room = data[i];
     temp += "<tr>";
+    temp += "<td class='stt'>" + stt + "</td>";
     temp += "<td class='name'>" + room.name + "</td>";
     temp += "<td class='type'>" + typeName[room.type] + "</td>";
     temp += "<td class='area'>" + room.area + "</td>";
@@ -44,9 +46,11 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   document.getElementById("delete-success").addEventListener("click", function() {
     deleteRoom();
+    window.location.reload();
   })
   document.getElementById("delete-success-close").addEventListener("click", function() {
     deleteRoom();
+    window.location.reload();
   })
 });
 

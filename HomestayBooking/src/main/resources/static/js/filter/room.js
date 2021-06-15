@@ -9,16 +9,21 @@ class Room {
     totalItems = rooms.totalElements
     let pageList = document.getElementById("page_number");
     pageList.innerHTML = '';
-    for(let i = 0; i < totalPages;i++) {
-      pageList.innerHTML += `<a href="#" onclick="paginate(this.id)" id="page-${i+1}">${i+1}</a>`;
-    }
-    document.getElementById(`page-${pageNumber}`).className = "active";
-    if (pageNumber == 1) {
+    if (totalPages > 1) {
+      for(let i = 0; i < totalPages;i++) {
+        pageList.innerHTML += `<a href="#" onclick="paginate(this.id)" id="page-${i+1}">${i+1}</a>`;
+      }
+      document.getElementById(`page-${pageNumber}`).className = "active";
+      if (pageNumber == 1) {
+        document.getElementById("prevPage").style.display = "none";
+      } 
+      if (pageNumber == totalPages) {
+        document.getElementById("nextPage").style.display = "none";
+      } 
+    } else {
       document.getElementById("prevPage").style.display = "none";
-    } 
-    if (pageNumber == totalPages) {
       document.getElementById("nextPage").style.display = "none";
-    } 
+    }
     return rooms.content
   }
 
