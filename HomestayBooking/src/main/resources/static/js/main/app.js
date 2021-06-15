@@ -121,7 +121,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
 function getId(id) {
   console.log(id);
-  let query = document.querySelector('#' + id).textContent;
+  let query = document.querySelector('#' + id + " > div > p").textContent;
   document.getElementById('search').value = query;
   document.getElementById('result').innerHTML = '';
   let searchQuery = id.split("-");

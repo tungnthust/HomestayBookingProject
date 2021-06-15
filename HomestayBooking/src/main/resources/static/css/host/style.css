@@ -19,8 +19,12 @@
 .table td, .table th {
     vertical-align:middle;
 }
-.area, .bedroomCount {
+.area, .bedroomCount, .stt {
     text-align: center;
+}
+
+.guestName {
+    text-align: left;
 }
 
 .price {
