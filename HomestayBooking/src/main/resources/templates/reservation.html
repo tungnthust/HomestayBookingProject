@@ -14,10 +14,13 @@
   <link rel="stylesheet" href="../static/css/host/style.css">
   <link rel="stylesheet" href="../static/css/roomDetail/style.css">
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style>
+    .area {
+      margin-left: 3rem;
+      margin-right: 3rem;
+    }
+  </style>
 </head>
-<script>
-   
-</script>
 <body>
   <div class="header d-flex justify-content-between align-items-center sticky-top">
     <div class="header__logo">
@@ -26,34 +29,25 @@
         class="header__logo-img">
       </a>
     </div>
-    <div class="header__btn--group ">        
-      <div id="username">
-        <a href="#" class="header__btn" id="name"></a>
-        <a href="#" onclick="logout()" class="header__btn">Đăng xuất</a>
-      </div>
-    </div>
   </div>
-  <div class="container">
+  <div class="area">
     <div>
-      <span class="text__caption" style="font-size: 30px; float: left;">Quản lý chỗ nghỉ</span>
-      <span style="float: right;">
-        <a  target="_blank" rel="noopener noreferrer" href ="./addRoom.html">
-          <button type="button" id="addRoom" class="btn" >+ Thêm chỗ nghỉ</button>
-        </a>
-      </span>
+      <span class="text__caption" style="font-size: 30px; float: left; margin-left: 4rem;">Quản lý thông tin đặt phòng</span>
     </div>
     <table class="table" >
         <thead>
           <tr>
             <th scope="col">STT</th>
             <th scope="col">Tên phòng</th>
-            <th scope="col">Loại Phòng </th>
-            <th scope="col">Diện tích (m2)</th>
-            <th scope="col">Số phòng ngủ</th>
+            <th scope="col">Loại phòng</th>
             <th scope="col">Địa chỉ</th>
-            <th scope="col">Giá (VNĐ)</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col">Người đặt phòng</th>
+            <th scope="col">Số điện thoại</th>
+            <th scope="col">Số khách</th>
+            <th scope="col">Ngày nhận phòng</th>
+            <th scope="col">Ngày trả phòng</th>
+            <th scope="col">Tổng tiền</th>
+            <th scope="col">Phương thức thanh toán</th>
           </tr>
         </thead>
         <tbody id="data">
@@ -112,8 +106,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
-  <script src="../static/js/dashboard/API.js"></script>
-  <script src="../static/js/dashboard/app.js"></script>
+  <script src="../static/js/reservation/API.js"></script>
+  <script src="../static/js/reservation/app.js"></script>
   
 </body>
 
