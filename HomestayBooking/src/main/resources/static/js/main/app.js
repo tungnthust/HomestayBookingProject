@@ -1,5 +1,6 @@
-var start;
-var end;
+var start = '';
+var end = '';
+var openFilter = '';
 
 window.addEventListener('DOMContentLoaded', async (event) => {
  
@@ -96,8 +97,19 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         let district = await api.getData('http://localhost:8080/api/location/district/' + data.districts[j]);
         let countRoom = await api.getData('http://localhost:8080/search/countRoom/district/' + data.districts[j]);
         let province = await api.getData('http://localhost:8080/api/location/province/' + district.provinceId);
-        inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="districtId-' + data.districts[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+district.name+', '+ 
-        province.name + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
+        // inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="districtId-' + data.districts[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+district.name+', '+ 
+        // province.name + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
+        inner_html += `
+        <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="districtId-${data.districts[j]}-provinceId-${district.provinceId}">
+          <div class="d-flex justify-content-center align-items-center mr-4" style="height:40px; width:40px">
+            <i class="fa fa-map-marker fa-lg" aria-hidden="true" font-size="150px"></i>
+          </div>
+          <div>
+            <p class="mb-2">${district.name}, ${province.name}</p>
+            <span class="text-muted" style="font-size: 12px">${countRoom} Chỗ ở</span>
+          </div>
+        </li>
+        `
         i++;
       }
       for (let j = 0; j < data.wards.length; j++) {
@@ -106,8 +118,19 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         let district = ward.district.name;
         let countRoom = await api.getData('http://localhost:8080/search/countRoom/ward/' + data.wards[j]);
         let province = ward.province.name;
-        inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="location-' + data.wards[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+ward.name + ', ' + 
-        district+', '+ province + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
+        // inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="location-' + data.wards[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+ward.name + ', ' + 
+        // district+', '+ province + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
+        inner_html += `
+        <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="location-${data.wards[j]}">
+          <div class="d-flex justify-content-center align-items-center mr-4" style="height:40px; width:40px">
+            <i class="fa fa-map-marker fa-lg" aria-hidden="true" font-size="150px"></i>
+          </div>
+          <div>
+            <p class="mb-2">${ward.name}, ${district}, ${province}</p>
+            <span class="text-muted" style="font-size: 12px">${countRoom} Chỗ ở</span>
+          </div>
+        </li>
+        `
         i++;
       }
 
@@ -117,18 +140,31 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     }
 
   });  
+
+  document.getElementById('search-submit').addEventListener('submit', (e) => {
+    if (openFilter !== ''){
+      window.open(`./${openFilter}`)
+      e.preventDefault()
+    } else if (openFilter ) {
+      window.reload();
+    }
+  })
 })
 
 function getId(id) {
   console.log(id);
-  let query = document.querySelector('#' + id + " > div > p").textContent;
+  let query = document.querySelector('#' + id + ' > div > p').textContent;
   document.getElementById('search').value = query;
   document.getElementById('result').innerHTML = '';
   let searchQuery = id.split("-");
   if (searchQuery[0] == "room") {
     window.open("./roomDetail.html?roomId="+searchQuery[1]+ getParam());
-  }   else if (searchQuery[0] === "provinceId"){
-    window.open("./filter.html?&provinceId="+searchQuery[1]+getParam());
+  } else if (searchQuery[0] === "provinceId"){
+    openFilter = `filter.html?${searchQuery[0]}=${searchQuery[1]}`+getParam();
+  } else if (searchQuery[0] === "disctrictId"){
+    openFilter = `filter.html?$dictrictId=${searchQuery[1]}`+getParam();
+  } else if (searchQuery[0] === "location"){
+    openFilter = `filter.html?location=${searchQuery[1]}`+getParam();
   }
 }
 
@@ -199,10 +235,10 @@ function getParam() {
   let countAdult = document.getElementById('count-adult').value
   let countChildren = document.getElementById('count-children').value
   if (countAdult !== ''){
-    param += `&countAdult=${countAdult}`
+    param += `&adultCount=${countAdult}`
   }
   if (countChildren !== ''){
-    param += `&countChildren=${countChildren}`
+    param += `&childrenCount=${countChildren}`
   }
   return param;
 }

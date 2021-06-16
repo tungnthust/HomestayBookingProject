@@ -24,6 +24,7 @@ class Room {
       document.getElementById("prevPage").style.display = "none";
       document.getElementById("nextPage").style.display = "none";
     }
+    
     return rooms.content
   }
 
