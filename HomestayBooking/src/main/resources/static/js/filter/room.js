@@ -1,6 +1,7 @@
 class Room {
   async getRoomAPI(api){
     const roomResponse = await fetch(api, {method: 'POST'});
+    console.log(roomResponse)
     const rooms = await roomResponse.json();
     document.getElementById("prevPage").style.display = "block";
     document.getElementById("nextPage").style.display = "block";

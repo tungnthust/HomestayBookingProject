@@ -132,10 +132,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
             <option value="3">Visa</option>
             <option value="4" selected>Master Card</option>
           </select>
-          <div class="form-group" id="payment-infor">
-            <label for="payment-type">Số điện thoại/Số thẻ</label>
-            <input type="number" id="payment-type" class="form-control" require>
-          </div>
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Hủy</button>

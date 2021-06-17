@@ -100,7 +100,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         // inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="districtId-' + data.districts[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+district.name+', '+ 
         // province.name + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
         inner_html += `
-        <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="districtId-${data.districts[j]}-provinceId-${district.provinceId}">
+        <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="districtId-${data.districts[j]}">
           <div class="d-flex justify-content-center align-items-center mr-4" style="height:40px; width:40px">
             <i class="fa fa-map-marker fa-lg" aria-hidden="true" font-size="150px"></i>
           </div>

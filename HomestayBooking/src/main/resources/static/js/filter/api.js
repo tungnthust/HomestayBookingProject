@@ -35,6 +35,24 @@ class API {
     return countRoom
   }
 
+  async getWardName(wardID){
+    const wardResponse = await fetch(`http://localhost:8080/api/location/ward/${wardID}`);
+    const ward = await wardResponse.json();
+    return ward
+  }
+
+  async getCountRoomWard(wardID) {
+    const countRoomResponse = await fetch(`http://localhost:8080/search/countRoom/ward/${wardID}`);
+    const countRoom = await countRoomResponse.json();
+    return countRoom
+  }
+
+  async getWard(districtID){
+    const wardResponse = await fetch(`http://localhost:8080/api/location/wards/${districtID}`)
+    const wards = await wardResponse.json();
+    return wards
+  }
+
   async postData(url, data) {
     // console.log(data);
     const response = await fetch(url, {
