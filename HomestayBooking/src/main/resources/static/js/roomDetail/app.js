@@ -69,7 +69,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   checkReservation(roomArr);
   checkNumberGuess()
 
-  console.log(roomArr)
   document.getElementById('place-order').addEventListener('click', (e) => {
     if (login == true) {
       let arrDate = $('input[name="daterange"]').val().split(' - ')
@@ -183,14 +182,32 @@ function checkReservation(roomArr) {
   var disabledStarts = [];
   var disabledEnds = [];
   roomArr.forEach(room => {
-    disabledStarts.push(room.checkInDate)
-    disabledEnds.push(room.checkoutDate)
+    disabledStarts.push(room.checkinDate.split('T')[0])
+    disabledEnds.push(room.checkoutDate.split('T')[0])
   })
+  console.log(disabledStarts);
+  
+  $('input[name="daterange"]').daterangepicker({
+    // autoUpdateInput: false,
+    locale: {
+      cancelLabel: 'Xóa',
+      applyLabel: 'Áp dụng'
+    }
+  });
+
+  $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
+    $(this).val("dd/mm/yyyy đến dd/mm/yyyy");
+  });
 
   $('input[name="daterange"]').daterangepicker({
     opens: 'left',
     isInvalidDate: function (date) {
       let tempDate = date.format('YYYY-MM-DD');
+      let today = new Date();
+      today = today.toISOString().split('T')[0];
+      if (tempDate < today) {
+        return true;
+      }
       for (let i = 0; i < disabledStarts.length; i++) {
         if (tempDate >= disabledStarts[i] && tempDate <= disabledEnds[i]) {
           return true;
@@ -205,7 +222,6 @@ function checkReservation(roomArr) {
   });
 
   $('input[name="daterange"]').on("apply.daterangepicker", function (e, picker) {
-
     // Get the selected bound dates.
     var startDate = picker.startDate.format('YYYY-MM-DD')
     var endDate = picker.endDate.format('YYYY-MM-DD')
@@ -237,17 +253,6 @@ function checkReservation(roomArr) {
     }
   });
 
-  $('input[name="daterange"]').daterangepicker({
-    // autoUpdateInput: false,
-    locale: {
-      cancelLabel: 'Xóa',
-      applyLabel: 'Áp dụng'
-    }
-  });
-
-  $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
-    $(this).val("dd/mm/yyyy đến dd/mm/yyyy");
-  });
 };
 
 async function getReservation(roomId) {
