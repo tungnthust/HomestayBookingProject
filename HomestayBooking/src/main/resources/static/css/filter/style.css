@@ -92,6 +92,13 @@ button {
   border: none;
   margin-left: 1rem;
 }
+
+.list-group-search{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
 .header__search-input:focus + .header__search-box {
   border: 2px solid black;
 }

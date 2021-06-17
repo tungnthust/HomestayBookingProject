@@ -144,9 +144,9 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   document.getElementById('search-submit').addEventListener('submit', (e) => {
     e.preventDefault()
     if (openFilter !== ''){
-      window.location.href = "./filter.html?" + openFilter
+      window.location.href = "./filter.html?" + openFilter + getParam();
     } else {
-      window.reload();
+      window.location.reload();
     }
   })
 })
@@ -158,9 +158,9 @@ function getId(id) {
   document.getElementById('result').innerHTML = '';
   let searchQuery = id.split("-");
   if (searchQuery[0] == "room") {
-    window.open("./roomDetail.html?roomId="+searchQuery[1]+ getParam());
+    window.open("./roomDetail.html?roomId="+searchQuery[1]);
   } else {
-    openFilter = `${searchQuery[0]}=${searchQuery[1]}`+getParam();
+    openFilter = `${searchQuery[0]}=${searchQuery[1]}`;
   }
 }
 

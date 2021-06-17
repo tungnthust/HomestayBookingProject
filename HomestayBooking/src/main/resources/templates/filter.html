@@ -6,7 +6,12 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -19,6 +24,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -30,7 +38,7 @@
             alt="" class="header__logo-image">
         </a>
       </div>
-      <form class="header__form">
+      <form class="header__form" id="search-submit">
         <ul class="header__search">
           <div id="search-box" class="header__search-item">
             <div class="header__search-box">
@@ -39,19 +47,21 @@
               </label>
               <input type="text" id="search" class="header__search-input" placeholder="Tìm kiếm" autocomplete="off">
             </div>
+            <ul class="list-group-search" id="result"></ul>
           </div>
-          <div class="header__search-item">
-            <i class="far fa-calendar header__icon"></i>
-            <p class="header__text">Ngày</p>
+          <div class="header__search-item btn">
+            <i class="far fa-calendar header__icon mr-2"></i>
+            <input type="text" name="daterange" value="Ngày"
+              style="font-size: 13px; width: 10rem; text-align:center; border: none; font-weight: bold; cursor: pointer">
           </div>
           <div id="topup-guess" class="header__search-item" id="room-type" data-toggle="dropdown" type="button"
             aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user"></i>
-            <p class="header__text">Số khách</p>
+            <p class="header__text" id="showGuess">Số khách</p>
           </div>
           <div class="dropdown-menu menu-nbGuess py-4 px-2" aria-labelledby="nbGuess">
-            <form id="nbGuess">
-              <ul class="list-group">
+            <!-- <form id="nbGuess"> -->
+              <ul>
                 <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
                 <li class="d-flex justify-content-between my-2">
                   <label class="checkbox" for="count-adult">Người lớn</label>
@@ -62,7 +72,7 @@
                   <input type="number" name="" id="count-children" class="form-control col-2">
                 </li>
               </ul>
-            </form>
+            <!-- </form> -->
             <div class="dropdown-divider"></div>
             <div class="d-flex align-center justify-content-between">
               <button class="btn btn-dark btn-lg ml-4 my-3" type="button" id="delete-nbGuess">Xóa</button>
@@ -293,6 +303,7 @@
   <script>
     $('.your-checkbox').prop('indeterminate', true)
   </script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
   <script src="../static/js/filter/api.js"></script>
   <script src="../static/js/filter/room.js"></script>
   <script src="../static/js/filter/app.js"></script>
