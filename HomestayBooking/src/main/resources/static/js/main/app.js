@@ -142,10 +142,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   });  
 
   document.getElementById('search-submit').addEventListener('submit', (e) => {
+    e.preventDefault()
     if (openFilter !== ''){
-      window.open(`./${openFilter}`)
-      e.preventDefault()
-    } else if (openFilter ) {
+      window.location.href = "./filter.html?" + openFilter
+    } else {
       window.reload();
     }
   })
@@ -159,12 +159,8 @@ function getId(id) {
   let searchQuery = id.split("-");
   if (searchQuery[0] == "room") {
     window.open("./roomDetail.html?roomId="+searchQuery[1]+ getParam());
-  } else if (searchQuery[0] === "provinceId"){
-    openFilter = `filter.html?${searchQuery[0]}=${searchQuery[1]}`+getParam();
-  } else if (searchQuery[0] === "disctrictId"){
-    openFilter = `filter.html?$dictrictId=${searchQuery[1]}`+getParam();
-  } else if (searchQuery[0] === "location"){
-    openFilter = `filter.html?location=${searchQuery[1]}`+getParam();
+  } else {
+    openFilter = `${searchQuery[0]}=${searchQuery[1]}`+getParam();
   }
 }
 

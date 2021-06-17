@@ -64,17 +64,28 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   var qs = parse_query_string(query);
   let provinceID = qs.provinceId
 
-  const api = new API;
 
-  let provinceName;
-  const provinces = await api.getProvince();
-  provinces.forEach(province => {
-    if (province.id == provinceID) {
-      provinceName = province.name
-    }
-  })
-  document.getElementById("location").textContent = provinceName;
-  document.getElementById("countRoom").textContent = await api.getCountRoom(provinceID);
+  const api = new API;  
+  let url = new URL(window.location.href)
+  let search_params = url.searchParams
+  let name;
+  let idCount;
+
+  if (search_params.has('provinceId')){
+    idCount = search_params.get('provinceId')
+    let province = await api.getProvinceName(idCount);
+    name = province.name
+    document.getElementById("countRoom").textContent = await api.getCountRoom(idCount);
+  } else if (search_params.has('districtId')){
+    idCount = search_params.get('districtId')
+    let district = await api.getDistrictName(idCount);
+    name = district.name
+    document.getElementById("countRoom").textContent = await api.getCountRoomDistrict(idCount);
+  }
+
+
+  document.getElementById("location").textContent = name;
+
 
   defaultApi = `http://localhost:8080/search?provinceId=${provinceID}`
 
