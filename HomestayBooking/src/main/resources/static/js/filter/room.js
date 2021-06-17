@@ -2,7 +2,12 @@ class Room {
   async getRoomAPI(api){
     const roomResponse = await fetch(api, {method: 'POST'});
     console.log(roomResponse)
-    const rooms = await roomResponse.json();
+    let rooms;
+    try {
+      rooms = await roomResponse.json();
+    } catch (error) {
+      return JSON.stringify({})
+    }
     document.getElementById("prevPage").style.display = "block";
     document.getElementById("nextPage").style.display = "block";
     let totalPages = rooms.totalPages;

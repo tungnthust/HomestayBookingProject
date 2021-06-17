@@ -1,6 +1,6 @@
 var pageNumber = 0;
 var defaultApi;
-var totalItems;
+var totalItems = 0;
 var sortType = "";
 var url = new URL(window.location.href)
 var search_params = url.searchParams
@@ -56,8 +56,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     idCount = search_params.get('provinceId')
     let province = await api.getProvinceName(idCount);
     name = province.name
-    document.getElementById("countRoom").textContent = await api.getCountRoom(idCount);
-
     defaultApi = `http://localhost:8080/search?provinceId=${idCount}`
     districts = await api.getDistrict(idCount);
     showDistrict(districts)
@@ -66,7 +64,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     idCount = search_params.get('districtId')
     let district = await api.getDistrictName(idCount);
     name = district.name
-    document.getElementById("countRoom").textContent = await api.getCountRoomDistrict(idCount);
 
     defaultApi = `http://localhost:8080/search?districtId=${idCount}`
     wards = await api.getWard(idCount);
@@ -77,25 +74,30 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     let ward = await api.getWardName(idCount);
     console.log(ward.name)
     name = ward.name
-    document.getElementById("countRoom").textContent = await api.getCountRoomWard(idCount)
     defaultApi = `http://localhost:8080/search?location=${idCount}`
     document.getElementById("region").style.display = 'none'
   }
 
   if (search_params.has('checkinDate')){
     let checkinDate = search_params.get('checkinDate')
-    let chechoutDate = search_params.get('chechoutDate')
-  }
+    let chechoutDate = search_params.get('checkoutDate')
+    defaultApi += `&checkinDate=${checkinDate}&checkoutDate=${chechoutDate}`
+  } 
   if (search_params.has('adultCount')){
-    let adultCount = search_params.get('adultCount')
+    let adultCount = search_params.get('adultCount');
+    defaultApi += `&adultCount=${adultCount}`
   }
   if (search_params.has('childrenCount')){
-    let childrenCount = search_params.get('childrenCount')
+    let childrenCount = search_params.get('childrenCount');
+    defaultApi += `&childrenCount=${childrenCount}`
   }
 
   document.getElementById("location").textContent = name;
   let data = await room.getRoomAPI(defaultApi)
-  room.showRoom(data)
+  document.getElementById("countRoom").textContent = totalItems;
+  if (totalItems > 0) {
+    room.showRoom(data)
+  }
 
 
 
@@ -734,7 +736,7 @@ function checkReservation() {
       applyLabel: 'Áp dụng'
     }
   });
-  
+
   $('input[name="daterange"]').on("apply.daterangepicker", function (e, picker) {
 
     // Get the selected bound dates.
