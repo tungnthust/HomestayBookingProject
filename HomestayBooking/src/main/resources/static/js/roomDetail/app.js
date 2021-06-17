@@ -1,3 +1,6 @@
+var setDate = false;
+var start;
+var end;
 window.addEventListener('DOMContentLoaded', async (event) => {
 
   let login = false;
@@ -71,11 +74,13 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   document.getElementById('place-order').addEventListener('click', (e) => {
     if (login == true) {
-      let arrDate = $('input[name="daterange"]').val().split(' - ')
-    let dayLength = difference(new Date(arrDate[0]), new Date(arrDate[1]))
+    let arrDate = $('input[name="daterange"]').val().split(' - ')
+    let startDate = arrDate[0].replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+    let endDate = arrDate[1].replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+    let dayLength = difference(new Date(startDate), new Date(endDate));
     let countAdult = document.getElementById('count-adult').value
     let countChildren = document.getElementById('count-children').value
-    let nbGuess = countChildren + countAdult
+    let nbGuess = parseInt(countChildren) + parseInt(countAdult);
     console.log(nbGuess);
     if (dayLength == 0) {
       alert("Please select days")
@@ -144,12 +149,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     document.getElementById('order').addEventListener('click', async () => {
       
       console.log(data)
-      // console.log(arrDate)
+      console.log(arrDate)
       // console.log(nbGuess);
-      let checkinDate = new Date(arrDate[0]);
-      checkinDate = checkinDate.toISOString().slice(0,10);
-      let checkoutDate = new Date(arrDate[1]);
-      checkoutDate = checkoutDate.toISOString().slice(0,10);
+      let checkinDate = formatDate(arrDate[0]);
+      let checkoutDate = formatDate(arrDate[1]);
       let jsonData = {
         "roomId": data.id,
         "guestId": user.id,
@@ -178,27 +181,23 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 })
 
 function checkReservation(roomArr) {
-
   var disabledStarts = [];
   var disabledEnds = [];
   roomArr.forEach(room => {
-    disabledStarts.push(room.checkinDate.split('T')[0])
-    disabledEnds.push(room.checkoutDate.split('T')[0])
+    let checkinDate = formatDate(room.checkinDate.split('T')[0]);
+    let checkoutDate = formatDate(room.checkoutDate.split('T')[0]);
+    disabledStarts.push(checkinDate);
+    disabledEnds.push(checkoutDate);
   })
   console.log(disabledStarts);
-  
   $('input[name="daterange"]').daterangepicker({
-    // autoUpdateInput: false,
     locale: {
       cancelLabel: 'Xóa',
-      applyLabel: 'Áp dụng'
+      applyLabel: 'Áp dụng',
     }
   });
 
-  $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
-    $(this).val("dd/mm/yyyy đến dd/mm/yyyy");
-  });
-
+  
   $('input[name="daterange"]').daterangepicker({
     opens: 'left',
     isInvalidDate: function (date) {
@@ -224,9 +223,12 @@ function checkReservation(roomArr) {
   $('input[name="daterange"]').on("apply.daterangepicker", function (e, picker) {
     // Get the selected bound dates.
     var startDate = picker.startDate.format('YYYY-MM-DD')
+    start = picker.startDate.format('DD/MM/YYYY');
     var endDate = picker.endDate.format('YYYY-MM-DD')
+    end = picker.endDate.format('DD/MM/YYYY');
+    $(this).val(`${start} - ${end}`);
     console.log(startDate + " to " + endDate);
-
+    setDate = true;
     // Compare the dates again.
     var clearInput = false;
     for (i = 0; i < disabledStarts.length; i++) {
@@ -245,15 +247,33 @@ function checkReservation(roomArr) {
       $(this).data('daterangepicker').setEndDate(today);
 
       // To clear input field and keep calendar opened.
-      $(this).val("dd/mm/yyyy đến dd/mm/yyyy");
+      document.getElementById('date').value = `${today.toLocaleDateString()} - ${today.toLocaleDateString()}`;
       console.log("Cleared the input field...");
-
+      setDate = false;
       // Alert user!
       alert("Your range selection includes ordered dates!");
     }
   });
+  
+  $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
+    let today = new Date();
+    setDate = false;
+    document.getElementById('date').value = `${today.toLocaleDateString()} - ${today.toLocaleDateString()}`;
+  });
 
+  let today = new Date();
+  document.getElementById('date').value = `${today.toLocaleDateString()} - ${today.toLocaleDateString()}`;
 };
+
+document.getElementById("date").addEventListener('focusout', function() {
+  if (setDate) {
+    this.value = `${start} - ${end}`;
+  }
+  else {
+    let today = new Date();
+    this.value =  `${today.toLocaleDateString()} - ${today.toLocaleDateString()}`;
+  }
+})
 
 async function getReservation(roomId) {
   const roomResponse = await fetch(`http://localhost:8080/api/reservation/room/${roomId}`);
@@ -284,4 +304,11 @@ function logout() {
     credentials: 'include'
   });
   window.location.reload();
+}
+
+function formatDate(date) {
+  date = date.replace( /(\d{2})\/(\d{2})\/(\d{4})/, "$2/$1/$3");
+  let newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + 1);
+  return newDate.toISOString().slice(0,10);
 }
