@@ -82,6 +82,17 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     document.getElementById("region").style.display = 'none'
   }
 
+  if (search_params.has('checkinDate')){
+    let checkinDate = search_params.get('checkinDate')
+    let chechoutDate = search_params.get('chechoutDate')
+  }
+  if (search_params.has('adultCount')){
+    let adultCount = search_params.get('adultCount')
+  }
+  if (search_params.has('childrenCount')){
+    let childrenCount = search_params.get('childrenCount')
+  }
+
   document.getElementById("location").textContent = name;
   let data = await room.getRoomAPI(defaultApi)
   room.showRoom(data)
