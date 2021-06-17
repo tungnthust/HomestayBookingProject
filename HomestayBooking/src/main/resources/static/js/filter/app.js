@@ -2,6 +2,8 @@ var pageNumber = 0;
 var defaultApi;
 var totalItems;
 var sortType = "";
+var url = new URL(window.location.href)
+var search_params = url.searchParams
 const room = new Room;
 window.addEventListener('DOMContentLoaded', async (event) => {
   let login = false;
@@ -38,52 +40,45 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     }
   })
 
-  function parse_query_string(query) {
-    var vars = query.split("&");
-    var query_string = {};
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split("=");
-      var key = decodeURIComponent(pair[0]);
-      var value = decodeURIComponent(pair[1]);
-      // If first entry with this name
-      if (typeof query_string[key] === "undefined") {
-        query_string[key] = decodeURIComponent(value);
-        // If second entry with this name
-      } else if (typeof query_string[key] === "string") {
-        var arr = [query_string[key], decodeURIComponent(value)];
-        query_string[key] = arr;
-        // If third or later entry with this name
-      } else {
-        query_string[key].push(decodeURIComponent(value));
-      }
-    }
-    return query_string;
+  const api = new API;  
+  let name;
+  let idCount;
+
+  if (search_params.has('provinceId')){
+    idCount = search_params.get('provinceId')
+    let province = await api.getProvinceName(idCount);
+    name = province.name
+    document.getElementById("countRoom").textContent = await api.getCountRoom(idCount);
+
+    defaultApi = `http://localhost:8080/search?provinceId=${idCount}`
+    districts = await api.getDistrict(idCount);
+    showDistrict(districts)
+
+  } else if (search_params.has('districtId')){
+    idCount = search_params.get('districtId')
+    let district = await api.getDistrictName(idCount);
+    name = district.name
+    document.getElementById("countRoom").textContent = await api.getCountRoomDistrict(idCount);
+
+    defaultApi = `http://localhost:8080/search?districtId=${idCount}`
+    wards = await api.getWard(idCount);
+    showWard(wards)
+    
+  } else if (search_params.has('location')){
+    idCount = search_params.get('location')
+    let ward = await api.getWardName(idCount);
+    console.log(ward.name)
+    name = ward.name
+    document.getElementById("countRoom").textContent = await api.getCountRoomWard(idCount)
+    defaultApi = `http://localhost:8080/search?location=${idCount}`
+    document.getElementById("region").style.display = 'none'
   }
 
-  var query = window.location.search.substring(1);
-  var qs = parse_query_string(query);
-  let provinceID = qs.provinceId
-
-  const api = new API;
-
-  let provinceName;
-  const provinces = await api.getProvince();
-  provinces.forEach(province => {
-    if (province.id == provinceID) {
-      provinceName = province.name
-    }
-  })
-  document.getElementById("location").textContent = provinceName;
-  document.getElementById("countRoom").textContent = await api.getCountRoom(provinceID);
-
-  defaultApi = `http://localhost:8080/search?provinceId=${provinceID}`
-
-
+  document.getElementById("location").textContent = name;
   let data = await room.getRoomAPI(defaultApi)
   room.showRoom(data)
 
-  districts = await api.getDistrict(provinceID);
-  showDistrict(districts)
+
 
   filterByRoomType(defaultApi, room)
   filterByDistrict(defaultApi, room)
@@ -99,6 +94,19 @@ function showDistrict(districts) {
         <li>
           <input type="checkbox" style="margin-left: 2rem" class="checkbox-location checkbox-input" name="districts" value="${district.id}">
           <label class="checkbox">${district.prefix} ${district.name}</label>
+        </li>
+      `
+  })
+  document.getElementById('region-list').innerHTML = output
+}
+
+function showWard(wards) {
+  let output = ``
+  wards.forEach(ward => {
+    output += `
+        <li>
+          <input type="checkbox" style="margin-left: 2rem" class="checkbox-location checkbox-input" name="districts" value="${ward.id}">
+          <label class="checkbox">${ward.prefix} ${ward.name}</label>
         </li>
       `
   })

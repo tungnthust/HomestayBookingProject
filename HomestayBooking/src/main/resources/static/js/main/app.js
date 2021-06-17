@@ -100,7 +100,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         // inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="districtId-' + data.districts[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+district.name+', '+ 
         // province.name + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
         inner_html += `
-        <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="districtId-${data.districts[j]}-provinceId-${district.provinceId}">
+        <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="districtId-${data.districts[j]}">
           <div class="d-flex justify-content-center align-items-center mr-4" style="height:40px; width:40px">
             <i class="fa fa-map-marker fa-lg" aria-hidden="true" font-size="150px"></i>
           </div>
@@ -142,10 +142,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   });  
 
   document.getElementById('search-submit').addEventListener('submit', (e) => {
+    e.preventDefault()
     if (openFilter !== ''){
-      window.open(`./${openFilter}`)
-      e.preventDefault()
-    } else if (openFilter ) {
+      window.location.href = "./filter.html?" + openFilter
+    } else {
       window.reload();
     }
   })
@@ -159,12 +159,8 @@ function getId(id) {
   let searchQuery = id.split("-");
   if (searchQuery[0] == "room") {
     window.open("./roomDetail.html?roomId="+searchQuery[1]+ getParam());
-  } else if (searchQuery[0] === "provinceId"){
-    openFilter = `filter.html?${searchQuery[0]}=${searchQuery[1]}`+getParam();
-  } else if (searchQuery[0] === "disctrictId"){
-    openFilter = `filter.html?$dictrictId=${searchQuery[1]}`+getParam();
-  } else if (searchQuery[0] === "location"){
-    openFilter = `filter.html?location=${searchQuery[1]}`+getParam();
+  } else {
+    openFilter = `${searchQuery[0]}=${searchQuery[1]}`+getParam();
   }
 }
 
