@@ -1,6 +1,8 @@
 var start = '';
 var end = '';
 var openFilter = '';
+var url = new URL(window.location);
+var params = url.searchParams
 
 window.addEventListener('DOMContentLoaded', async (event) => {
  
@@ -137,14 +139,19 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     result.innerHTML = inner_html;
     } else {
       result.innerHTML = '';
+      params.delete('provinceId')
+      params.delete('districtId')
+      params.delete('location')
     }
 
   });  
 
+  console.log(url)
+
   document.getElementById('search-submit').addEventListener('submit', (e) => {
     e.preventDefault()
     if (openFilter !== ''){
-      window.location.href = "./filter.html?" + openFilter + getParam();
+      window.location.href = "./filter.html?" + params.toString()
     } else {
       window.location.reload();
     }
@@ -191,8 +198,22 @@ function getId(id) {
     window.open("./roomDetail.html?roomId="+searchQuery[1]);
   } else {
     openFilter = `${searchQuery[0]}=${searchQuery[1]}`;
-    console.log(openFilter)
+    if (searchQuery[0] === 'provinceId'){
+      params.set('provinceId', searchQuery[1])
+      params.delete('districtId')
+      params.delete('location')
+    } else if (searchQuery[0] === 'districtId'){
+      params.set('districtId', searchQuery[1])
+      params.delete('provinceId')
+      params.delete('location')
+    } else if (searchQuery[0] === 'location'){
+      params.set('location', searchQuery[1])
+      params.delete('provinceId')
+      params.delete('districtId')
+    }
   }
+  console.log(params.toString())
+  console.log(openFilter + getParam())
 }
 
 function loadCountGuess(){
@@ -200,18 +221,26 @@ function loadCountGuess(){
     document.getElementById('count-adult').value = ''
     document.getElementById('count-children').value = ''
     document.getElementById('showGuess').textContent = 'Số khách'
+    params.delete('childrenCount')
+    params.delete('adultCount')
+    url.search = params.toString()
+    window.history.pushState({}, '', url);
   })
   document.getElementById('apply-nbGuess').addEventListener('click', () => {
     let countAdult = document.getElementById('count-adult').value
     let countChildren = document.getElementById('count-children').value
-    let totalGuess
+    let totalGuess = 0
     if (countAdult !== '' || countChildren !== ''){
-      console.log(countChildren, countAdult)
-      if (countAdult !== '' && countChildren !== ''){
-        totalGuess = parseInt(countAdult) + parseInt(countChildren)
-      } else {
-        totalGuess = countAdult === '' ? parseInt(countChildren) : parseInt(countAdult)
+      if (countChildren > 0){
+        params.set('childrenCount', countChildren)
+        totalGuess += parseInt(countChildren)
       }
+      if (countAdult > 0){
+        params.set('adultCount', countAdult)
+        totalGuess += parseInt(countAdult)
+      }
+      url.search = params.toString()
+      window.history.pushState({}, '', url);
       document.getElementById('showGuess').textContent = `${totalGuess} khách`
     }
   })
@@ -243,12 +272,20 @@ function checkReservation() {
     let endDate = picker.endDate
     start = startDate.format("YYYY-MM-DD");
     end = endDate.format("YYYY-MM-DD");
+    params.set('checkinDate', startDate.format("YYYY-MM-DD"))
+    params.set('checkoutDate', endDate.format("YYYY-MM-DD"))
+    url.search = params.toString()
+    window.history.pushState({}, '', url)
     $(this).val(startDate.format('MMM D') + "-" + endDate.format('MMM D'));
     getParam()
   });
 
   $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
     $(this).val("Ngày");
+    params.delete('checkinDate')
+    params.delete('checkoutDate')
+    url.search = params.toString()
+    window.history.pushState({}, '', url)
     start = ''
     end = ''
   });
