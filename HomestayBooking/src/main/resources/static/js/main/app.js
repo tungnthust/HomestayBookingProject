@@ -149,10 +149,40 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       window.location.reload();
     }
   })
+
+  const places = await api.getFavoritePlace()
+  let homestayPlace = '';
+  let countRoom
+  for (let i = 0; i < 5; i++){
+    if (places[i].type === 'district'){
+      countRoom = await api.getCountRoomDistrict(places[i].id)
+    } else if (places[i].type === 'province'){
+      countRoom = await api.getCountRoom(places[i].id)
+    }
+    homestayPlace += `
+    <li class="place__item">
+    <a href="./filter.html?&${places[i].type}Id=${places[i].id}">
+      <img src="../static/images/favoriteHomestay/${i+1}.png" alt="" class="place__image">
+      <div class="place__name">${places[i].name}</div>
+      <div class="place__countroom">${countRoom} phòng</div>
+    </a>
+  </li>
+    `
+  }
+  document.querySelector('.place__group').innerHTML = homestayPlace
+
+  let homestayLink = `<h3 class="footer__caption">TOP HOMESTAY ĐƯỢC YÊU THÍCH</h3>`
+  places.forEach(place => {
+    homestayLink += `
+    <p class="footer__item">
+      <a href="./filter.html?&${place.type}Id=${place.id}" style="text-decoration:none; color:black">Homestay ${place.name}</a>
+    </p>
+    `
+  })
+  document.getElementById('favorite').innerHTML = homestayLink
 })
 
 function getId(id) {
-  console.log(id);
   let query = document.querySelector('#' + id + ' > div > p').textContent;
   document.getElementById('search').value = query;
   document.getElementById('result').innerHTML = '';
@@ -161,6 +191,7 @@ function getId(id) {
     window.open("./roomDetail.html?roomId="+searchQuery[1]);
   } else {
     openFilter = `${searchQuery[0]}=${searchQuery[1]}`;
+    console.log(openFilter)
   }
 }
 

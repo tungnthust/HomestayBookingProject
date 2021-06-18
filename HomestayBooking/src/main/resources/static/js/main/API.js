@@ -25,6 +25,24 @@ class API {
     })
   }
 
+  async getFavoritePlace(){
+    const response = await fetch('../static/js/main/data.json')
+    const res = await response.json()
+    return res
+  }
+
+  async getCountRoom(provinceID) {
+    const countRoomResponse = await fetch(`http://localhost:8080/search/countRoom/${provinceID}`);
+    const countRoom = await countRoomResponse.json();
+    return countRoom
+  }
+
+  async getCountRoomDistrict(districtID) {
+    const countRoomResponse = await fetch(`http://localhost:8080/search/countRoom/district/${districtID}`);
+    const countRoom = await countRoomResponse.json();
+    return countRoom
+  }
+
   async getData(url) {
     // console.log(data);
     const response = await fetch(url, {

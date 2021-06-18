@@ -199,7 +199,12 @@ function checkReservation(roomArr) {
 
   
   $('input[name="daterange"]').daterangepicker({
+    autoUpdateInput: false,
     opens: 'left',
+    locale: {
+      cancelLabel: 'Xóa',
+      applyLabel: 'Áp dụng'
+    },
     isInvalidDate: function (date) {
       let tempDate = date.format('YYYY-MM-DD');
       let today = new Date();
