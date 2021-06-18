@@ -49,7 +49,7 @@ class Room {
           <a href="./roomDetail.html?roomId=${room.id}" class="card my-3 mx-2 d-inline-block" style="width: calc(20% - 1rem); text-decoration: none; color: black">
             <img src="${imagesUrl[0].url}" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title card-name"> ${room.name}</h5>
+              <h5 class="card-title card-name">${room.name}</h5>
               <p class="card-text card-desc">${roomType} - ${room.bedroomCount} phòng ngủ </p>
               <p class="card-price" style="font-weight: bold">${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}<u>đ</u>/đêm</p>
            </div>
