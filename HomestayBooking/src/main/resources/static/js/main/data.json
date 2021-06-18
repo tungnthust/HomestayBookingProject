@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Hà Nội",
+    "id": 2,
+    "type": "province"
+  },
+  {
+    "name": "Hồ Chí Minh",
+    "id": 1,
+    "type": "province"
+  },
+  {
+    "name": "Vũng Tàu",
+    "id": 145,
+    "type": "district"
+  },
+  {
+    "name": "Đà Lạt",
+    "id": 185,
+    "type": "district"
+  },
+  {
+    "name": "Đà Nẵng",
+    "id": 3,
+    "type": "province"
+  },
+  {
+    "name": "Nha Trang",
+    "id": 87,
+    "type": "district"
+  },
+  {
+    "name": "Quảng Ninh",
+    "id": 9,
+    "type": "province"
+  },
+  {
+    "name": "Hội An",
+    "id": 145,
+    "type": "district"
+  }
+]
