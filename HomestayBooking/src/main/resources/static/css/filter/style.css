@@ -126,7 +126,6 @@ button {
   font-weight: bold;
   padding: 1.5rem;
   cursor: pointer;
-  text-decoration: none;
 }
 .header__btn:hover {
   background-color: black;
@@ -216,9 +215,9 @@ button {
   font-size: 13px
 }
 
-.card-name{
+/* .card-name{
   
-}
+} */
 
 .checkbox {
   margin: 1rem 2rem;
