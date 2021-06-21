@@ -3,7 +3,7 @@ var end = '';
 var openFilter = '';
 var url = new URL(window.location);
 var params = url.searchParams
-
+var hostId = '';
 window.addEventListener('DOMContentLoaded', async (event) => {
  
   loadCountGuess()
@@ -22,6 +22,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     login = true;
   }
   if (login == true) {
+    hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+    hostId = await hostId.text();
     document.getElementById("new-user").style.display = "none";
     document.getElementById("username").style.display = "block";
     document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
@@ -33,7 +35,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   document.getElementById("host").addEventListener('click', async (e) => {
     e.preventDefault();
     if (login == true) {
-      let hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+      hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
       hostId = await hostId.text();
       if (hostId == '') {
         window.location.href = "./hostRegister.html?id=" + user.id; 
@@ -44,6 +46,18 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       window.location.href = "./login.html"; 
     }
   })
+
+  if (hostId != '') {
+    const countNotiResponse = await fetch(`http://localhost:8080/api/notification/host/${hostId}`);
+    const countNoti = await countNotiResponse.json();
+    let notify = document.getElementById("countNotify");
+    if (countNoti > 0) {
+      notify.style.display = "flex";
+      notify.innerHTML = countNoti;
+    } else {
+      notify.style.display = "none";
+    }
+  }
 
   searchInput.addEventListener('keyup', async function() {
     let query = searchInput.value;

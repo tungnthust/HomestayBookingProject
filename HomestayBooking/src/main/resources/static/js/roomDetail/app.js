@@ -1,6 +1,7 @@
 var setDate = false;
 var start;
 var end;
+var hostId = '';
 window.addEventListener('DOMContentLoaded', async (event) => {
 
   let login = false;
@@ -13,6 +14,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     login = true;
   }
   if (login == true) {
+    hostId = await fetch("http://localhost:8080/api/user/host/" + user.id);
+    hostId = await hostId.text();
     document.getElementById("new-user").style.display = "none";
     document.getElementById("username").style.display = "inline";
     document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
@@ -35,6 +38,18 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       window.location.href = "./login.html"; 
     }
   })
+
+  if (hostId != '') {
+    const countNotiResponse = await fetch(`http://localhost:8080/api/notification/host/${hostId}`);
+    const countNoti = await countNotiResponse.json();
+    let notify = document.getElementById("countNotify");
+    if (countNoti > 0) {
+      notify.style.display = "flex";
+      notify.innerHTML = countNoti;
+    } else {
+      notify.style.display = "none";
+    }
+  }
   
   function parse_query_string(query) {
     var vars = query.split("&");
