@@ -10,4 +10,6 @@ import com.group4T.homestaybooking.HomestayBooking.model.Reservation;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
 	List<Reservation> findAllByRoomIdId(Integer roomId);
+
+	List<Reservation> findAllByRoomIdHostIdOrderByIdAsc(Integer id);
 }

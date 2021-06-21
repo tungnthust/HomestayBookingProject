@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
             setInputError(document.getElementById("signinPassword"), "Incorrect password");
           }
           else {
-            history.back();
+            window.location=document.referrer;
         }
       })
     });

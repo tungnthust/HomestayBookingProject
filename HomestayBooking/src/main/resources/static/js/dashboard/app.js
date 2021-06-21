@@ -12,6 +12,13 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   });
   user = await user.json();
   document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
+  const countNotiResponse = await fetch(`http://localhost:8080/api/notification/host/${hostId}`);
+  const countNoti = await countNotiResponse.json();
+  let notify = document.getElementById("countNotify");
+  if (countNoti > 0) {
+    notify.style.display = "flex";
+    notify.innerHTML = countNoti;
+  }
   const data = await api.getData('http://localhost:8080/api/room/host/' + hostId);
   let temp = "";
   for (let i = 0; i < data.length; i++) {
@@ -48,6 +55,15 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     deleteRoom();
     window.location.reload();
   })
+
+  document.getElementById("reservation_list").addEventListener('click', async function() {
+    notify.style.display = "none";
+    await fetch(`http://localhost:8080/api/notification/host/${hostId}`, {
+      method: 'PUT',
+    })
+    window.location.href = "./reservationHost.html?hostId=" + hostId;
+  })
+
   document.getElementById("delete-success-close").addEventListener("click", function() {
     deleteRoom();
     window.location.reload();

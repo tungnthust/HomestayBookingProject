@@ -34,4 +34,9 @@ public class ReservationController {
 	public List<Reservation> getAllReservation() {
 		return reservationService.getAllReservation(); 
 	}
+	
+	@GetMapping("/host/{id}")
+	public List<Reservation> getReservationsByHost(@PathVariable Integer id) {
+		return reservationService.getReservationsByHost(id); 
+	}
 }

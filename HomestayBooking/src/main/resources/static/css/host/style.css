@@ -16,6 +16,14 @@
     background-color: chocolate ;
     border-color: chocolate;
 }
+
+#reservation_list {
+    font-size: 17px;
+    border-radius: 10px;
+    padding: 12px;
+    font-weight: 700;
+}
+
 .table td, .table th {
     vertical-align:middle;
 }
@@ -102,4 +110,33 @@ thead {
 .ui-sortable-helper {
     width: 90px !important;
     height: 90px !important;
+}
+
+.icon-button__badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 25px;
+    height: 25px;
+    background: red;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+
+  
+.icon-button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+ 
+}
+
+.notification :hover {
+    background-color: chocolate;
 }

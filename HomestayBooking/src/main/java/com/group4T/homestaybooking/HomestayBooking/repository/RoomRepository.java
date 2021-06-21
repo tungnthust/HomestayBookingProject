@@ -23,7 +23,10 @@ public interface RoomRepository extends JpaRepository<RoomDetail, Integer>{
 	@Modifying
 	@Query(value = "SELECT d.id FROM room_detail d where d.name like %?1%", nativeQuery = true)
 	List<Integer> findIdByNameContaining(String query);
-
+	
+	@Query(value = "SELECT r.host_id FROM room_detail r where r.id = ?1", nativeQuery = true)
+	Integer findHostByRoomId(int id);
+	
 	long countByLocationDistrictId(Integer id);
 
 	long countByLocationId(Integer id);
