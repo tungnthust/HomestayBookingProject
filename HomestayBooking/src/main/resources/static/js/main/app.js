@@ -160,8 +160,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
 
   });  
 
-  console.log(url)
-
   document.getElementById('search-submit').addEventListener('submit', (e) => {
     e.preventDefault()
     if (openFilter !== ''){

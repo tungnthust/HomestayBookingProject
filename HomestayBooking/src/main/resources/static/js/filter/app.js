@@ -3,7 +3,7 @@ var defaultApi;
 var totalItems = 0;
 var sortType = "";
 var url = new URL(window.location.href)
-var search_params = url.searchParams
+var params = url.searchParams
 const api = new API();  
 const room = new Room;
 const result = document.getElementById('result');
@@ -65,16 +65,16 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   let name;
   let idCount;
 
-  if (search_params.has('provinceId')){
-    idCount = search_params.get('provinceId')
+  if (params.has('provinceId')){
+    idCount = params.get('provinceId')
     let province = await api.getProvinceName(idCount);
     name = province.name
     defaultApi = `http://localhost:8080/search?provinceId=${idCount}`
     districts = await api.getDistrict(idCount);
     showDistrict(districts)
 
-  } else if (search_params.has('districtId')){
-    idCount = search_params.get('districtId')
+  } else if (params.has('districtId')){
+    idCount = params.get('districtId')
     let district = await api.getDistrictName(idCount);
     name = district.name
 
@@ -82,8 +82,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     wards = await api.getWard(idCount);
     showWard(wards)
     
-  } else if (search_params.has('location')){
-    idCount = search_params.get('location')
+  } else if (params.has('location')){
+    idCount = params.get('location')
     let ward = await api.getWardName(idCount);
     console.log(ward.name)
     name = ward.name
@@ -91,17 +91,17 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     document.getElementById("region").style.display = 'none'
   }
 
-  if (search_params.has('checkinDate')){
-    let checkinDate = search_params.get('checkinDate')
-    let chechoutDate = search_params.get('checkoutDate')
+  if (params.has('checkinDate')){
+    let checkinDate = params.get('checkinDate')
+    let chechoutDate = params.get('checkoutDate')
     defaultApi += `&checkinDate=${checkinDate}&checkoutDate=${chechoutDate}`
   } 
-  if (search_params.has('adultCount')){
-    let adultCount = search_params.get('adultCount');
+  if (params.has('adultCount')){
+    let adultCount = params.get('adultCount');
     defaultApi += `&adultCount=${adultCount}`
   }
-  if (search_params.has('childrenCount')){
-    let childrenCount = search_params.get('childrenCount');
+  if (params.has('childrenCount')){
+    let childrenCount = params.get('childrenCount');
     defaultApi += `&childrenCount=${childrenCount}`
   }
 
@@ -119,6 +119,15 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   filterByPrice(defaultApi, room)
   filterByMore(defaultApi, room)
   filterByNumberGuess(defaultApi, room)
+
+  document.getElementById('search-submit').addEventListener('submit', (e) => {
+    e.preventDefault()
+    if (openFilter !== ''){
+      window.location.href = "./filter.html?" + params.toString()
+    } else {
+      window.location.reload();
+    }
+  })
 });
 
 function showDistrict(districts) {
@@ -153,6 +162,10 @@ function filterByNumberGuess(defaultApi, room){
     pageNumber = 0;
     document.getElementById('count-adult').value = ''
     document.getElementById('count-children').value = ''
+    params.delete('childrenCount')
+    params.delete('adultCount')
+    url.search = params.toString()
+    window.history.pushState({}, '', url);
     let newApi = writeApi(defaultApi)
     let data = await room.getRoomAPI(newApi);
     room.showRoom(data)
@@ -160,8 +173,24 @@ function filterByNumberGuess(defaultApi, room){
   })
   document.getElementById('apply-nbGuess').addEventListener('click', async (e) => {
     pageNumber = 0;
+    let countAdult = document.getElementById('count-adult').value
+    let countChildren = document.getElementById('count-children').value
+    if (countAdult !== '' || countChildren !== ''){
+      if (countChildren > 0){
+        params.set('childrenCount', countChildren)
+        // totalGuess += parseInt(countChildren)
+      }
+      if (countAdult > 0){
+        params.set('adultCount', countAdult)
+        // totalGuess += parseInt(countAdult)
+      }
+      url.search = params.toString()
+      window.history.pushState({}, '', url);
+      // document.getElementById('showGuess').textContent = `${totalGuess} khách`
+    }
+    url.search = params.toString()
+    window.history.pushState({}, '', url)    
     let newApi = writeApi(defaultApi)
-    console.log(newApi)
     data = await room.getRoomAPI(newApi);
     room.showRoom(data)
     document.getElementById("countRoom").textContent = totalItems
@@ -451,8 +480,7 @@ searchInput.addEventListener('keyup', async function() {
         let district = await api.getData('http://localhost:8080/api/location/district/' + data.districts[j]);
         let countRoom = await api.getData('http://localhost:8080/search/countRoom/district/' + data.districts[j]);
         let province = await api.getData('http://localhost:8080/api/location/province/' + district.provinceId);
-        // inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="districtId-' + data.districts[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+district.name+', '+ 
-        // province.name + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
+
         inner_html += `
         <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="districtId-${data.districts[j]}">
           <div class="d-flex justify-content-center align-items-center mr-4" style="height:40px; width:40px">
@@ -471,9 +499,6 @@ searchInput.addEventListener('keyup', async function() {
         let ward = await api.getData('http://localhost:8080/api/location/ward/' + data.wards[j]);
         let district = ward.district.name;
         let countRoom = await api.getData('http://localhost:8080/search/countRoom/ward/' + data.wards[j]);
-        let province = ward.province.name;
-        // inner_html += '<li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class"' + 'id="location-' + data.wards[j] +'"><i class="fa fa-map-marker" aria-hidden="true"></i><p>'+ward.name + ', ' + 
-        // district+', '+ province + '</p><br><span class="text-muted">'+countRoom+' Chỗ ở</span></li>';
         inner_html += `
         <li onclick ="getId(this.id)" style="cursor: pointer" class="list-group-item link-class d-flex" id="location-${data.wards[j]}">
           <div class="d-flex justify-content-center align-items-center mr-4" style="height:40px; width:40px">
@@ -542,7 +567,7 @@ function loadCountGuess(){
   })
 }
 
-function checkReservation() {
+function checkReservation(defaultApi, room) {
 
   $('input[name="daterange"]').daterangepicker({
     autoUpdateInput: false,
@@ -571,18 +596,18 @@ function checkReservation() {
   });
 };
 
-function getParam() {
-  let param ='';
-  if (start !== '' && end !== '') {
-    param += `&checkinDate=${start}&checkoutDate=${end}`;
-  } 
-  let countAdult = document.getElementById('count-adult').value
-  let countChildren = document.getElementById('count-children').value
-  if (countAdult !== ''){
-    param += `&adultCount=${countAdult}`
-  }
-  if (countChildren !== ''){
-    param += `&childrenCount=${countChildren}`
-  }
-  return param;
-}
+// function getParam() {
+//   let param ='';
+//   if (start !== '' && end !== '') {
+//     param += `&checkinDate=${start}&checkoutDate=${end}`;
+//   } 
+//   let countAdult = document.getElementById('count-adult').value
+//   let countChildren = document.getElementById('count-children').value
+//   if (countAdult !== ''){
+//     param += `&adultCount=${countAdult}`
+//   }
+//   if (countChildren !== ''){
+//     param += `&childrenCount=${countChildren}`
+//   }
+//   return param;
+// }
