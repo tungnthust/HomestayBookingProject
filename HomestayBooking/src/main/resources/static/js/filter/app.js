@@ -106,6 +106,15 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   filterByPrice(defaultApi, room)
   filterByMore(defaultApi, room)
   filterByNumberGuess(defaultApi, room)
+
+  document.getElementById('search-submit').addEventListener('submit', (e) => {
+    e.preventDefault()
+    if (openFilter !== ''){
+      window.location.href = "./filter.html?" + params.toString()
+    } else {
+      window.location.reload();
+    }
+  })
 });
 
 function showDistrict(districts) {
