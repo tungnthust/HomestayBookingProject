@@ -1,5 +1,6 @@
 package com.group4T.homestaybooking.HomestayBooking.dto;
 
+import java.time.Instant;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,8 +20,16 @@ public class ReservationRequest {
 	private Date checkoutDate;
 	private int guestCount;
 	private int price;
+	private Instant orderTime;
 	private int paymentMethodId;		// paymentmethod --> int
 	
+	
+	public Instant getOrderTime() {
+		return orderTime;
+	}
+	public void setOrderTime(Instant orderTime) {
+		this.orderTime = orderTime;
+	}
 	public int getRoomId() {
 		return roomId;
 	}
@@ -64,17 +73,17 @@ public class ReservationRequest {
 		this.paymentMethodId = paymentMethodId;
 	}
 	public ReservationRequest(int roomId, int guestId, Date checkinDate, Date checkoutDate, int guestCount, int price,
-			int paymentMethodId) {
+			Instant orderTime, int paymentMethodId) {
+		super();
 		this.roomId = roomId;
 		this.guestId = guestId;
 		this.checkinDate = checkinDate;
 		this.checkoutDate = checkoutDate;
 		this.guestCount = guestCount;
 		this.price = price;
+		this.orderTime = orderTime;
 		this.paymentMethodId = paymentMethodId;
 	}
-	
-	
-	
+		
 
 }

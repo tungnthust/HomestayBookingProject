@@ -35,10 +35,10 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   const room = await api.getData('http://localhost:8080/search/' + roomId);
   const districts  = await api.getDistrict(room.location.province.id);
   ui.showDistrict(districts)
-
+  document.title = room.name
   const wards = await api.getWard(room.location.district.id);
   ui.showWard(wards)
-
+    
   document.getElementById('roomName').value = room.name;
   
   document.getElementById('roomType').value = room.type;

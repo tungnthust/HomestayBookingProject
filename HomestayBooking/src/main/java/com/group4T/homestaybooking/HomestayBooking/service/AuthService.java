@@ -107,5 +107,15 @@ public class AuthService {
                 .username(refreshTokenRequest.getUsername())
                 .build();
     }
+
+	public boolean checkEmail(String email) {
+		// TODO Auto-generated method stub
+		return repo.existsByEmail(email);
+	}
+	
+	public boolean checkUsername(String username) {
+		// TODO Auto-generated method stub
+		return repo.existsByUsername(username);
+	}
 	
 }

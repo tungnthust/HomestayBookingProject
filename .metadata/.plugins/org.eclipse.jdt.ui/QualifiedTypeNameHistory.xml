@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.group4T.homestaybooking.HomestayBooking.model.Host"/>
-    <fullyQualifiedTypeName name="com.group4T.homestaybooking.HomestayBooking.repository.HostRepository"/>
-    <fullyQualifiedTypeName name="com.group4T.homestaybooking.HomestayBooking.repository.UserRepository"/>
     <fullyQualifiedTypeName name="javax.persistence.JoinColumn"/>
     <fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
     <fullyQualifiedTypeName name="com.group4T.homestaybooking.HomestayBooking.repository.LocationRepository"/>
     <fullyQualifiedTypeName name="com.group4T.homestaybooking.HomestayBooking.repository.ProvinceRepository"/>
     <fullyQualifiedTypeName name="com.group4T.homestaybooking.HomestayBooking.repository.DistrictRepository"/>
@@ -60,4 +56,8 @@
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
     <fullyQualifiedTypeName name="javax.persistence.Column"/>
+    <fullyQualifiedTypeName name="java.time.Instant"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Sort"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+    <fullyQualifiedTypeName name="org.aspectj.weaver.patterns.IScope"/>
 </qualifiedTypeNameHistroy>

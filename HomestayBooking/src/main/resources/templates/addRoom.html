@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-  <title>Title</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,13 +13,15 @@
   <link rel="stylesheet" href="../static/css/host/style.css">
   <link rel="stylesheet" href="../static/css/roomDetail/style.css">
   <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="icon" href="../static/images/logo/logo.png" type="image/icon type">
+  <title>Thêm chỗ nghỉ mới</title>
 </head>
 
 <body>
   <div class="header d-flex justify-content-between align-items-center sticky-top">
     <div class="header__logo">
       <a href="./main.html">
-      <img src="https://c4img.onlinefriday.vn/r600x600/12_2019/f/49/9/9074403037_1575625908.png" alt=""
+      <img src="../static/images/logo/logo_brand.jpg" alt=""
         class="header__logo-img">
       </a>
     </div>
@@ -53,19 +54,19 @@
         <div class="col-4">
           <div class="form-group">
             <label for="price">Giá phòng</label>
-            <input type="number" class="form-control" id="price" required>
+            <input type="number" min="0" class="form-control" id="price" required>
           </div>
         </div>
         <div class="col-4">
           <div class="form-group">
             <label for="capacity">Số người tối đa</label>
-            <input class="form-control" type="number" id="capacity" required>
+            <input class="form-control" min="0" type="number" id="capacity" required>
           </div>
         </div>
         <div class="col-4">
           <div class="form-group">
             <label for="area">Diện tích</label>
-            <input class="form-control" type="number" id="area" required>
+            <input class="form-control" min="0" type="number" id="area" required>
           </div>
         </div>
       </div>
@@ -99,19 +100,19 @@
         <div class="col-4">
           <div class="form-group">
             <label for="bedRoomCount">Số phòng ngủ</label>
-            <input type="number" class="form-control" id="bedRoomCount" required>
+            <input type="number" min="0" class="form-control" id="bedRoomCount" required>
           </div>
         </div>
         <div class="col-4">
           <div class="form-group">
             <label for="bedCount">Số giường </label>
-            <input type="number" class="form-control" id="bedCount" required>
+            <input type="number" min="0" class="form-control" id="bedCount" required>
           </div>
         </div>
         <div class="col-4">
           <div class="form-group">
             <label for="bathRoomCount">Số phòng tắm</label>
-            <input type="number" class="form-control" id="bathRoomCount" required>
+            <input type="number" min="0" class="form-control" id="bathRoomCount" required>
           </div>
         </div>
       </div>
@@ -120,7 +121,7 @@
         <textarea type="text" class="form-control" id="desc" required></textarea>
       </div>
       <div class="form-group">
-        <label for="policy">Chính sách</label>
+        <label for="policy">Nội quy</label>
         <textarea type="text" class="form-control" id="policy" required></textarea>
       </div>
       <div class="form-group">

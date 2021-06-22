@@ -46,8 +46,8 @@ class UI {
     const type = ["Khách sạn", "Căn hộ", "Homestay"]
     const roomType = type[room.type - 1]
 
-    document.querySelector('.text-title').textContent = `${room.name} - ${room.bedroomCount} phòng ngủ, ${room.area}m2, ${room.address}`
-    document.querySelector('.room-location').innerHTML = `<strong>${room.location.prefix} ${room.location.name}, ${room.location.district.prefix} ${room.location.district.name}, ${room.location.province.name}</strong>`
+    document.querySelector('.text-title').textContent = `${room.name} - ${room.bedroomCount} phòng ngủ, ${room.area}m2`
+    document.querySelector('.room-location').innerHTML = `<strong>${room.address}, ${room.location.prefix} ${room.location.name}, ${room.location.district.prefix} ${room.location.district.name}, ${room.location.province.name}</strong>`
     document.querySelector('.room-area').innerHTML = `<strong>${roomType} . </strong> ${room.area}m2`
 
     document.querySelector('.room-group').innerHTML = `
@@ -72,9 +72,9 @@ class UI {
       `
     }
     document.querySelector('.utility').innerHTML = output
-
+    document.title = `${room.name} - ${room.bedroomCount} phòng ngủ, ${room.area}m2`;
     document.querySelector('.pricePerday').innerHTML = `<strong>${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}/đêm</strong> (Giá có thể tăng vào cuối tuần hoặc ngày lễ)`
     document.querySelector('.policy').textContent = `${room.policy}`
-    document.querySelector('.totalPrice').innerHTML = `<strong>${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</strong>`
+    document.querySelector('.totalPrice').innerHTML = `<strong>${room.pricePerDay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</strong>`
   }
 }

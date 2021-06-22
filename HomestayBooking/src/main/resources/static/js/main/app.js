@@ -241,11 +241,23 @@ function loadCountGuess(){
   document.getElementById('apply-nbGuess').addEventListener('click', () => {
     let countAdult = document.getElementById('count-adult').value
     let countChildren = document.getElementById('count-children').value
+    if (countAdult == '' && countChildren == '') {
+      alert("Vui lòng chọn số lượng khách.");
+      return;
+    }
+    
+    if (countAdult == '') {
+      countAdult = 0;
+      alert("Vui lòng chọn ít nhất 1 người lớn.");
+      return;
+    } 
     let totalGuess = 0
     if (countAdult !== '' || countChildren !== ''){
       if (countChildren > 0){
         params.set('childrenCount', countChildren)
         totalGuess += parseInt(countChildren)
+      } else {
+        params.delete('childrenCount');
       }
       if (countAdult > 0){
         params.set('adultCount', countAdult)
@@ -284,6 +296,12 @@ function checkReservation() {
     let endDate = picker.endDate
     start = startDate.format("YYYY-MM-DD");
     end = endDate.format("YYYY-MM-DD");
+    if (start == end) {
+      alert("Ngày nhận phòng và trả phòng không thể trùng nhau.");
+      start = null;
+      end = null;
+      return;
+    }
     params.set('checkinDate', startDate.format("YYYY-MM-DD"))
     params.set('checkoutDate', endDate.format("YYYY-MM-DD"))
     url.search = params.toString()

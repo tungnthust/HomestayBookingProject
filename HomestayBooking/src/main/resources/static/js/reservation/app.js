@@ -18,6 +18,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     let payment = reservation.paymentMethod.name;
     let checkinDate = new Date(reservation.checkinDate);
     checkinDate = checkinDate.toLocaleDateString();
+    let orderTime = new Date(reservation.orderTime);
+    orderTime = orderTime.toLocaleString();
     let checkoutDate = new Date(reservation.checkoutDate);
     checkoutDate = checkoutDate.toLocaleDateString();
     temp += "<tr>";
@@ -32,6 +34,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     temp += "<td class='checkoutDate'>" + checkoutDate + "</td>";
     temp += "<td class='price'>" + reservation.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "</td>";
     temp += "<td class='paymentMethod'>" + payment + "</td>";
+    temp += "<td class='orderTime'>" + orderTime+ "</td>";
   }
 
   document.getElementById("data").innerHTML = temp;

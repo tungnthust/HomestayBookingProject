@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-  <title>Title</title>
+  <link rel="icon" href="../static/images/logo/logo.png" type="image/icon type">
+  <title>Homey - Đặt phòng Homestay</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,7 +23,7 @@
   <div class="header d-flex justify-content-between align-items-center sticky-top">
     <div class="header__logo">
       <a href="./main.html">
-      <img src="https://c4img.onlinefriday.vn/r600x600/12_2019/f/49/9/9074403037_1575625908.png" alt=""
+      <img src="../static/images/logo/logo_brand.jpg" alt=""
         class="header__logo-img">
       </a>
     </div>
@@ -57,7 +58,7 @@
         </div>
         <h2 class="text-title">Giá phòng</h2>
         <p class="text-desc pricePerday"></p>
-        <h2 class="text-title">Chính sách</h2>
+        <h2 class="text-title">Nội quy</h2>
         <p class="text-desc policy"></p>
       </div>
       <div class="col-sm-4 place-order">
@@ -79,11 +80,11 @@
                   <h3 style="font-weight: bold" class="ml-3">Số khách</h3>
                   <li class="d-flex justify-content-between my-2">
                     <label class="checkbox" for="count-adult">Người lớn</label>
-                    <input type="number" id="count-adult" class="form-control col-2">
+                    <input type="number" id="count-adult" min="0" class="form-control col-2">
                   </li>
                   <li class="d-flex justify-content-between my-2">
                     <label class="checkbox" for="count-children">Trẻ em <small>(tuổi từ 2-12)</small></label>
-                    <input type="number" name="" id="count-children" class="form-control col-2">
+                    <input type="number" name="" min="0" id="count-children" class="form-control col-2">
                   </li>
                 </ul>
               </form>

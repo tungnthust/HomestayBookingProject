@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.aspectj.weaver.patterns.IScope;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,6 +50,22 @@ public class AuthController {
 	public ResponseEntity<String> registerUser(@RequestBody RegisterRequest registerRequest) {
 		authService.signup(registerRequest);
 		return new ResponseEntity<String>("User Registration Successfully", HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/checkEmail")
+	public boolean checkEmail(@RequestParam(name = "email") String email) {
+		if (email.equals("") || email == null) {
+			return false;
+		}
+		return authService.checkEmail(email);
+	}
+	
+	@PostMapping(value = "/checkUsername")
+	public boolean checkUsername(@RequestParam(name = "username") String username) {
+		if (username.equals("") || username == null) {
+			return false;
+		}
+		return authService.checkUsername(username);
 	}
 	
 	@GetMapping(value = "accountVerification/{token}")

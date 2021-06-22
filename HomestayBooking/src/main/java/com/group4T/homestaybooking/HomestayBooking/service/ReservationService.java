@@ -3,6 +3,7 @@ package com.group4T.homestaybooking.HomestayBooking.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +47,7 @@ public class ReservationService {
 		reservation.setCheckoutDate(reservationRequest.getCheckoutDate());
 		reservation.setGuestCount(reservationRequest.getGuestCount());
 		reservation.setPrice(reservationRequest.getPrice());
+		reservation.setOrderTime(reservationRequest.getOrderTime());
 		reservation.setPaymentMethod(paymentMethod_repo.findPaymentMethodById(reservationRequest.getPaymentMethodId()));
 		reservationRepository.save(reservation);
 		notification.setHostId(room_repo.findHostByRoomId(reservationRequest.getRoomId()));
@@ -55,10 +57,10 @@ public class ReservationService {
 	}
 
 	public List<Reservation> getAllReservation() {
-		return reservationRepository.findAll();
+		return reservationRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	}
 
 	public List<Reservation> getReservationsByHost(Integer id) {
-		return reservationRepository.findAllByRoomIdHostIdOrderByIdAsc(id);
+		return reservationRepository.findAllByRoomIdHostIdOrderByIdDesc(id);
 	}
 }

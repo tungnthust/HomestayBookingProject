@@ -81,7 +81,6 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   const data = await ui.getRoomDetail(roomId)
   console.log(data)
   ui.showDetail(data)
-
   const roomArr = await getReservation(roomId)
 
   checkReservation(roomArr);
@@ -95,13 +94,35 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     let dayLength = difference(new Date(startDate), new Date(endDate));
     let countAdult = document.getElementById('count-adult').value
     let countChildren = document.getElementById('count-children').value
-    let nbGuess = parseInt(countChildren) + parseInt(countAdult);
+    if (start == null) {
+      alert("Vui lòng chọn ngày nhận phòng và trả phòng.");
+      return;
+    }
+    if (countAdult == '' && countChildren == '') {
+      alert("Vui lòng chọn số lượng khách.");
+      return;
+    }
+    if (countChildren == '') {
+      countChildren = 0;
+    } else {
+      countChildren = parseInt(countChildren);
+    }
+    if (countAdult == '') {
+      countAdult = 0;
+      alert("Vui lòng chọn ít nhất 1 người lớn.");
+      return;
+    } else {
+      countAdult = parseInt(countAdult);
+    }
+    let nbGuess = countChildren + countAdult;
     console.log(nbGuess);
     if (dayLength == 0) {
-      alert("Please select days")
+      alert("Ngày nhận phòng và trả phòng không thể trùng nhau.")
+      return;
       $('#payment-modal').modal('hide')
     } else if (nbGuess <= 0) {
       alert("Please type number of guests")
+      return;
       $('#payment-modal').modal('hide')
     } else {
       let div = document.querySelector('.modal')
@@ -168,6 +189,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
       // console.log(nbGuess);
       let checkinDate = formatDate(arrDate[0]);
       let checkoutDate = formatDate(arrDate[1]);
+      let orderTime = new Date();
       let jsonData = {
         "roomId": data.id,
         "guestId": user.id,
@@ -175,7 +197,8 @@ window.addEventListener('DOMContentLoaded', async (event) => {
         "checkoutDate": checkoutDate,
         "guestCount": parseInt(nbGuess),
         "price": data.pricePerDay,
-        "paymentMethodId": parseInt(document.getElementById('payment-method').value)
+        "paymentMethodId": parseInt(document.getElementById('payment-method').value),
+        "orderTime": orderTime
       }
       console.log(jsonData);
 
@@ -246,6 +269,12 @@ function checkReservation(roomArr) {
     start = picker.startDate.format('DD/MM/YYYY');
     var endDate = picker.endDate.format('YYYY-MM-DD')
     end = picker.endDate.format('DD/MM/YYYY');
+    if (start == end) {
+      alert("Ngày nhận phòng và trả phòng không thể trùng nhau.");
+      start = null;
+      end = null;
+      return;
+    }
     $(this).val(`${start} - ${end}`);
     console.log(startDate + " to " + endDate);
     setDate = true;
@@ -271,7 +300,10 @@ function checkReservation(roomArr) {
       console.log("Cleared the input field...");
       setDate = false;
       // Alert user!
-      alert("Your range selection includes ordered dates!");
+      alert("Khoảng thời gian bạn chọn chứa ngày đã được đặt trước.");
+      start = null;
+      end = null;
+      return;
     }
   });
   
@@ -314,7 +346,24 @@ function checkNumberGuess() {
     document.getElementById('count-children').value = ''
   })
   document.getElementById('apply-nbGuess').addEventListener('click', () => {
-    // console.log(document.getElementById());
+    let countAdult = document.getElementById('count-adult').value
+    let countChildren = document.getElementById('count-children').value
+    if (countAdult == '' && countChildren == '') {
+      alert("Vui lòng chọn số lượng khách.");
+      return;
+    }
+    if (countChildren == '') {
+      countChildren = 0;
+    } else {
+      countChildren = parseInt(countChildren);
+    }
+    if (countAdult == '') {
+      countAdult = 0;
+      alert("Vui lòng chọn ít nhất 1 người lớn.");
+      return;
+    } else {
+      countAdult = parseInt(countAdult);
+    }
   })
 }
 

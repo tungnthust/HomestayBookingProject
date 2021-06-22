@@ -1,5 +1,6 @@
 var url = new URL(window.location.href);
 var hostId = url.searchParams.get("hostId");
+var countNoti;
 window.addEventListener('DOMContentLoaded', async (event) => {
   const api = new API();
   let typeName = {
@@ -13,7 +14,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   user = await user.json();
   document.querySelector("#name").textContent = user.last_name + ' ' + user.first_name;
   const countNotiResponse = await fetch(`http://localhost:8080/api/notification/host/${hostId}`);
-  const countNoti = await countNotiResponse.json();
+  countNoti = await countNotiResponse.json();
   let notify = document.getElementById("countNotify");
   if (countNoti > 0) {
     notify.style.display = "flex";
@@ -61,7 +62,9 @@ window.addEventListener('DOMContentLoaded', async (event) => {
     await fetch(`http://localhost:8080/api/notification/host/${hostId}`, {
       method: 'PUT',
     })
+    history.pushState({'num_new': countNoti}, '', "./reservationHost.html?hostId=" + hostId);
     window.location.href = "./reservationHost.html?hostId=" + hostId;
+    return;
   })
 
   document.getElementById("delete-success-close").addEventListener("click", function() {
@@ -77,3 +80,4 @@ function logout() {
   });
   window.location.href = "./main.html";
 }
+

@@ -111,7 +111,7 @@ window.addEventListener('DOMContentLoaded', async (event) => {
   if (totalItems > 0) {
     room.showRoom(data)
   }
-
+  document.title = `${totalItems} Homestay tại ${name}`
 
 
   filterByRoomType(defaultApi, room)
@@ -531,43 +531,85 @@ searchInput.addEventListener('keyup', async function() {
   })
 
 
-function getId(id) {
-  console.log(id);
-  let query = document.querySelector('#' + id + ' > div > p').textContent;
-  document.getElementById('search').value = query;
-  document.getElementById('result').innerHTML = '';
-  let searchQuery = id.split("-");
-  if (searchQuery[0] == "room") {
-    window.open("./roomDetail.html?roomId="+searchQuery[1]);
-  } else {
-    openFilter = `${searchQuery[0]}=${searchQuery[1]}`;
-    console.log(openFilter);
+
+  function getId(id) {
+    let query = document.querySelector('#' + id + ' > div > p').textContent;
+    document.getElementById('search').value = query;
+    document.getElementById('result').innerHTML = '';
+    let searchQuery = id.split("-");
+    if (searchQuery[0] == "room") {
+      window.open("./roomDetail.html?roomId="+searchQuery[1]);
+    } else {
+      openFilter = `${searchQuery[0]}=${searchQuery[1]}`;
+      if (searchQuery[0] === 'provinceId'){
+        params.set('provinceId', searchQuery[1])
+        params.delete('districtId')
+        params.delete('location')
+      } else if (searchQuery[0] === 'districtId'){
+        params.set('districtId', searchQuery[1])
+        params.delete('provinceId')
+        params.delete('location')
+      } else if (searchQuery[0] === 'location'){
+        params.set('location', searchQuery[1])
+        params.delete('provinceId')
+        params.delete('districtId')
+      }
+    }
+    console.log(params.toString())
+    console.log(openFilter + getParam())
   }
-}
 
 function loadCountGuess(){
   document.getElementById('delete-nbGuess').addEventListener('click', () => {
     document.getElementById('count-adult').value = ''
     document.getElementById('count-children').value = ''
     document.getElementById('showGuess').textContent = 'Số khách'
+    params.delete('childrenCount')
+    params.delete('adultCount')
+    url.search = params.toString()
+    window.history.pushState({}, '', url);
   })
   document.getElementById('apply-nbGuess').addEventListener('click', () => {
     let countAdult = document.getElementById('count-adult').value
     let countChildren = document.getElementById('count-children').value
-    let totalGuess
+    if (countAdult == '' && countChildren == '') {
+      alert("Vui lòng chọn số lượng khách.");
+      return;
+    }
+    
+    if (countAdult == '') {
+      countAdult = 0;
+      alert("Vui lòng chọn ít nhất 1 người lớn.");
+      return;
+    } 
+    let totalGuess = 0
     if (countAdult !== '' || countChildren !== ''){
-      console.log(countChildren, countAdult)
-      if (countAdult !== '' && countChildren !== ''){
-        totalGuess = parseInt(countAdult) + parseInt(countChildren)
+      if (countChildren > 0){
+        params.set('childrenCount', countChildren)
+        totalGuess += parseInt(countChildren)
       } else {
-        totalGuess = countAdult === '' ? parseInt(countChildren) : parseInt(countAdult)
+        params.delete('childrenCount');
       }
+      if (countAdult > 0){
+        params.set('adultCount', countAdult)
+        totalGuess += parseInt(countAdult)
+      }
+      url.search = params.toString()
+      window.history.pushState({}, '', url);
       document.getElementById('showGuess').textContent = `${totalGuess} khách`
     }
   })
 }
 
-function checkReservation(defaultApi, room) {
+function logout() {
+  fetch("http://localhost:8080/api/auth/logout", {
+    credentials: 'include'
+  });
+  console.log("Logout");
+  window.location.reload();
+}
+
+function checkReservation() {
 
   $('input[name="daterange"]').daterangepicker({
     autoUpdateInput: false,
@@ -585,29 +627,43 @@ function checkReservation(defaultApi, room) {
     let endDate = picker.endDate
     start = startDate.format("YYYY-MM-DD");
     end = endDate.format("YYYY-MM-DD");
+    if (start == end) {
+      alert("Ngày nhận phòng và trả phòng không thể trùng nhau.");
+      start = null;
+      end = null;
+      return;
+    }
+    params.set('checkinDate', startDate.format("YYYY-MM-DD"))
+    params.set('checkoutDate', endDate.format("YYYY-MM-DD"))
+    url.search = params.toString()
+    window.history.pushState({}, '', url)
     $(this).val(startDate.format('MMM D') + "-" + endDate.format('MMM D'));
     getParam()
   });
 
   $('input[name="daterange"]').on('cancel.daterangepicker', function (ev, picker) {
     $(this).val("Ngày");
+    params.delete('checkinDate')
+    params.delete('checkoutDate')
+    url.search = params.toString()
+    window.history.pushState({}, '', url)
     start = ''
     end = ''
   });
 };
 
-// function getParam() {
-//   let param ='';
-//   if (start !== '' && end !== '') {
-//     param += `&checkinDate=${start}&checkoutDate=${end}`;
-//   } 
-//   let countAdult = document.getElementById('count-adult').value
-//   let countChildren = document.getElementById('count-children').value
-//   if (countAdult !== ''){
-//     param += `&adultCount=${countAdult}`
-//   }
-//   if (countChildren !== ''){
-//     param += `&childrenCount=${countChildren}`
-//   }
-//   return param;
-// }
+function getParam() {
+  let param ='';
+  if (start !== '' && end !== '') {
+    param += `&checkinDate=${start}&checkoutDate=${end}`;
+  } 
+  let countAdult = document.getElementById('count-adult').value
+  let countChildren = document.getElementById('count-children').value
+  if (countAdult !== ''){
+    param += `&adultCount=${countAdult}`
+  }
+  if (countChildren !== ''){
+    param += `&childrenCount=${countChildren}`
+  }
+  return param;
+}

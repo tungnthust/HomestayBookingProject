@@ -43,6 +43,9 @@ public class Reservation {
 	@ManyToOne
 	@JoinColumn(name = "payment_method")
 	private PaymentMethod paymentMethod;
+	
+	@Column(name = "order_time")
+	private Instant orderTime;
 
 	public int getId() {
 		return id;
@@ -108,8 +111,10 @@ public class Reservation {
 		this.paymentMethod = paymentMethod;
 	}
 
-	public Reservation(int id, RoomDetail roomId, User guestId, Date checkinDate, Date checkoutDate,
-			int guestCount, int price, PaymentMethod paymentMethod) {
+	
+
+	public Reservation(int id, RoomDetail roomId, User guestId, Date checkinDate, Date checkoutDate, int guestCount,
+			int price, PaymentMethod paymentMethod, Instant orderTime) {
 		super();
 		this.id = id;
 		this.roomId = roomId;
@@ -119,6 +124,15 @@ public class Reservation {
 		this.guestCount = guestCount;
 		this.price = price;
 		this.paymentMethod = paymentMethod;
+		this.orderTime = orderTime;
+	}
+
+	public Instant getOrderTime() {
+		return orderTime;
+	}
+
+	public void setOrderTime(Instant orderTime) {
+		this.orderTime = orderTime;
 	}
 
 	public Reservation() {

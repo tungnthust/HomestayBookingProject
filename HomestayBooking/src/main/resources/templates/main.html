@@ -21,10 +21,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title>Document</title>
+  <link rel="icon" href="../static/images/logo/logo.png" type="image/icon type">
+  <title>Homey - Đặt phòng Homestay</title>
 </head>
 
 <body>
@@ -63,11 +63,11 @@
                 <h2 style="font-weight: bold" class="ml-3">Số khách</h2>
                 <li class="d-flex justify-content-between my-2">
                   <label class="checkbox" for="count-adult">Người lớn</label>
-                  <input type="number" name="" id="count-adult" class="form-control col-2">
+                  <input type="number" name="" min="0" id="count-adult" class="form-control col-2">
                 </li>
                 <li class="d-flex justify-content-between my-2">
                   <label class="checkbox" for="count-children">Trẻ em <small>(tuổi từ 2-12)</small></label>
-                  <input type="number" name="" id="count-children" class="form-control col-2">
+                  <input type="number" name="" min="0" id="count-children" class="form-control col-2">
                 </li>
               </ul>
             <!-- </form> -->
@@ -101,31 +101,31 @@
 
   <div class="body">
     <div class="intro">
-      <img src="https://beta-api.luxstay.net/api/upload/file?storage=admins/12/qF7ukmI--Rwr2H5LwzVZwcXa.jpg" alt=""
+      <img src="../static/images/logo/banner.jpg" alt=""
         class="intro__banner">
     </div>
     <div class="place">
       <div class="text__caption">Địa điểm nổi bật</div>
-      <div class="text__desc">Cùng Homie bắt đầu chuyến hành trình chinh phục thế giới của bạn</div>
+      <div class="text__desc">Cùng Homey bắt đầu chuyến hành trình chinh phục thế giới của bạn</div>
       <ul class="place__group">
       </ul>
     </div>
     <div class="promotion">
       <div class="text__caption">Ưu đãi độc quyền</div>
-      <div class="text__desc">Chỉ có tại Homie, hấp dẫn và hữu hạn, book ngay!
+      <div class="text__desc">Chỉ có tại Homey, hấp dẫn và hữu hạn, book ngay!
       </div>
       <ul class="promotion__group">
-        <li class="promotion__item"><img src="https://cdn.luxstay.com/home/event/event_1_1616988127.jpg" alt=""
+        <li class="promotion__item"><img src="../static/images/banner/1.jpg" alt=""
             class="promotion__image"></li>
-        <li class="promotion__item"><img src="https://cdn.luxstay.com/home/event/event_1_1617243580.jpg" alt=""
+        <li class="promotion__item"><img src="../static/images/banner/2.jpg" alt=""
             class="promotion__image"></li>
-        <li class="promotion__item"><img src="https://cdn.luxstay.com/home/event/event_5_1617269136.jpg" alt=""
+        <li class="promotion__item"><img src="../static/images/banner/3.jpg" alt=""
             class="promotion__image"></li>
       </ul>
     </div>
     <div class="footer">
       <div class="footer__group">
-        <img src="https://c4img.onlinefriday.vn/r600x600/12_2019/7/cd/4/1382851553_1575687058.png" alt=""
+        <img src="../static/images/logo/logo_brand.jpg" alt=""
           class="footer__image">
       </div>
       <div class="footer__group" id="favorite">
@@ -143,7 +143,7 @@
         <p class="footer__item">Điều khoản hoạt động</p>
         <p class="footer__item">1800 6586</p>
         <p class="footer__item">+84 8898 66666</p>
-        <p class="footer__item">info@luxstay.com</p>
+        <p class="footer__item">info@homey.com</p>
         <p class="footer__item">Trang thông tin dành cho chủ nhà</p>
         <p class="footer__item">Cơ hội nghề nghiệp</p>
         <p class="footer__item">Tạp chí du lịch</p>

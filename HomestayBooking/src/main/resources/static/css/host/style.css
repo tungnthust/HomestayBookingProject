@@ -140,3 +140,12 @@ thead {
 .notification :hover {
     background-color: chocolate;
 }
+
+.table thead th {
+    vertical-align: middle;
+}
+
+.new_order {
+    background-color: orangered;
+    color: white;
+}

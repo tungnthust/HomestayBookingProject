@@ -1,3 +1,4 @@
+var signUp = false;
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
 
@@ -32,12 +33,42 @@ document.addEventListener("DOMContentLoaded", () => {
         createAccountForm.classList.add("form--hidden");
     });
 
+    document.getElementById("signupEmail").addEventListener('focusout', async () => {
+        let response = await fetch(`http://localhost:8080/api/auth/checkEmail?email=${document.getElementById("signupEmail").value}`, {
+            method: 'POST'
+        })
+        let isExist = await response.json();
+        if (isExist) {
+            setInputError(document.getElementById("signupEmail"), "Email đã tồn tại");
+            signUp = false;
+        } else {
+            signUp = true;
+        }
+    })
+
+    document.getElementById("signupUsername").addEventListener('focusout', async () => {
+        let response = await fetch(`http://localhost:8080/api/auth/checkUsername?username=${document.getElementById("signupUsername").value}`, {
+            method: 'POST'
+        })
+        let isExist = await response.json();
+        
+        if (isExist) {
+            setInputError(document.getElementById("signupUsername"), "Username đã tồn tại");
+            signUp = false;
+        } else {
+            signUp = true;
+        }
+    })
 
     document.getElementById("submitLogin").addEventListener("click", async (e) => {
         e.preventDefault();
+        
         var username = document.getElementById('signinUsername').value;
         var password = document.getElementById('signinPassword').value;
-     
+        if (username.trim() == '' || password.trim() == '') {
+            alert("Vui lòng điền đầy đủ các thông tin.");
+            return;
+        }
         let jsonData = {
         "username": username,
         "password": password
@@ -60,34 +91,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("submitRegister").addEventListener("click", async(e) => {
         e.preventDefault();
-        var username = document.getElementById('signupUsername').value;
-        var email = document.getElementById('signupEmail').value;
-        var phone = document.getElementById('signupPhone').value;
-        var Fname = document.getElementById('signupFirstname').value;
-        var Lname = document.getElementById('signupLastname').value;
-        var pass = document.getElementById('signupPass').value;
-        let jsonData = {
-            "username": username,
-            "email": email,
-            "phone": phone,
-            "first_name": Fname,
-            "last_name": Lname,
-            "password": pass
-        }
-        let data = await fetch('http://localhost:8080/api/auth/signup', {
-        method: 'POST',
-        headers: {"Content-type": "application/json;charset=UTF-8"},
-        body: JSON.stringify(jsonData),
-        credentials: 'include',
-      }).then((res) => {
-          if(res.status == 403) {
-              alert("Register unsuccessfully");
-          }
-          else {
-            console.log("success");
-            window.location.reload();
-        }
-      })
+            var username = document.getElementById('signupUsername').value;
+            var email = document.getElementById('signupEmail').value;
+            var phone = document.getElementById('signupPhone').value;
+            var Fname = document.getElementById('signupFirstname').value;
+            var Lname = document.getElementById('signupLastname').value;
+            var pass = document.getElementById('signupPass').value;
+            if (username.trim() == '' || email.trim() == '' || phone.trim() == '' || Fname.trim() == '' 
+                    || Lname.trim() == '' || pass.trim() == '') {
+                alert("Vui lòng điền đầy đủ các thông tin.");
+                signUp = false;
+            }
+            if (signUp) {
+                let jsonData = {
+                    "username": username,
+                    "email": email,
+                    "phone": phone,
+                    "first_name": Fname,
+                    "last_name": Lname,
+                    "password": pass
+                }
+                let data = await fetch('http://localhost:8080/api/auth/signup', {
+                method: 'POST',
+                headers: {"Content-type": "application/json;charset=UTF-8"},
+                body: JSON.stringify(jsonData),
+                credentials: 'include',
+              }).then((res) => {
+                  if(res.status == 403) {
+                      alert("Register unsuccessfully");
+                  }
+                  else {
+                    console.log("success");
+                    window.location.reload();
+                }
+              })
+            }
     });
 
     document.querySelectorAll(".form__input").forEach(inputElement => {
