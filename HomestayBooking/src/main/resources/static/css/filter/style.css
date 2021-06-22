@@ -215,6 +215,10 @@ button {
   font-size: 13px
 }
 
+.card-img-top {
+  height: 185px;
+}
+
 /* .card-name{
   
 } */
