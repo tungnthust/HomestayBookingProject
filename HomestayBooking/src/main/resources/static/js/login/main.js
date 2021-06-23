@@ -122,7 +122,8 @@ document.addEventListener("DOMContentLoaded", () => {
                   }
                   else {
                     console.log("success");
-                    window.location.reload();
+                    loginForm.classList.remove("form--hidden");
+                    createAccountForm.classList.add("form--hidden");
                 }
               })
             }

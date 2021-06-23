@@ -3,10 +3,9 @@
 -- Host: localhost    Database: homestaybooking
 -- ------------------------------------------------------
 -- Server version	8.0.23
-
+DROP SCHEMA IF EXISTS `homestaybooking`;
 CREATE SCHEMA `homestaybooking`;
 USE `homestaybooking`;
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -27,11 +26,12 @@ DROP TABLE IF EXISTS `district`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `district` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `_prefix` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `_province_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `_province_id` (`_province_id`)
+  KEY `_province_id` (`_province_id`),
+  KEY `district_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=710 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,7 +56,7 @@ CREATE TABLE `facility` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `facility` (
 
 LOCK TABLES `facility` WRITE;
 /*!40000 ALTER TABLE `facility` DISABLE KEYS */;
-INSERT INTO `facility` VALUES (1,'Điều hòa'),(2,'Máy giặt'),(3,'Bình nóng lạnh');
+INSERT INTO `facility` VALUES (1,'Điều hòa'),(2,'Máy giặt'),(3,'Bình nóng lạnh'),(4,'Tivi'),(5,'Bếp'),(6,'Tủ lạnh'),(7,'Sân vườn'),(8,'Bể bơi'),(9,'Karaoke');
 /*!40000 ALTER TABLE `facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +80,7 @@ CREATE TABLE `host` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `identity_card_num` varchar(15) DEFAULT NULL,
-  `date_issue` datetime DEFAULT NULL,
+  `date_issue` date DEFAULT NULL,
   `identity_card_photo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
@@ -94,8 +94,34 @@ CREATE TABLE `host` (
 
 LOCK TABLES `host` WRITE;
 /*!40000 ALTER TABLE `host` DISABLE KEYS */;
-INSERT INTO `host` VALUES (1,1,'123456789','2020-02-24 00:00:00','avc');
+INSERT INTO `host` VALUES (1,1,'012345678910','2021-06-17','../static/images/host/1/');
 /*!40000 ALTER TABLE `host` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notification`
+--
+
+DROP TABLE IF EXISTS `notification`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `notification` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `host_id` int NOT NULL,
+  `reservation_id` int NOT NULL,
+  `is_read` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `notification`
+--
+
+LOCK TABLES `notification` WRITE;
+/*!40000 ALTER TABLE `notification` DISABLE KEYS */;
+INSERT INTO `notification` VALUES (26,1,1,1);
+/*!40000 ALTER TABLE `notification` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -109,7 +135,7 @@ CREATE TABLE `payment_method` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +144,7 @@ CREATE TABLE `payment_method` (
 
 LOCK TABLES `payment_method` WRITE;
 /*!40000 ALTER TABLE `payment_method` DISABLE KEYS */;
-INSERT INTO `payment_method` VALUES (1,'Momo');
+INSERT INTO `payment_method` VALUES (1,'Momo'),(2,'ZaloPay'),(3,'Visa'),(4,'MasterCard');
 /*!40000 ALTER TABLE `payment_method` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,9 +157,10 @@ DROP TABLE IF EXISTS `province`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `province` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `_code` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `province_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -143,7 +170,7 @@ CREATE TABLE `province` (
 
 LOCK TABLES `province` WRITE;
 /*!40000 ALTER TABLE `province` DISABLE KEYS */;
-INSERT INTO `province` VALUES (1,'Hồ Chí Minh','SG'),(2,'Hà Nội','HN'),(3,'Đà Nẵng','DDN'),(4,'Bình Dương','BD'),(5,'Đồng Nai','DNA'),(6,'Khánh Hòa','KH'),(7,'Hải Phòng','HP'),(8,'Long An','LA'),(9,'Quảng Nam','QNA'),(10,'Bà Rịa Vũng Tàu','VT'),(11,'Đắk Lắk','DDL'),(12,'Cần Thơ','CT'),(13,'Bình Thuận  ','BTH'),(14,'Lâm Đồng','LDD'),(15,'Thừa Thiên Huế','TTH'),(16,'Kiên Giang','KG'),(17,'Bắc Ninh','BN'),(18,'Quảng Ninh','QNI'),(19,'Thanh Hóa','TH'),(20,'Nghệ An','NA'),(21,'Hải Dương','HD'),(22,'Gia Lai','GL'),(23,'Bình Phước','BP'),(24,'Hưng Yên','HY'),(25,'Bình Định','BDD'),(26,'Tiền Giang','TG'),(27,'Thái Bình','TB'),(28,'Bắc Giang','BG'),(29,'Hòa Bình','HB'),(30,'An Giang','AG'),(31,'Vĩnh Phúc','VP'),(32,'Tây Ninh','TNI'),(33,'Thái Nguyên','TN'),(34,'Lào Cai','LCA'),(35,'Nam Định','NDD'),(36,'Quảng Ngãi','QNG'),(37,'Bến Tre','BTR'),(38,'Đắk Nông','DNO'),(39,'Cà Mau','CM'),(40,'Vĩnh Long','VL'),(41,'Ninh Bình','NB'),(42,'Phú Thọ','PT'),(43,'Ninh Thuận','NT'),(44,'Phú Yên','PY'),(45,'Hà Nam','HNA'),(46,'Hà Tĩnh','HT'),(47,'Đồng Tháp','DDT'),(48,'Sóc Trăng','ST'),(49,'Kon Tum','KT'),(50,'Quảng Bình','QB'),(51,'Quảng Trị','QT'),(52,'Trà Vinh','TV'),(53,'Hậu Giang','HGI'),(54,'Sơn La','SL'),(55,'Bạc Liêu','BL'),(56,'Yên Bái','YB'),(57,'Tuyên Quang','TQ'),(58,'Điện Biên','DDB'),(59,'Lai Châu','LCH'),(60,'Lạng Sơn','LS'),(61,'Hà Giang','HG'),(62,'Bắc Kạn','BK'),(63,'Cao Bằng','CB');
+INSERT INTO `province` VALUES (1,'Hồ Chí Minh','SG'),(2,'Hà Nội','HN'),(3,'Đà Nẵng','DDN'),(4,'Bình Dương','BD'),(5,'Đồng Nai','DNA'),(6,'Khánh Hòa','KH'),(7,'Hải Phòng','HP'),(8,'Long An','LA'),(9,'Quảng Nam','QNA'),(10,'Bà Rịa Vũng Tàu','VT'),(11,'Đắk Lắk','DDL'),(12,'Cần Thơ','CT'),(13,'Bình Thuận  ','BTH'),(14,'Lâm Đồng','LDD'),(15,'Thừa Thiên Huế','TTH'),(16,'Kiên Giang','KG'),(17,'Bắc Ninh','BN'),(18,'Quảng Ninh','QNI'),(19,'Thanh Hóa','TH'),(20,'Nghệ An','NA'),(21,'Hải Dương','HD'),(22,'Gia Lai','GL'),(23,'Bình Phước','BP'),(24,'Hưng Yên','HY'),(25,'Bình Định','BDD'),(26,'Tiền Giang','TG'),(27,'Thái Bình','TB'),(28,'Bắc Giang','BG'),(29,'Hòa Bình','HB'),(30,'An Giang','AG'),(31,'Vĩnh Phúc','VP'),(32,'Tây Ninh','TNI'),(33,'Thái Nguyên','TN'),(34,'Lào Cai','LCA'),(35,'Nam Định','NDD'),(36,'Quảng Ngãi','QNG'),(37,'Bến Tre','BTR'),(38,'Đắk Nông','DNO'),(39,'Cà Mau','CM'),(40,'Vĩnh Long','VL'),(41,'Ninh Bình','NB'),(42,'Phú Thọ','PT'),(43,'Ninh Thuận','NT'),(44,'Phú Yên','PY'),(45,'Hà Nam','HNA'),(46,'Hà Tĩnh','HT'),(47,'Đồng Tháp','DDT'),(48,'Sóc Trăng','ST'),(49,'Kon Tum','KT'),(50,'Quảng Bình','QB'),(51,'Quảng Trị','QT'),(52,'Trà Vinh','TV'),(53,'Hậu Giang','HGI'),(54,'Sơn La','SL'),(55,'Bạc Liêu','BL'),(56,'Yên Bái','YB'),(57,'Tuyên Quang','TQ'),(58,'Điện Biên','DDB'),(59,'Lai Châu','LCH'),(60,'Lạng Sơn','LS'),(61,'Hà Giang','HG'),(62,'Bắc Kạn','BK'),(63,'Cao Bằng','CB');
 /*!40000 ALTER TABLE `province` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +186,7 @@ CREATE TABLE `refresh_token` (
   `token` varchar(100) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +195,7 @@ CREATE TABLE `refresh_token` (
 
 LOCK TABLES `refresh_token` WRITE;
 /*!40000 ALTER TABLE `refresh_token` DISABLE KEYS */;
-INSERT INTO `refresh_token` VALUES (1,'6f38e901-a1fb-4b03-bbbd-267c106e0b29','2021-04-15 18:56:46'),(2,'fbc0fe60-8283-4517-b90a-b968c435289a','2021-04-16 14:29:59'),(3,'c783b93d-5039-41d9-8383-2141d1d8e23f','2021-04-16 14:43:22'),(4,'72ff3f4f-cd81-4d7f-b285-9d11a03c60c1','2021-04-24 09:49:59'),(5,'96a4b1f6-9166-470b-b539-bfc343ac1a34','2021-04-24 09:55:05'),(6,'04e495db-4a20-479e-9364-0e3fb8bd631a','2021-04-24 09:57:48'),(7,'8c6064a0-f92f-470c-9b16-1f8b6dd87866','2021-05-03 22:15:48');
+INSERT INTO `refresh_token` VALUES (1,'57d33b4e-40d0-4f9e-9561-b4648613f6a6','2021-06-23 07:33:10');
 /*!40000 ALTER TABLE `refresh_token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,19 +210,20 @@ CREATE TABLE `reservation` (
   `id` int NOT NULL AUTO_INCREMENT,
   `room_id` int DEFAULT NULL,
   `guest_id` int DEFAULT NULL,
-  `checkin_date` datetime DEFAULT NULL,
-  `checkout_date` datetime DEFAULT NULL,
+  `checkin_date` date DEFAULT NULL,
+  `checkout_date` date DEFAULT NULL,
   `guest_count` int DEFAULT NULL,
   `price` int DEFAULT NULL,
   `payment_method` int DEFAULT NULL,
+  `order_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `room_id` (`room_id`),
-  KEY `guest_id` (`guest_id`),
-  KEY `payment_method` (`payment_method`),
-  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room_detail` (`id`),
-  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`payment_method`) REFERENCES `payment_method` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `reservation_ibfk_1` (`room_id`),
+  KEY `reservation_ibfk_2` (`guest_id`),
+  KEY `reservation_ibfk_3` (`payment_method`),
+  CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room_detail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`guest_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`payment_method`) REFERENCES `payment_method` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +232,7 @@ CREATE TABLE `reservation` (
 
 LOCK TABLES `reservation` WRITE;
 /*!40000 ALTER TABLE `reservation` DISABLE KEYS */;
-INSERT INTO `reservation` VALUES (1,2,1,'2020-05-07 00:00:00','2020-05-09 00:00:00',1,1000000,1),(2,2,1,'2020-05-13 00:00:00','2020-05-15 00:00:00',2,1000000,1),(3,1,1,'2020-05-14 00:00:00','2020-05-15 00:00:00',3,2000000,1);
+INSERT INTO `reservation` VALUES (1,1,1,'2021-06-23','2021-06-24',1,1500000,4,'2021-06-23 07:51:47');
 /*!40000 ALTER TABLE `reservation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,15 +258,16 @@ CREATE TABLE `room_detail` (
   `description` varchar(1000) DEFAULT NULL,
   `price_per_day` int DEFAULT NULL,
   `policy` varchar(1000) DEFAULT NULL,
-  `thumbnail_photo` varchar(45) DEFAULT NULL,
+  `thumbnail_photo` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `host_id` (`host_id`),
-  KEY `type` (`type`),
-  KEY `location` (`location`),
-  CONSTRAINT `room_detail_ibfk_1` FOREIGN KEY (`host_id`) REFERENCES `host` (`id`),
-  CONSTRAINT `room_detail_ibfk_2` FOREIGN KEY (`type`) REFERENCES `room_type` (`id`),
-  CONSTRAINT `room_detail_ibfk_3` FOREIGN KEY (`location`) REFERENCES `ward` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `room_detail_ibfk_1` (`host_id`),
+  KEY `room_detail_ibfk_2` (`type`),
+  KEY `room_detail_ibfk_3` (`location`),
+  KEY `room_name` (`name`),
+  CONSTRAINT `room_detail_ibfk_1` FOREIGN KEY (`host_id`) REFERENCES `host` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `room_detail_ibfk_2` FOREIGN KEY (`type`) REFERENCES `room_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `room_detail_ibfk_3` FOREIGN KEY (`location`) REFERENCES `ward` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,7 +276,7 @@ CREATE TABLE `room_detail` (
 
 LOCK TABLES `room_detail` WRITE;
 /*!40000 ALTER TABLE `room_detail` DISABLE KEYS */;
-INSERT INTO `room_detail` VALUES (1,1,'Royal City',1,3,40.5,'Nguyễn Trãi',2,2,4,2,'abc',100000,'xyz','xyzb'),(2,1,'Times City',2,4,20,'Minh Khai',62,1,2,1,'asf',1000000,'asd','dsa'),(3,1,'Sapa Homestay',3,2,45,'Cốc Lếu',6838,1,2,1,'tyu',500000,'sf','as');
+INSERT INTO `room_detail` VALUES (1,1,'Paradise Home',2,2,65,'Số 54',486,2,2,1,'Paradise Luxury apartment nằm trên con phố Nguyễn Du. Vị trí thuận tiện cách ga Hà Nội chỉ 500m, cách phố cổ Hà Nội 2km. Xung quanh còn có công viên Thống Nhất, hồ Thiền Quang, có nhiều nhà hàng quán ăn ngon, khu trung tâm mua sắm thuận tiện.\n\nTòa căn hộ Paradise bao gồm 8 tầng và 1 tầng thượng view ra mặt phố, có cửa sổ thoáng mát. Cách sân bay Nội Bài 25km ( khoảng 45 phút ngồi xe taxi). Paradise có cung cấp dịch vụ taxi sân bay với giá cả phù hợp, bạn có thể liên hệ trực tiếp với Paradise để được hỗ trợ.',1500000,'Không sử dụng các chất kích thích\nKhông mở nhạc quá 11 PM (23:00)\nKhông hút thuốc trong phòng ngủ\nKhông mở tiệc trong phòng\nVui lòng tắt các thiết bị khi bạn ra khỏi phòng','1');
 /*!40000 ALTER TABLE `room_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -263,11 +292,11 @@ CREATE TABLE `room_facility` (
   `room_id` int DEFAULT NULL,
   `facility_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `room_id` (`room_id`),
-  KEY `facility_id` (`facility_id`),
-  CONSTRAINT `room_facility_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room_detail` (`id`),
-  CONSTRAINT `room_facility_ibfk_2` FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk1_idx` (`room_id`),
+  KEY `fk2` (`facility_id`),
+  CONSTRAINT `fk1` FOREIGN KEY (`room_id`) REFERENCES `room_detail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk2` FOREIGN KEY (`facility_id`) REFERENCES `facility` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +305,7 @@ CREATE TABLE `room_facility` (
 
 LOCK TABLES `room_facility` WRITE;
 /*!40000 ALTER TABLE `room_facility` DISABLE KEYS */;
-INSERT INTO `room_facility` VALUES (1,1,1),(2,1,2),(3,1,3),(4,2,2),(5,2,3),(6,3,1),(7,3,2);
+INSERT INTO `room_facility` VALUES (1,1,1),(2,1,3),(3,1,4),(4,1,5),(5,1,6);
 /*!40000 ALTER TABLE `room_facility` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -290,11 +319,11 @@ DROP TABLE IF EXISTS `room_photo`;
 CREATE TABLE `room_photo` (
   `id` int NOT NULL AUTO_INCREMENT,
   `room_id` int DEFAULT NULL,
-  `url` varchar(45) DEFAULT NULL,
+  `url` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `room_id` (`room_id`),
-  CONSTRAINT `room_photo_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room_detail` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `room_photo_ibfk_1` (`room_id`),
+  CONSTRAINT `room_photo_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `room_detail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -303,7 +332,7 @@ CREATE TABLE `room_photo` (
 
 LOCK TABLES `room_photo` WRITE;
 /*!40000 ALTER TABLE `room_photo` DISABLE KEYS */;
-INSERT INTO `room_photo` VALUES (1,1,'abc'),(2,1,'xyz'),(3,1,'tyu'),(4,2,'asd'),(5,2,'tuf'),(6,2,'qer'),(7,2,'gg'),(8,3,'fgg'),(9,3,'fffa');
+INSERT INTO `room_photo` VALUES (10,1,'..\\static\\images\\room\\1\\1.jpg'),(11,1,'..\\static\\images\\room\\1\\2.jpg'),(12,1,'..\\static\\images\\room\\1\\3.jpg');
 /*!40000 ALTER TABLE `room_photo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,7 +404,7 @@ CREATE TABLE `token` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +413,7 @@ CREATE TABLE `token` (
 
 LOCK TABLES `token` WRITE;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
-INSERT INTO `token` VALUES (1,'967c3390-e3fa-41ca-96a2-bf392489459c',1,NULL),(2,'afe3d29f-89c3-4fc9-88c8-a2896155958d',2,NULL);
+INSERT INTO `token` VALUES (1,'ea920879-12ed-4980-9b8a-fcd44591aa9a',1,NULL);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -404,13 +433,16 @@ CREATE TABLE `user` (
   `password` varchar(100) DEFAULT NULL,
   `phone` varchar(15) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `location` int unsigned DEFAULT NULL,
   `gender` tinyint(1) DEFAULT NULL,
   `date_of_birth` datetime DEFAULT NULL,
   `coupon_code` varchar(20) DEFAULT NULL,
   `profile_photo` varchar(45) DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  KEY `fk_idx` (`location`),
+  CONSTRAINT `fk` FOREIGN KEY (`location`) REFERENCES `ward` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -419,7 +451,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tungnthust','Tùng','Nguyễn Thanh','thanhtungbka@gmail.com','$2a$10$N1gjZIV.CU.DdmaBxiN15O1KFBQs2xS2A0nlTpV3cbIF1ZkBfqSeC','0368089633',NULL,0,NULL,NULL,NULL,1),(2,'trung','Trung','Nguyễn Thành','thanhtrungbka@gmail.com','$2a$10$1e5bEpdu6YKQGkhonGknz.d8aKr4xj/F3nOVvzsOz8cWZXEuyMx9W','036808963s3',NULL,0,NULL,NULL,NULL,1);
+INSERT INTO `user` VALUES (1,'thanhtung102','Tùng','Nguyễn Thanh','thanhtung@gmail.com','$2a$10$FOSYTJtBQHvXcX9.Dbj/TOOnQ1SZE7xI6RdAbkTFqYyz3xlr0A/hS','0368089999','Số 12',388,0,NULL,NULL,NULL,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -432,13 +464,14 @@ DROP TABLE IF EXISTS `ward`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ward` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `_prefix` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `_province_id` int unsigned DEFAULT NULL,
   `_district_id` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `_province_id` (`_province_id`,`_district_id`),
   KEY `district_idx` (`_district_id`),
+  KEY `ward_name` (`name`),
   CONSTRAINT `district` FOREIGN KEY (`_district_id`) REFERENCES `district` (`id`),
   CONSTRAINT `province` FOREIGN KEY (`_province_id`) REFERENCES `province` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11284 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -463,4 +496,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-11 19:29:51
+-- Dump completed on 2021-06-23  7:55:28

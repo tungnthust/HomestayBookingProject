@@ -101,6 +101,10 @@ ul {
   object-fit: cover;
 }
 
+.room-desc, .policy {
+  white-space: pre-wrap;
+}
+
 .place-order {
   padding: 50px 0;
 }
