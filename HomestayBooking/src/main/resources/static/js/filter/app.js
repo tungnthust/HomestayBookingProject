@@ -273,6 +273,16 @@ function filterByMore(defaultApi, room){
   // filter price
   document.getElementById('delete-more').addEventListener('click', async(e) => {
     pageNumber = 0;
+    document.getElementById('count-bed').value = ''
+    document.getElementById('count-bedroom').value = ''
+    document.getElementById('count-bathroom').value = ''
+    let boxes = document.getElementsByName('facility')
+    boxes.forEach(box => {
+      if (box.checked){
+        box.checked = false
+        console.log(box.checked)
+      }
+    })
     let newApi = writeApi(defaultApi)
     let data = await room.getRoomAPI(newApi);
     room.showRoom(data)
